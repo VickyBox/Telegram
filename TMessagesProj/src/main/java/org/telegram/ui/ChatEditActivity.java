@@ -62,7 +62,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -94,7 +94,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class ChatEditActivity extends BaseFragment implements ImageUpdater.ImageUpdaterDelegate, NotificationCenter.NotificationCenterDelegate {
+public class ChatEditActivity extends BaseFragments implements ImageUpdater.ImageUpdaterDelegate, NotificationCenter.NotificationCenterDelegate {
 
     private View doneButton;
 
@@ -1589,7 +1589,7 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
         }
         if (forum != currentChat.forum) {
             getMessagesController().toggleChannelForum(chatId, forum);
-            List<BaseFragment> fragments = getParentLayout().getFragmentStack();
+            List<BaseFragments> fragments = getParentLayout().getFragmentStack();
             for (int i = 0; i < fragments.size(); i++) {
                 if (fragments.get(i) instanceof ChatActivity) {
                     ChatActivity chatActivity = (ChatActivity) fragments.get(i);
@@ -1597,7 +1597,7 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
                         getParentLayout().removeFragmentFromStack(i);
                         Bundle bundle = new Bundle();
                         bundle.putLong("chat_id",chatId);
-                        TopicsFragment topicsFragment = new TopicsFragment(bundle);
+                        TopicsFragments topicsFragment = new TopicsFragments(bundle);
                         getParentLayout().addFragmentToStack(topicsFragment, i);
                     }
                 }

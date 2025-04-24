@@ -2,8 +2,6 @@ package org.telegram.ui.Components;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.FrameLayout;
@@ -54,17 +52,17 @@ public class AvatarConstructorPreviewCell extends FrameLayout {
             if (emojiIndex > emojiList.document_id.size() - 1) {
                 emojiIndex = 0;
             }
-            if (backgroundIndex > AvatarConstructorFragment.defaultColors.length - 1) {
+            if (backgroundIndex > AvatarConstructorFragments.defaultColors.length - 1) {
                 backgroundIndex = 0;
             }
             animatedEmojiDrawable = new AnimatedEmojiDrawable(AnimatedEmojiDrawable.CACHE_TYPE_ALERT_PREVIEW_LARGE, currentAccount, emojiList.document_id.get(emojiIndex));
             nextImage.setAnimatedEmojiDrawable(animatedEmojiDrawable);
 
 
-            int color1 = AvatarConstructorFragment.defaultColors[backgroundIndex][0];
-            int color2 = AvatarConstructorFragment.defaultColors[backgroundIndex][1];
-            int color3 = AvatarConstructorFragment.defaultColors[backgroundIndex][2];
-            int color4 = AvatarConstructorFragment.defaultColors[backgroundIndex][3];
+            int color1 = AvatarConstructorFragments.defaultColors[backgroundIndex][0];
+            int color2 = AvatarConstructorFragments.defaultColors[backgroundIndex][1];
+            int color3 = AvatarConstructorFragments.defaultColors[backgroundIndex][2];
+            int color4 = AvatarConstructorFragments.defaultColors[backgroundIndex][3];
 
             nextBackgroundDrawable = new GradientTools();
             nextBackgroundDrawable.setColors(color1, color2, color3, color4);
@@ -120,10 +118,10 @@ public class AvatarConstructorPreviewCell extends FrameLayout {
             currentImage.setAnimatedEmojiDrawable(animatedEmojiDrawable);
         }
 
-        int color1 = AvatarConstructorFragment.defaultColors[backgroundIndex][0];
-        int color2 = AvatarConstructorFragment.defaultColors[backgroundIndex][1];
-        int color3 = AvatarConstructorFragment.defaultColors[backgroundIndex][2];
-        int color4 = AvatarConstructorFragment.defaultColors[backgroundIndex][3];
+        int color1 = AvatarConstructorFragments.defaultColors[backgroundIndex][0];
+        int color2 = AvatarConstructorFragments.defaultColors[backgroundIndex][1];
+        int color3 = AvatarConstructorFragments.defaultColors[backgroundIndex][2];
+        int color4 = AvatarConstructorFragments.defaultColors[backgroundIndex][3];
 
         currentBackgroundDrawable = new GradientTools();
         currentBackgroundDrawable.setColors(color1, color2, color3, color4);
@@ -211,13 +209,13 @@ public class AvatarConstructorPreviewCell extends FrameLayout {
         AndroidUtilities.cancelRunOnUIThread(scheduleSwitchToNextRunnable);
     }
 
-    public AvatarConstructorFragment.BackgroundGradient getBackgroundGradient() {
-        AvatarConstructorFragment.BackgroundGradient backgroundGradient = new AvatarConstructorFragment.BackgroundGradient();
+    public AvatarConstructorFragments.BackgroundGradient getBackgroundGradient() {
+        AvatarConstructorFragments.BackgroundGradient backgroundGradient = new AvatarConstructorFragments.BackgroundGradient();
 
-        backgroundGradient.color1 = AvatarConstructorFragment.defaultColors[backgroundIndex][0];
-        backgroundGradient.color2 = AvatarConstructorFragment.defaultColors[backgroundIndex][1];
-        backgroundGradient.color3 = AvatarConstructorFragment.defaultColors[backgroundIndex][2];
-        backgroundGradient.color4 = AvatarConstructorFragment.defaultColors[backgroundIndex][3];
+        backgroundGradient.color1 = AvatarConstructorFragments.defaultColors[backgroundIndex][0];
+        backgroundGradient.color2 = AvatarConstructorFragments.defaultColors[backgroundIndex][1];
+        backgroundGradient.color3 = AvatarConstructorFragments.defaultColors[backgroundIndex][2];
+        backgroundGradient.color4 = AvatarConstructorFragments.defaultColors[backgroundIndex][3];
 
         return backgroundGradient;
     }

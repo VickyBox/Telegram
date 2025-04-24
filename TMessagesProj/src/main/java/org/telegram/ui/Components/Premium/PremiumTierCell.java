@@ -28,7 +28,7 @@ import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.CheckBox2;
 import org.telegram.ui.Components.CheckBoxBase;
 import org.telegram.ui.Components.LayoutHelper;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 
 public class PremiumTierCell extends ViewGroup {
     private CheckBox2 checkBox;
@@ -40,7 +40,7 @@ public class PremiumTierCell extends ViewGroup {
     private int leftPaddingToTextDp = 12;
     private int leftPaddingToCheckboxDp = 8;
 
-    protected PremiumPreviewFragment.SubscriptionTier tier;
+    protected PremiumPreviewFragments.SubscriptionTier tier;
     protected TextView discountView;
 
     private int colorKey1 = Theme.key_windowBackgroundWhite;
@@ -235,7 +235,7 @@ public class PremiumTierCell extends ViewGroup {
         setMeasuredDimension(width, height);
     }
 
-    public PremiumPreviewFragment.SubscriptionTier getTier() {
+    public PremiumPreviewFragments.SubscriptionTier getTier() {
         return tier;
     }
 
@@ -244,7 +244,7 @@ public class PremiumTierCell extends ViewGroup {
     }
 
     @SuppressLint("SetTextI18n")
-    public void bind(PremiumPreviewFragment.SubscriptionTier tier, boolean hasDivider) {
+    public void bind(PremiumPreviewFragments.SubscriptionTier tier, boolean hasDivider) {
         this.tier = tier;
         this.hasDivider = hasDivider;
 

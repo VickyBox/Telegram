@@ -38,7 +38,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.AlertsCreator;
@@ -49,7 +49,7 @@ import org.telegram.ui.Components.NumberTextView;
 
 import java.util.ArrayList;
 
-public class ChangeBioActivity extends BaseFragment {
+public class ChangeBioActivity extends BaseFragments {
 
     private EditTextBoldCursor firstNameField;
     private View doneButton;

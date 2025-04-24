@@ -422,8 +422,8 @@ public class ChatAttachAlertDocumentLayout extends ChatAttachAlert.AttachAlertLa
                         HashMap<Object, Object> selectedPhotos = new HashMap<>();
                         ArrayList<Object> selectedPhotosOrder = new ArrayList<>();
                         ChatActivity chatActivity;
-                        if (parentAlert.baseFragment instanceof ChatActivity) {
-                            chatActivity = (ChatActivity) parentAlert.baseFragment;
+                        if (parentAlert.baseFragments instanceof ChatActivity) {
+                            chatActivity = (ChatActivity) parentAlert.baseFragments;
                         } else {
                             chatActivity = null;
                         }
@@ -786,7 +786,7 @@ public class ChatAttachAlertDocumentLayout extends ChatAttachAlert.AttachAlertLa
                     return false;
                 }
                 if ((item.file.length() > FileLoader.DEFAULT_MAX_FILE_SIZE && !UserConfig.getInstance(UserConfig.selectedAccount).isPremium()) || item.file.length() > FileLoader.DEFAULT_MAX_FILE_SIZE_PREMIUM) {
-                    LimitReachedBottomSheet limitReachedBottomSheet = new LimitReachedBottomSheet(parentAlert.baseFragment, parentAlert.getContainer().getContext(), LimitReachedBottomSheet.TYPE_LARGE_FILE, UserConfig.selectedAccount, null);
+                    LimitReachedBottomSheet limitReachedBottomSheet = new LimitReachedBottomSheet(parentAlert.baseFragments, parentAlert.getContainer().getContext(), LimitReachedBottomSheet.TYPE_LARGE_FILE, UserConfig.selectedAccount, null);
                     limitReachedBottomSheet.setVeryLargeFile(true);
                     limitReachedBottomSheet.show();
                     return false;

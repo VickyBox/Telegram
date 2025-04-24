@@ -37,7 +37,7 @@ import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.DividerCell;
@@ -63,7 +63,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class CountrySelectActivity extends BaseFragment {
+public class CountrySelectActivity extends BaseFragments {
 
     public interface CountrySelectActivityDelegate {
         void didSelectCountry(Country country);

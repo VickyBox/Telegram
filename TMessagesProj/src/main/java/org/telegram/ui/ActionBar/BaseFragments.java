@@ -58,7 +58,7 @@ import org.telegram.ui.Stories.StoryViewer;
 
 import java.util.ArrayList;
 
-public abstract class BaseFragment {
+public abstract class BaseFragments {
 
     private boolean isFinished;
     protected boolean finishing;
@@ -84,11 +84,11 @@ public abstract class BaseFragment {
     public StoryViewer storyViewer;
     public StoryViewer overlayStoryViewer;
 
-    public BaseFragment() {
+    public BaseFragments() {
         classGuid = ConnectionsManager.generateClassGuid();
     }
 
-    public BaseFragment(Bundle args) {
+    public BaseFragments(Bundle args) {
         arguments = args;
         classGuid = ConnectionsManager.generateClassGuid();
     }
@@ -229,7 +229,7 @@ public abstract class BaseFragment {
 
     }
 
-    public void setParentFragment(BaseFragment fragment) {
+    public void setParentFragment(BaseFragments fragment) {
         setParentLayout(fragment.parentLayout);
         fragmentView = createView(parentLayout.getView().getContext());
     }
@@ -440,7 +440,7 @@ public abstract class BaseFragment {
         return isPaused;
     }
 
-    public BaseFragment getFragmentForAlert(int offset) {
+    public BaseFragments getFragmentForAlert(int offset) {
         if (parentLayout == null || parentLayout.getFragmentStack().size() <= 1 + offset) {
             return this;
         }
@@ -502,23 +502,23 @@ public abstract class BaseFragment {
         return null;
     }
 
-    public boolean presentFragmentAsPreview(BaseFragment fragment) {
+    public boolean presentFragmentAsPreview(BaseFragments fragment) {
         return allowPresentFragment() && parentLayout != null && parentLayout.presentFragmentAsPreview(fragment);
     }
 
-    public boolean presentFragmentAsPreviewWithMenu(BaseFragment fragment, ActionBarPopupWindow.ActionBarPopupWindowLayout menu) {
+    public boolean presentFragmentAsPreviewWithMenu(BaseFragments fragment, ActionBarPopupWindow.ActionBarPopupWindowLayout menu) {
         return allowPresentFragment() && parentLayout != null && parentLayout.presentFragmentAsPreviewWithMenu(fragment, menu);
     }
 
-    public boolean presentFragment(BaseFragment fragment) {
+    public boolean presentFragment(BaseFragments fragment) {
         return allowPresentFragment() && parentLayout != null && parentLayout.presentFragment(fragment);
     }
 
-    public boolean presentFragment(BaseFragment fragment, boolean removeLast) {
+    public boolean presentFragment(BaseFragments fragment, boolean removeLast) {
         return allowPresentFragment() && parentLayout != null && parentLayout.presentFragment(fragment, removeLast);
     }
 
-    public boolean presentFragment(BaseFragment fragment, boolean removeLast, boolean forceWithoutAnimation) {
+    public boolean presentFragment(BaseFragments fragment, boolean removeLast, boolean forceWithoutAnimation) {
         return allowPresentFragment() && parentLayout != null && parentLayout.presentFragment(fragment, removeLast, forceWithoutAnimation, true, false, null);
     }
 
@@ -806,11 +806,11 @@ public abstract class BaseFragment {
 
     }
 
-    public INavigationLayout[] showAsSheet(BaseFragment fragment) {
+    public INavigationLayout[] showAsSheet(BaseFragments fragment) {
         return showAsSheet(fragment, null);
     }
 
-    public INavigationLayout[] showAsSheet(BaseFragment fragment, BottomSheetParams params) {
+    public INavigationLayout[] showAsSheet(BaseFragments fragment, BottomSheetParams params) {
         if (getParentActivity() == null) {
             return null;
         }

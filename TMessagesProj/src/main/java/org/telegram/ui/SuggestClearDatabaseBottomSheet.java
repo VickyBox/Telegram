@@ -16,7 +16,7 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
@@ -24,19 +24,19 @@ import org.telegram.ui.Components.StickerImageView;
 
 public class SuggestClearDatabaseBottomSheet extends BottomSheet {
 
-    BaseFragment fragment;
+    BaseFragments fragment;
 
     @SuppressLint("StaticFieldLeak")
     private static SuggestClearDatabaseBottomSheet dialog;
 
-    public static void show(BaseFragment fragment) {
+    public static void show(BaseFragments fragment) {
         if (dialog == null) {
             dialog = new SuggestClearDatabaseBottomSheet(fragment);
             dialog.show();
         }
     }
 
-    private SuggestClearDatabaseBottomSheet(BaseFragment fragment) {
+    private SuggestClearDatabaseBottomSheet(BaseFragments fragment) {
         super(fragment.getParentActivity(), false);
         this.fragment = fragment;
         Context context = fragment.getParentActivity();

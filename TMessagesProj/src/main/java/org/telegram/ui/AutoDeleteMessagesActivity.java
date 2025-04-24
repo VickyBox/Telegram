@@ -20,7 +20,7 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.RadioCell;
@@ -33,7 +33,7 @@ import org.telegram.ui.Components.StickerImageView;
 
 import java.util.ArrayList;
 
-public class AutoDeleteMessagesActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class AutoDeleteMessagesActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private final static int ONE_DAY = 60 * 24;
     private final static int ONE_WEEK = 60 * 24 * 7;

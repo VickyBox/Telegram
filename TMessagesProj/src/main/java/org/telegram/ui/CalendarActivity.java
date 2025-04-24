@@ -49,7 +49,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -68,9 +68,8 @@ import org.telegram.ui.Stories.StoryViewer;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.SortedSet;
 
-public class CalendarActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class CalendarActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     public final static int TYPE_CHAT_ACTIVITY = 0;
     public final static int TYPE_MEDIA_CALENDAR = 1;
@@ -421,7 +420,7 @@ public class CalendarActivity extends BaseFragment implements NotificationCenter
                     public void run(boolean forAll) {
                         finishFragment();
                         if (parentLayout != null && parentLayout.getFragmentStack().size() >= 2) {
-                            BaseFragment fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
+                            BaseFragments fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
                             if (fragment instanceof ChatActivity) {
                                 ((ChatActivity) fragment).deleteHistory(dateSelectedStart, dateSelectedEnd + 86400, forAll);
                             }
@@ -843,7 +842,7 @@ public class CalendarActivity extends BaseFragment implements NotificationCenter
                         } else {
                             PeriodDay day = getDayAtCoord(e.getX(), e.getY());
                             if (day != null && parentLayout != null && parentLayout.getFragmentStack().size() >= 2) {
-                                BaseFragment fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
+                                BaseFragments fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
                                 if (fragment instanceof ChatActivity) {
                                     finishFragment();
                                     ((ChatActivity) fragment).jumpToDate(day.date);
@@ -913,7 +912,7 @@ public class CalendarActivity extends BaseFragment implements NotificationCenter
                         cellJump.setMinimumWidth(160);
                         cellJump.setOnClickListener(view -> {
                             if (parentLayout != null && parentLayout.getFragmentStack().size() >= 3) {
-                                BaseFragment fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 3);
+                                BaseFragments fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 3);
                                 if (fragment instanceof ChatActivity) {
                                     AndroidUtilities.runOnUIThread(() -> {
                                         finishFragment();
@@ -943,7 +942,7 @@ public class CalendarActivity extends BaseFragment implements NotificationCenter
                             cellDelete.setMinimumWidth(160);
                             cellDelete.setOnClickListener(view -> {
                                 if (parentLayout.getFragmentStack().size() >= 3) {
-                                    BaseFragment fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 3);
+                                    BaseFragments fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 3);
                                     if (fragment instanceof ChatActivity) {
                                         AlertsCreator.createClearDaysDialogAlert(CalendarActivity.this, 1, getMessagesController().getUser(dialogId), null, false, new MessagesStorage.BooleanCallback() {
                                             @Override

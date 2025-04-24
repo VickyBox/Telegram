@@ -76,7 +76,7 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ContextLinkCell;
@@ -96,7 +96,6 @@ import org.telegram.ui.Components.EmojiTabsStrip;
 import org.telegram.ui.Components.EmojiView;
 import org.telegram.ui.Components.ExtendedGridLayoutManager;
 import org.telegram.ui.Components.LayoutHelper;
-import org.telegram.ui.Components.Paint.Views.ReactionWidgetEntityView;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.Components.RLottieDrawable;
 import org.telegram.ui.Components.Reactions.ReactionImageHolder;
@@ -109,7 +108,7 @@ import org.telegram.ui.Components.StickerCategoriesListView;
 import org.telegram.ui.Components.ViewPagerFixed;
 import org.telegram.ui.ContentPreviewViewer;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.SelectAnimatedEmojiDialog;
 import org.telegram.ui.Stories.StoryReactionWidgetBackground;
 import org.telegram.ui.WrappedResourceProvider;
@@ -117,7 +116,6 @@ import org.telegram.ui.WrappedResourceProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1231,7 +1229,7 @@ public class EmojiBottomSheet extends BottomSheet implements NotificationCenter.
 
     private void openPremium() {
         Bulletin.hideVisible();
-        PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(new BaseFragment() {
+        PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(new BaseFragments() {
             { currentAccount = EmojiBottomSheet.this.currentAccount; }
             @Override
             public Dialog showDialog(Dialog dialog) {
@@ -1258,7 +1256,7 @@ public class EmojiBottomSheet extends BottomSheet implements NotificationCenter.
             public boolean isLightStatusBar() {
                 return false;
             }
-        }, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
+        }, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
         sheet.setOnDismissListener(d -> {
 
         });

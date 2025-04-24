@@ -34,7 +34,7 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.UserCell;
 import org.telegram.ui.ProfileActivity;
@@ -42,7 +42,7 @@ import org.telegram.ui.Stories.recorder.HintView2;
 
 public class ItemOptions {
 
-    public static ItemOptions makeOptions(@NonNull BaseFragment fragment, @NonNull View scrimView) {
+    public static ItemOptions makeOptions(@NonNull BaseFragments fragment, @NonNull View scrimView) {
         return new ItemOptions(fragment, scrimView);
     }
 
@@ -55,7 +55,7 @@ public class ItemOptions {
     }
 
     private ViewGroup container;
-    private BaseFragment fragment;
+    private BaseFragments fragment;
     private Theme.ResourcesProvider resourcesProvider;
 
     private Context context;
@@ -77,7 +77,7 @@ public class ItemOptions {
     private ViewGroup layout;
     private ActionBarPopupWindow.ActionBarPopupWindowLayout lastLayout;
 
-    private ItemOptions(BaseFragment fragment, View scrimView) {
+    private ItemOptions(BaseFragments fragment, View scrimView) {
         if (fragment.getContext() == null) {
             return;
         }

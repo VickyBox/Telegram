@@ -34,7 +34,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.AlertsCreator;
@@ -44,10 +44,10 @@ import org.telegram.ui.Components.ScrollSlidingTextTabStrip;
 
 import java.util.ArrayList;
 
-public class DialogOrContactPickerActivity extends BaseFragment {
+public class DialogOrContactPickerActivity extends BaseFragments {
 
     private static class ViewPage extends FrameLayout {
-        private BaseFragment parentFragment;
+        private BaseFragments parentFragment;
         private FrameLayout fragmentView;
         private ActionBar actionBar;
         private RecyclerListView listView;

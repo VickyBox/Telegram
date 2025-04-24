@@ -94,7 +94,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.CacheControlActivity;
@@ -233,7 +233,7 @@ public class AlertsCreator {
                 .create();
     }
 
-    public static Dialog processError(int currentAccount, TLRPC.TL_error error, BaseFragment fragment, TLObject request, Object... args) {
+    public static Dialog processError(int currentAccount, TLRPC.TL_error error, BaseFragments fragment, TLObject request, Object... args) {
         if (error.code == 406 || error.text == null) {
             return null;
         }
@@ -547,13 +547,13 @@ public class AlertsCreator {
         return null;
     }
 
-    public static Toast showSimpleToast(BaseFragment baseFragment, final String text) {
+    public static Toast showSimpleToast(BaseFragments baseFragments, final String text) {
         if (text == null) {
             return null;
         }
         Context context;
-        if (baseFragment != null && baseFragment.getParentActivity() != null) {
-            context = baseFragment.getParentActivity();
+        if (baseFragments != null && baseFragments.getParentActivity() != null) {
+            context = baseFragments.getParentActivity();
         } else {
             context = ApplicationLoader.applicationContext;
         }
@@ -742,21 +742,21 @@ public class AlertsCreator {
         return builder;
     }
 
-    public static Dialog showSimpleAlert(BaseFragment baseFragment, final String text) {
-        return showSimpleAlert(baseFragment, null, text);
+    public static Dialog showSimpleAlert(BaseFragments baseFragments, final String text) {
+        return showSimpleAlert(baseFragments, null, text);
     }
 
-    public static Dialog showSimpleAlert(BaseFragment baseFragment, final String title, final String text) {
-        return showSimpleAlert(baseFragment, title, text, null);
+    public static Dialog showSimpleAlert(BaseFragments baseFragments, final String title, final String text) {
+        return showSimpleAlert(baseFragments, title, text, null);
     }
 
-    public static Dialog showSimpleAlert(BaseFragment baseFragment, final String title, final String text, Theme.ResourcesProvider resourcesProvider) {
-        if (text == null || baseFragment == null || baseFragment.getParentActivity() == null) {
+    public static Dialog showSimpleAlert(BaseFragments baseFragments, final String title, final String text, Theme.ResourcesProvider resourcesProvider) {
+        if (text == null || baseFragments == null || baseFragments.getParentActivity() == null) {
             return null;
         }
-        AlertDialog.Builder builder = createSimpleAlert(baseFragment.getParentActivity(), title, text, resourcesProvider);
+        AlertDialog.Builder builder = createSimpleAlert(baseFragments.getParentActivity(), title, text, resourcesProvider);
         Dialog dialog = builder.create();
-        baseFragment.showDialog(dialog);
+        baseFragments.showDialog(dialog);
         return dialog;
     }
 
@@ -844,7 +844,7 @@ public class AlertsCreator {
         }
     }
 
-    public static void showBlockReportSpamAlert(BaseFragment fragment, long dialog_id, TLRPC.User currentUser, TLRPC.Chat currentChat, TLRPC.EncryptedChat encryptedChat, boolean isLocation, TLRPC.ChatFull chatInfo, MessagesStorage.IntCallback callback, Theme.ResourcesProvider resourcesProvider) {
+    public static void showBlockReportSpamAlert(BaseFragments fragment, long dialog_id, TLRPC.User currentUser, TLRPC.Chat currentChat, TLRPC.EncryptedChat encryptedChat, boolean isLocation, TLRPC.ChatFull chatInfo, MessagesStorage.IntCallback callback, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -933,11 +933,11 @@ public class AlertsCreator {
         }
     }
 
-    public static void showCustomNotificationsDialog(BaseFragment parentFragment, long did, int topicId, int globalType, ArrayList<NotificationsSettingsActivity.NotificationException> exceptions, ArrayList<NotificationsSettingsActivity.NotificationException> autoExceptions, int currentAccount, MessagesStorage.IntCallback callback) {
+    public static void showCustomNotificationsDialog(BaseFragments parentFragment, long did, int topicId, int globalType, ArrayList<NotificationsSettingsActivity.NotificationException> exceptions, ArrayList<NotificationsSettingsActivity.NotificationException> autoExceptions, int currentAccount, MessagesStorage.IntCallback callback) {
         showCustomNotificationsDialog(parentFragment, did, topicId, globalType, exceptions, autoExceptions, currentAccount, callback, null);
     }
 
-    public static void showCustomNotificationsDialog(BaseFragment parentFragment, long did, int topicId, int globalType, ArrayList<NotificationsSettingsActivity.NotificationException> exceptions, ArrayList<NotificationsSettingsActivity.NotificationException> autoExceptions, int currentAccount, MessagesStorage.IntCallback callback, MessagesStorage.IntCallback resultCallback) {
+    public static void showCustomNotificationsDialog(BaseFragments parentFragment, long did, int topicId, int globalType, ArrayList<NotificationsSettingsActivity.NotificationException> exceptions, ArrayList<NotificationsSettingsActivity.NotificationException> autoExceptions, int currentAccount, MessagesStorage.IntCallback callback, MessagesStorage.IntCallback resultCallback) {
         if (parentFragment == null || parentFragment.getParentActivity() == null) {
             return;
         }
@@ -1152,19 +1152,19 @@ public class AlertsCreator {
         dayPicker.setMinValue(year == currentYear && month == currentMonth ? currentDay : 1);
     }
 
-    public static void showOpenUrlAlert(BaseFragment fragment, String url, boolean punycode, boolean ask) {
+    public static void showOpenUrlAlert(BaseFragments fragment, String url, boolean punycode, boolean ask) {
         showOpenUrlAlert(fragment, url, punycode, true, ask, false, null, null);
     }
 
-    public static void showOpenUrlAlert(BaseFragment fragment, String url, boolean punycode, boolean ask, Theme.ResourcesProvider resourcesProvider) {
+    public static void showOpenUrlAlert(BaseFragments fragment, String url, boolean punycode, boolean ask, Theme.ResourcesProvider resourcesProvider) {
         showOpenUrlAlert(fragment, url, punycode, true, ask, false, null, resourcesProvider);
     }
 
-    public static void showOpenUrlAlert(BaseFragment fragment, String url, boolean punycode, boolean tryTelegraph, boolean ask, Browser.Progress progress, Theme.ResourcesProvider resourcesProvider) {
+    public static void showOpenUrlAlert(BaseFragments fragment, String url, boolean punycode, boolean tryTelegraph, boolean ask, Browser.Progress progress, Theme.ResourcesProvider resourcesProvider) {
         showOpenUrlAlert(fragment, url, punycode, tryTelegraph, ask, false, progress, resourcesProvider);
     }
 
-    public static void showOpenUrlAlert(BaseFragment fragment, String url, boolean punycode, boolean tryTelegraph, boolean ask, boolean forceNotInternalForApps, Browser.Progress progress, Theme.ResourcesProvider resourcesProvider) {
+    public static void showOpenUrlAlert(BaseFragments fragment, String url, boolean punycode, boolean tryTelegraph, boolean ask, boolean forceNotInternalForApps, Browser.Progress progress, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -1216,7 +1216,7 @@ public class AlertsCreator {
         return path.matches("^/\\w*/[^\\d]*(?:\\?startapp=.*?|)$");
     }
 
-    public static AlertDialog createSupportAlert(BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
+    public static AlertDialog createSupportAlert(BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return null;
         }
@@ -1253,7 +1253,7 @@ public class AlertsCreator {
         return builder1.create();
     }
 
-    private static void performAskAQuestion(BaseFragment fragment) {
+    private static void performAskAQuestion(BaseFragments fragment) {
         int currentAccount = fragment.getCurrentAccount();
         final SharedPreferences preferences = MessagesController.getMainSettings(currentAccount);
         long uid = AndroidUtilities.getPrefIntOrLong(preferences, "support_id2", 0);
@@ -1327,7 +1327,7 @@ public class AlertsCreator {
         }
     }
 
-    public static void createImportDialogAlert(BaseFragment fragment, String title, String message, TLRPC.User user, TLRPC.Chat chat, Runnable onProcessRunnable) {
+    public static void createImportDialogAlert(BaseFragments fragment, String title, String message, TLRPC.User user, TLRPC.Chat chat, Runnable onProcessRunnable) {
         if (fragment == null || fragment.getParentActivity() == null || chat == null && user == null) {
             return;
         }
@@ -1410,7 +1410,7 @@ public class AlertsCreator {
         fragment.showDialog(alertDialog);
     }
 
-    public static void createBotLaunchAlert(BaseFragment fragment, TLRPC.User user, Runnable onConfirm, Runnable onDismiss) {
+    public static void createBotLaunchAlert(BaseFragments fragment, TLRPC.User user, Runnable onConfirm, Runnable onDismiss) {
         Context context = fragment.getContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -1476,7 +1476,7 @@ public class AlertsCreator {
         });
     }
 
-    public static void createBotLaunchAlert(BaseFragment fragment, TLRPC.TL_messages_botApp botApp, TLRPC.User user, AtomicBoolean allowWrite, Runnable loadBotSheet) {
+    public static void createBotLaunchAlert(BaseFragments fragment, TLRPC.TL_messages_botApp botApp, TLRPC.User user, AtomicBoolean allowWrite, Runnable loadBotSheet) {
         Context context = fragment.getContext();
         CheckBoxCell[] cell = new CheckBoxCell[1];
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -1586,19 +1586,19 @@ public class AlertsCreator {
         fragment.showDialog(builder.create());
     }
 
-    public static void createClearOrDeleteDialogAlert(BaseFragment fragment, boolean clear, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable) {
+    public static void createClearOrDeleteDialogAlert(BaseFragments fragment, boolean clear, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable) {
         createClearOrDeleteDialogAlert(fragment, clear, false, false, chat, user, secret, false, canDeleteHistory, onProcessRunnable, null);
     }
 
-    public static void createClearOrDeleteDialogAlert(BaseFragment fragment, boolean clear, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean checkDeleteForAll, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable) {
+    public static void createClearOrDeleteDialogAlert(BaseFragments fragment, boolean clear, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean checkDeleteForAll, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable) {
         createClearOrDeleteDialogAlert(fragment, clear, chat != null && chat.creator, false, chat, user, secret, checkDeleteForAll, canDeleteHistory, onProcessRunnable, null);
     }
 
-    public static void createClearOrDeleteDialogAlert(BaseFragment fragment, boolean clear, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean checkDeleteForAll, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable, Theme.ResourcesProvider resourcesProvider) {
+    public static void createClearOrDeleteDialogAlert(BaseFragments fragment, boolean clear, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean checkDeleteForAll, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable, Theme.ResourcesProvider resourcesProvider) {
         createClearOrDeleteDialogAlert(fragment, clear, chat != null && chat.creator, false, chat, user, secret, checkDeleteForAll, canDeleteHistory, onProcessRunnable, resourcesProvider);
     }
 
-    public static void createClearOrDeleteDialogAlert(BaseFragment fragment, boolean clear, boolean admin, boolean second, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean checkDeleteForAll, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable, Theme.ResourcesProvider resourcesProvider) {
+    public static void createClearOrDeleteDialogAlert(BaseFragments fragment, boolean clear, boolean admin, boolean second, TLRPC.Chat chat, TLRPC.User user, boolean secret, boolean checkDeleteForAll, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null || (chat == null && user == null)) {
             return;
         }
@@ -1894,7 +1894,7 @@ public class AlertsCreator {
         }
     }
 
-    public static void createClearDaysDialogAlert(BaseFragment fragment, int days, TLRPC.User user, TLRPC.Chat chat, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable, Theme.ResourcesProvider resourcesProvider) {
+    public static void createClearDaysDialogAlert(BaseFragments fragment, int days, TLRPC.User user, TLRPC.Chat chat, boolean canDeleteHistory, MessagesStorage.BooleanCallback onProcessRunnable, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null || (user == null && chat == null)) {
             return;
         }
@@ -2005,7 +2005,7 @@ public class AlertsCreator {
         }
     }
 
-    public static void createCallDialogAlert(BaseFragment fragment, TLRPC.User user, boolean videoCall) {
+    public static void createCallDialogAlert(BaseFragments fragment, TLRPC.User user, boolean videoCall) {
         if (fragment == null || fragment.getParentActivity() == null || user == null || UserObject.isDeleted(user) || UserConfig.getInstance(fragment.getCurrentAccount()).getClientUserId() == user.id) {
             return;
         }
@@ -2356,7 +2356,7 @@ public class AlertsCreator {
 
     }
 
-    public static void showChatWithAdmin(BaseFragment fragment, TLRPC.User user, String chatWithAdmin, boolean isChannel, int chatWithAdminDate) {
+    public static void showChatWithAdmin(BaseFragments fragment, TLRPC.User user, String chatWithAdmin, boolean isChannel, int chatWithAdminDate) {
         if (fragment.getParentActivity() == null) {
             return;
         }
@@ -2392,11 +2392,11 @@ public class AlertsCreator {
         });
     }
 
-    public static void showDiscardTopicDialog(BaseFragment baseFragment, Theme.ResourcesProvider resourcesProvider, Runnable onDiscard) {
-        if (baseFragment == null || baseFragment.getParentActivity() == null) {
+    public static void showDiscardTopicDialog(BaseFragments baseFragments, Theme.ResourcesProvider resourcesProvider, Runnable onDiscard) {
+        if (baseFragments == null || baseFragments.getParentActivity() == null) {
             return;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(baseFragment.getParentActivity(), resourcesProvider);
+        AlertDialog.Builder builder = new AlertDialog.Builder(baseFragments.getParentActivity(), resourcesProvider);
         builder.setTitle(LocaleController.getString("DiscardTopic", R.string.DiscardTopic));
         builder.setMessage(LocaleController.getString("DiscardTopicMessage", R.string.DiscardTopicMessage));
         builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), new DialogInterface.OnClickListener() {
@@ -2412,10 +2412,10 @@ public class AlertsCreator {
                 onDiscard.run();
             }
         });
-        baseFragment.showDialog(builder.create());
+        baseFragments.showDialog(builder.create());
     }
 
-    public static void createContactInviteDialog(BaseFragment parentFragment, String fisrtName, String lastName, String phone) {
+    public static void createContactInviteDialog(BaseFragments parentFragment, String fisrtName, String lastName, String phone) {
         AlertDialog.Builder builder = new AlertDialog.Builder(parentFragment.getParentActivity());
         builder.setTitle(LocaleController.getString("ContactNotRegisteredTitle", R.string.ContactNotRegisteredTitle));
         builder.setMessage(LocaleController.formatString("ContactNotRegistered", R.string.ContactNotRegistered, ContactsController.formatName(fisrtName, lastName)));
@@ -2432,7 +2432,7 @@ public class AlertsCreator {
         parentFragment.showDialog(builder.create());
     }
 
-    public static ActionBarPopupWindow createSimplePopup(BaseFragment fragment, View popupView, View anhcorView, float x, float y) {
+    public static ActionBarPopupWindow createSimplePopup(BaseFragments fragment, View popupView, View anhcorView, float x, float y) {
         if (fragment == null || anhcorView == null || popupView == null) {
             return null;
         }
@@ -2481,7 +2481,7 @@ public class AlertsCreator {
         if (arrayList != null) {
             ArrayList<TLRPC.User> finalArrayList = arrayList;
             AndroidUtilities.runOnUIThread(() -> {
-                BaseFragment lastFragment = LaunchActivity.getLastFragment();
+                BaseFragments lastFragment = LaunchActivity.getLastFragment();
                 if (lastFragment != null && lastFragment.getParentActivity() != null) {
                     LimitReachedBottomSheet restricterdUsersBottomSheet = new LimitReachedBottomSheet(lastFragment, lastFragment.getParentActivity(), LimitReachedBottomSheet.TYPE_ADD_MEMBERS_RESTRICTED, currentAccount, null);
                     restricterdUsersBottomSheet.setRestrictedUsers(currentChat, finalArrayList);
@@ -2495,7 +2495,7 @@ public class AlertsCreator {
         void run(boolean report, boolean delete);
     }
 
-    public static void createBlockDialogAlert(BaseFragment fragment, int count, boolean reportSpam, TLRPC.User user, BlockDialogCallback onProcessRunnable) {
+    public static void createBlockDialogAlert(BaseFragments fragment, int count, boolean reportSpam, TLRPC.User user, BlockDialogCallback onProcessRunnable) {
         if (fragment == null || fragment.getParentActivity() == null || count == 1 && user == null) {
             return;
         }
@@ -4088,7 +4088,7 @@ public class AlertsCreator {
         return builder;
     }
 
-    public static BottomSheet createMuteAlert(BaseFragment fragment, final long dialog_id, int topicId, Theme.ResourcesProvider resourcesProvider) {
+    public static BottomSheet createMuteAlert(BaseFragments fragment, final long dialog_id, int topicId, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return null;
         }
@@ -4121,7 +4121,7 @@ public class AlertsCreator {
         return builder.create();
     }
 
-    public static BottomSheet createMuteAlert(BaseFragment fragment, ArrayList<Long> dialog_ids, int topicId, Theme.ResourcesProvider resourcesProvider) {
+    public static BottomSheet createMuteAlert(BaseFragments fragment, ArrayList<Long> dialog_ids, int topicId, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return null;
         }
@@ -4202,7 +4202,7 @@ public class AlertsCreator {
         }
     }
 
-    public static void createReportAlert(final Context context, final long dialog_id, final int messageId, final BaseFragment parentFragment, Runnable hideDim) {
+    public static void createReportAlert(final Context context, final long dialog_id, final int messageId, final BaseFragments parentFragment, Runnable hideDim) {
         createReportAlert(context, dialog_id, messageId, 0, parentFragment, null, hideDim);
     }
 
@@ -4215,7 +4215,7 @@ public class AlertsCreator {
     public final static int REPORT_TYPE_FAKE_ACCOUNT = 6;
     public final static int REPORT_TYPE_OTHER = 100;
 
-    public static void createReportAlert(final Context context, final long dialog_id, final int messageId, final int storyId, final BaseFragment parentFragment, Theme.ResourcesProvider resourcesProvider, Runnable hideDim) {
+    public static void createReportAlert(final Context context, final long dialog_id, final int messageId, final int storyId, final BaseFragments parentFragment, Theme.ResourcesProvider resourcesProvider, Runnable hideDim) {
         if (context == null || parentFragment == null) {
             return;
         }
@@ -4426,7 +4426,7 @@ public class AlertsCreator {
         return LocaleController.formatString("FloodWaitTime", R.string.FloodWaitTime, timeString);
     }
 
-    public static void showFloodWaitAlert(String error, final BaseFragment fragment) {
+    public static void showFloodWaitAlert(String error, final BaseFragments fragment) {
         if (error == null || !error.startsWith("FLOOD_WAIT") || fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -4445,7 +4445,7 @@ public class AlertsCreator {
         fragment.showDialog(builder.create(), true, null);
     }
 
-    public static void showSendMediaAlert(int result, final BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
+    public static void showSendMediaAlert(int result, final BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
         if (result == 0 || fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -4497,7 +4497,7 @@ public class AlertsCreator {
         fragment.showDialog(builder.create(), true, null);
     }
 
-    public static void showAddUserAlert(String error, final BaseFragment fragment, boolean isChannel, TLObject request) {
+    public static void showAddUserAlert(String error, final BaseFragments fragment, boolean isChannel, TLObject request) {
         if (error == null || fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -5392,7 +5392,7 @@ public class AlertsCreator {
         void didPressedNewCard();
     }
 
-    public static void createDeleteMessagesAlert(BaseFragment fragment, TLRPC.User user, TLRPC.Chat chat, TLRPC.EncryptedChat encryptedChat, TLRPC.ChatFull chatInfo, long mergeDialogId, MessageObject selectedMessage, SparseArray<MessageObject>[] selectedMessages, MessageObject.GroupedMessages selectedGroup, boolean scheduled, int loadParticipant, Runnable onDelete, Runnable hideDim, Theme.ResourcesProvider resourcesProvider) {
+    public static void createDeleteMessagesAlert(BaseFragments fragment, TLRPC.User user, TLRPC.Chat chat, TLRPC.EncryptedChat encryptedChat, TLRPC.ChatFull chatInfo, long mergeDialogId, MessageObject selectedMessage, SparseArray<MessageObject>[] selectedMessages, MessageObject.GroupedMessages selectedGroup, boolean scheduled, int loadParticipant, Runnable onDelete, Runnable hideDim, Theme.ResourcesProvider resourcesProvider) {
         if (fragment == null || user == null && chat == null && encryptedChat == null) {
             return;
         }
@@ -5775,7 +5775,7 @@ public class AlertsCreator {
         }
     }
 
-    public static void createThemeCreateDialog(BaseFragment fragment, int type, Theme.ThemeInfo switchToTheme, Theme.ThemeAccent switchToAccent) {
+    public static void createThemeCreateDialog(BaseFragments fragment, int type, Theme.ThemeInfo switchToTheme, Theme.ThemeAccent switchToAccent) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -5859,7 +5859,7 @@ public class AlertsCreator {
         });
     }
 
-    private static void processCreate(EditTextBoldCursor editText, AlertDialog alertDialog, BaseFragment fragment) {
+    private static void processCreate(EditTextBoldCursor editText, AlertDialog alertDialog, BaseFragments fragment) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }

@@ -40,7 +40,7 @@ import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.UserObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.ContentPreviewViewer;
@@ -134,7 +134,7 @@ public class SuggestEmojiView extends FrameLayout implements NotificationCenter.
                     MessagesController.getInstance(currentAccount).updateEmojiStatus(status);
 
                     Runnable undoAction = () -> MessagesController.getInstance(currentAccount).updateEmojiStatus(previousEmojiStatus);
-                    BaseFragment fragment = enterView == null ? null : enterView.getParentFragment();
+                    BaseFragments fragment = enterView == null ? null : enterView.getParentFragment();
                     if (fragment != null) {
                         if (document == null) {
                             final Bulletin.SimpleLayout layout = new Bulletin.SimpleLayout(getContext(), resourcesProvider);

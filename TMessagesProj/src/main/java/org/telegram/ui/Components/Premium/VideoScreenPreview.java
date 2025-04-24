@@ -37,7 +37,7 @@ import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.CombinedDrawable;
 import org.telegram.ui.Components.VideoPlayer;
 import org.telegram.ui.Components.voip.CellFlickerDrawable;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 
 import java.io.File;
 import java.net.URLEncoder;
@@ -123,20 +123,20 @@ public class VideoScreenPreview extends FrameLayout implements PagerHeaderView, 
         imageReceiver.setLayerNum(Integer.MAX_VALUE);
         setVideo();
 
-        if (type == PremiumPreviewFragment.PREMIUM_FEATURE_UPLOAD_LIMIT) {
+        if (type == PremiumPreviewFragments.PREMIUM_FEATURE_UPLOAD_LIMIT) {
             matrixParticlesDrawable = new MatrixParticlesDrawable();
             matrixParticlesDrawable.init();
-        } else if (type == PremiumPreviewFragment.PREMIUM_FEATURE_PROFILE_BADGE ||
-                type == PremiumPreviewFragment.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT ||
-                type == PremiumPreviewFragment.PREMIUM_FEATURE_ADS ||
-                type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_AVATARS ||
-                type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI ||
-                type == PremiumPreviewFragment.PREMIUM_FEATURE_REACTIONS) {
+        } else if (type == PremiumPreviewFragments.PREMIUM_FEATURE_PROFILE_BADGE ||
+                type == PremiumPreviewFragments.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT ||
+                type == PremiumPreviewFragments.PREMIUM_FEATURE_ADS ||
+                type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_AVATARS ||
+                type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI ||
+                type == PremiumPreviewFragments.PREMIUM_FEATURE_REACTIONS) {
             starDrawable = new StarParticlesView.Drawable(40);
             starDrawable.speedScale = 3;
             starDrawable.type = type;
 
-            if (type == PremiumPreviewFragment.PREMIUM_FEATURE_ADS) {
+            if (type == PremiumPreviewFragments.PREMIUM_FEATURE_ADS) {
                 starDrawable.size1 = 14;
                 starDrawable.size2 = 18;
                 starDrawable.size3 = 18;
@@ -150,10 +150,10 @@ public class VideoScreenPreview extends FrameLayout implements PagerHeaderView, 
             starDrawable.resourcesProvider = resourcesProvider;
             starDrawable.colorKey = Theme.key_premiumStartSmallStarsColor2;
             starDrawable.init();
-        } else if (type == PremiumPreviewFragment.PREMIUM_FEATURE_DOWNLOAD_SPEED) {
+        } else if (type == PremiumPreviewFragments.PREMIUM_FEATURE_DOWNLOAD_SPEED) {
             speedLinesDrawable = new SpeedLineParticles.Drawable(200);
             speedLinesDrawable.init();
-        } else if (type == PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS) {
+        } else if (type == PremiumPreviewFragments.PREMIUM_FEATURE_TRANSLATIONS) {
             helloParticlesDrawable = new HelloParticles.Drawable(25);
             helloParticlesDrawable.init();
         } else {
@@ -179,7 +179,7 @@ public class VideoScreenPreview extends FrameLayout implements PagerHeaderView, 
             starDrawable.init();
         }
 
-        if (type == PremiumPreviewFragment.PREMIUM_FEATURE_UPLOAD_LIMIT || type == PremiumPreviewFragment.PREMIUM_FEATURE_ADS || type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI) {
+        if (type == PremiumPreviewFragments.PREMIUM_FEATURE_UPLOAD_LIMIT || type == PremiumPreviewFragments.PREMIUM_FEATURE_ADS || type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI) {
             fromTop = true;
         }
 
@@ -219,7 +219,7 @@ public class VideoScreenPreview extends FrameLayout implements PagerHeaderView, 
 
     private void setVideo() {
         TLRPC.TL_help_premiumPromo premiumPromo = MediaDataController.getInstance(currentAccount).getPremiumPromo();
-        String typeString = PremiumPreviewFragment.featureTypeToServerString(type);
+        String typeString = PremiumPreviewFragments.featureTypeToServerString(type);
         if (premiumPromo != null) {
             int index = -1;
             for (int i = 0; i < premiumPromo.video_sections.size(); i++) {
@@ -321,12 +321,12 @@ public class VideoScreenPreview extends FrameLayout implements PagerHeaderView, 
                 matrixParticlesDrawable.excludeRect.inset(AndroidUtilities.dp(16), AndroidUtilities.dp(16));
             }
             if (starDrawable != null) {
-                if (type == PremiumPreviewFragment.PREMIUM_FEATURE_PROFILE_BADGE ||
-                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT ||
-                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ADS ||
-                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_AVATARS ||
-                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI ||
-                        type == PremiumPreviewFragment.PREMIUM_FEATURE_REACTIONS) {
+                if (type == PremiumPreviewFragments.PREMIUM_FEATURE_PROFILE_BADGE ||
+                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT ||
+                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ADS ||
+                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_AVATARS ||
+                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI ||
+                        type == PremiumPreviewFragments.PREMIUM_FEATURE_REACTIONS) {
                     starDrawable.rect.set(0, 0, getMeasuredWidth(), getMeasuredHeight());
                     starDrawable.rect.inset(AndroidUtilities.dp(30), AndroidUtilities.dp(30));
                 } else {

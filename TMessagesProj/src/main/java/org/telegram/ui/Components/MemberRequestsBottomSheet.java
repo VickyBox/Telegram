@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Delegates.MemberRequestsDelegate;
 import org.telegram.ui.LaunchActivity;
@@ -27,7 +27,7 @@ public class MemberRequestsBottomSheet extends UsersAlertBase {
     private float yOffset;
     private boolean enterEventSent;
 
-    public MemberRequestsBottomSheet(BaseFragment fragment, long chatId) {
+    public MemberRequestsBottomSheet(BaseFragments fragment, long chatId) {
         super(fragment.getParentActivity(), false, fragment.getCurrentAccount(), fragment.getResourceProvider());
         this.needSnapToTop = false;
         this.isEmptyViewVisible = false;
@@ -125,7 +125,7 @@ public class MemberRequestsBottomSheet extends UsersAlertBase {
         } else if (ev.getAction() == MotionEvent.ACTION_UP && Math.abs(scrollOffsetY - yOffset) < touchSlop) {
             if (!enterEventSent) {
                 Activity activity = AndroidUtilities.findActivity(getContext());
-                BaseFragment fragment = null;
+                BaseFragments fragment = null;
                 if (activity instanceof LaunchActivity) {
                     fragment = ((LaunchActivity) activity).getActionBarLayout().getFragmentStack().get(((LaunchActivity) activity).getActionBarLayout().getFragmentStack().size() - 1);
                 }

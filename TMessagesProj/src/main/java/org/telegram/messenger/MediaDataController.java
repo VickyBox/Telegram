@@ -58,7 +58,7 @@ import org.telegram.tgnet.RequestDelegate;
 import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.EmojiThemes;
 import org.telegram.ui.Components.AnimatedEmojiDrawable;
 import org.telegram.ui.Components.AnimatedEmojiSpan;
@@ -71,7 +71,7 @@ import org.telegram.ui.Components.TextStyleSpan;
 import org.telegram.ui.Components.URLSpanReplacement;
 import org.telegram.ui.Components.URLSpanUserMention;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.Stories.StoriesStorage;
 
 import java.io.File;
@@ -404,7 +404,7 @@ public class MediaDataController extends BaseController {
         int discount = 0;
         double currentPrice = 0;
         for (TLRPC.TL_premiumSubscriptionOption option : premiumPromo.period_options) {
-            if (checkTransaction ? option.current && Objects.equals(option.transaction.replaceAll(PremiumPreviewFragment.TRANSACTION_PATTERN, "$1"), BillingController.getInstance().getLastPremiumTransaction()) : option.months == 1) {
+            if (checkTransaction ? option.current && Objects.equals(option.transaction.replaceAll(PremiumPreviewFragments.TRANSACTION_PATTERN, "$1"), BillingController.getInstance().getLastPremiumTransaction()) : option.months == 1) {
                 found = true;
 
                 if (!BuildVars.useInvoiceBilling() && BillingController.PREMIUM_PRODUCT_DETAILS != null) {
@@ -3004,11 +3004,11 @@ public class MediaDataController extends BaseController {
     /**
      * @param toggle 0 - remove, 1 - archive, 2 - add
      */
-    public void toggleStickerSet(Context context, TLObject stickerSetObject, int toggle, BaseFragment baseFragment, boolean showSettings, boolean showTooltip) {
-        toggleStickerSet(context, stickerSetObject, toggle, baseFragment, showSettings, showTooltip, null, true);
+    public void toggleStickerSet(Context context, TLObject stickerSetObject, int toggle, BaseFragments baseFragments, boolean showSettings, boolean showTooltip) {
+        toggleStickerSet(context, stickerSetObject, toggle, baseFragments, showSettings, showTooltip, null, true);
     }
 
-    public void toggleStickerSet(Context context, TLObject stickerSetObject, int toggle, BaseFragment baseFragment, boolean showSettings, boolean showTooltip, Runnable onUndo, boolean forget) {
+    public void toggleStickerSet(Context context, TLObject stickerSetObject, int toggle, BaseFragments baseFragments, boolean showSettings, boolean showTooltip, Runnable onUndo, boolean forget) {
         TLRPC.StickerSet stickerSet;
         TLRPC.TL_messages_stickerSet messages_stickerSet;
 
@@ -3061,12 +3061,12 @@ public class MediaDataController extends BaseController {
 
         if (toggle == 2) {
             if (!cancelRemovingStickerSet(stickerSet.id)) {
-                toggleStickerSetInternal(context, toggle, baseFragment, showSettings, stickerSetObject, stickerSet, type, showTooltip);
+                toggleStickerSetInternal(context, toggle, baseFragments, showSettings, stickerSetObject, stickerSet, type, showTooltip);
             }
-        } else if (!showTooltip || baseFragment == null) {
-            toggleStickerSetInternal(context, toggle, baseFragment, showSettings, stickerSetObject, stickerSet, type, false);
+        } else if (!showTooltip || baseFragments == null) {
+            toggleStickerSetInternal(context, toggle, baseFragments, showSettings, stickerSetObject, stickerSet, type, false);
         } else {
-            StickerSetBulletinLayout bulletinLayout = new StickerSetBulletinLayout(context, stickerSetObject, toggle, null, baseFragment == null ? null : baseFragment.getResourceProvider());
+            StickerSetBulletinLayout bulletinLayout = new StickerSetBulletinLayout(context, stickerSetObject, toggle, null, baseFragments == null ? null : baseFragments.getResourceProvider());
             int finalCurrentIndex = currentIndex;
             boolean[] undoDone = new boolean[1];
             markSetUninstalling(stickerSet.id, true);
@@ -3096,17 +3096,17 @@ public class MediaDataController extends BaseController {
                     return;
                 }
                 undoDone[0] = true;
-                toggleStickerSetInternal(context, toggle, baseFragment, showSettings, stickerSetObject, stickerSet, type, false);
+                toggleStickerSetInternal(context, toggle, baseFragments, showSettings, stickerSetObject, stickerSet, type, false);
             });
             bulletinLayout.setButton(undoButton);
             removingStickerSetsUndos.put(stickerSet.id, undoButton::undo);
-            Bulletin.make(baseFragment, bulletinLayout, Bulletin.DURATION_LONG).show();
+            Bulletin.make(baseFragments, bulletinLayout, Bulletin.DURATION_LONG).show();
         }
 
         getNotificationCenter().postNotificationName(NotificationCenter.stickersDidLoad, type, true);
     }
 
-    public void removeMultipleStickerSets(Context context, BaseFragment fragment, ArrayList<TLRPC.TL_messages_stickerSet> sets) {
+    public void removeMultipleStickerSets(Context context, BaseFragments fragment, ArrayList<TLRPC.TL_messages_stickerSet> sets) {
         if (sets == null || sets.isEmpty()) {
             return;
         }
@@ -3186,7 +3186,7 @@ public class MediaDataController extends BaseController {
         Bulletin.make(fragment, bulletinLayout, Bulletin.DURATION_LONG).show();
     }
 
-    private void toggleStickerSetInternal(Context context, int toggle, BaseFragment baseFragment, boolean showSettings, TLObject stickerSetObject, TLRPC.StickerSet stickerSet, int type, boolean showTooltip) {
+    private void toggleStickerSetInternal(Context context, int toggle, BaseFragments baseFragments, boolean showSettings, TLObject stickerSetObject, TLRPC.StickerSet stickerSet, int type, boolean showTooltip) {
         TLRPC.TL_inputStickerSetID stickerSetID = new TLRPC.TL_inputStickerSetID();
         stickerSetID.access_hash = stickerSet.access_hash;
         stickerSetID.id = stickerSet.id;
@@ -3199,13 +3199,13 @@ public class MediaDataController extends BaseController {
             getConnectionsManager().sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
                 removingStickerSetsUndos.remove(stickerSet.id);
                 if (response instanceof TLRPC.TL_messages_stickerSetInstallResultArchive) {
-                    processStickerSetInstallResultArchive(baseFragment, showSettings, type, (TLRPC.TL_messages_stickerSetInstallResultArchive) response);
+                    processStickerSetInstallResultArchive(baseFragments, showSettings, type, (TLRPC.TL_messages_stickerSetInstallResultArchive) response);
                 }
                 loadStickers(type, false, false, true, p -> {
                     markSetInstalling(stickerSet.id, false);
                 });
-                if (error == null && showTooltip && baseFragment != null) {
-                    Bulletin.make(baseFragment, new StickerSetBulletinLayout(context, stickerSetObject, StickerSetBulletinLayout.TYPE_ADDED, null, baseFragment.getResourceProvider()), Bulletin.DURATION_SHORT).show();
+                if (error == null && showTooltip && baseFragments != null) {
+                    Bulletin.make(baseFragments, new StickerSetBulletinLayout(context, stickerSetObject, StickerSetBulletinLayout.TYPE_ADDED, null, baseFragments.getResourceProvider()), Bulletin.DURATION_SHORT).show();
                 }
             }));
         } else {
@@ -3224,7 +3224,7 @@ public class MediaDataController extends BaseController {
     /**
      * @param toggle 0 - uninstall, 1 - archive, 2 - unarchive
      */
-    public void toggleStickerSets(ArrayList<TLRPC.StickerSet> stickerSetList, int type, int toggle, BaseFragment baseFragment, boolean showSettings) {
+    public void toggleStickerSets(ArrayList<TLRPC.StickerSet> stickerSetList, int type, int toggle, BaseFragments baseFragments, boolean showSettings) {
         int stickerSetListSize = stickerSetList.size();
         ArrayList<TLRPC.InputStickerSet> inputStickerSets = new ArrayList<>(stickerSetListSize);
 
@@ -3273,7 +3273,7 @@ public class MediaDataController extends BaseController {
         getConnectionsManager().sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
             if (toggle != 0) {
                 if (response instanceof TLRPC.TL_messages_stickerSetInstallResultArchive) {
-                    processStickerSetInstallResultArchive(baseFragment, showSettings, type, (TLRPC.TL_messages_stickerSetInstallResultArchive) response);
+                    processStickerSetInstallResultArchive(baseFragments, showSettings, type, (TLRPC.TL_messages_stickerSetInstallResultArchive) response);
                 }
                 loadStickers(type, false, false, true);
             } else {
@@ -3282,15 +3282,15 @@ public class MediaDataController extends BaseController {
         }));
     }
 
-    public void processStickerSetInstallResultArchive(BaseFragment baseFragment, boolean showSettings, int type, TLRPC.TL_messages_stickerSetInstallResultArchive response) {
+    public void processStickerSetInstallResultArchive(BaseFragments baseFragments, boolean showSettings, int type, TLRPC.TL_messages_stickerSetInstallResultArchive response) {
         for (int i = 0, size = response.sets.size(); i < size; i++) {
             installedStickerSetsById.remove(response.sets.get(i).set.id);
         }
         loadArchivedStickersCount(type, false);
         getNotificationCenter().postNotificationName(NotificationCenter.needAddArchivedStickers, response.sets);
-        if (baseFragment != null && baseFragment.getParentActivity() != null) {
-            StickersArchiveAlert alert = new StickersArchiveAlert(baseFragment.getParentActivity(), showSettings ? baseFragment : null, response.sets);
-            baseFragment.showDialog(alert.create());
+        if (baseFragments != null && baseFragments.getParentActivity() != null) {
+            StickersArchiveAlert alert = new StickersArchiveAlert(baseFragments.getParentActivity(), showSettings ? baseFragments : null, response.sets);
+            baseFragments.showDialog(alert.create());
         }
     }
     //---------------- STICKERS END ----------------

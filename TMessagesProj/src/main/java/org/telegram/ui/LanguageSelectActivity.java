@@ -36,7 +36,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.HeaderCell;
@@ -60,7 +60,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Timer;
 
-public class LanguageSelectActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class LanguageSelectActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private ListAdapter listAdapter;
     private RecyclerListView listView;
@@ -203,7 +203,7 @@ public class LanguageSelectActivity extends BaseFragment implements Notification
                     } else if (position == 2) {
                         boolean value = !getChatValue();
                         if (value && !getUserConfig().isPremium()) {
-                            showDialog(new PremiumFeatureBottomSheet(LanguageSelectActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
+                            showDialog(new PremiumFeatureBottomSheet(LanguageSelectActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_TRANSLATIONS, false));
                             return;
                         }
                         getMessagesController().getTranslateController().setChatTranslateEnabled(value);

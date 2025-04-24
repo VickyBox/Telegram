@@ -63,7 +63,7 @@ import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.ShadowSectionCell;
@@ -82,7 +82,6 @@ import org.telegram.ui.Components.Premium.PremiumGradient;
 import org.telegram.ui.Components.Premium.PremiumNotAvailableBottomSheet;
 import org.telegram.ui.Components.Premium.PremiumTierCell;
 import org.telegram.ui.Components.Premium.StarParticlesView;
-import org.telegram.ui.Components.Premium.StoriesPageView;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.SimpleThemeDescription;
 import org.telegram.ui.Components.TextStyleSpan;
@@ -100,7 +99,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class PremiumPreviewFragment extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class PremiumPreviewFragments extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
     public final static String TRANSACTION_PATTERN = "^(.*?)(?:\\.\\.\\d*|)$";
     private final static boolean IS_PREMIUM_TIERS_UNAVAILABLE = false;
 
@@ -282,12 +281,12 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         return null;
     }
 
-    public PremiumPreviewFragment setForcePremium() {
+    public PremiumPreviewFragments setForcePremium() {
         this.forcePremium = true;
         return this;
     }
 
-    public PremiumPreviewFragment(String source) {
+    public PremiumPreviewFragments(String source) {
         super();
         this.source = source;
     }
@@ -303,7 +302,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         tiersGradientTools.cy = 0;
     }
 
-    public PremiumPreviewFragment setSelectAnnualByDefault() {
+    public PremiumPreviewFragments setSelectAnnualByDefault() {
         this.selectAnnualByDefault = true;
         return this;
     }
@@ -566,7 +565,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         listView.setOnItemClickListener((view, position) -> {
             if (view instanceof PremiumFeatureCell) {
                 PremiumFeatureCell cell = (PremiumFeatureCell) view;
-                PremiumPreviewFragment.sentShowFeaturePreview(currentAccount, cell.data.type);
+                PremiumPreviewFragments.sentShowFeaturePreview(currentAccount, cell.data.type);
 //                if (cell.data.type == PREMIUM_FEATURE_LIMITS) {
 //                    DoubledLimitsBottomSheet bottomSheet = new DoubledLimitsBottomSheet(PremiumPreviewFragment.this, currentAccount, subscriptionTiers.get(selectedTierIndex));
 //                    bottomSheet.setParentFragment(PremiumPreviewFragment.this);
@@ -578,7 +577,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
                // }
 
                 SubscriptionTier tier = selectedTierIndex < 0 || selectedTierIndex >= subscriptionTiers.size() ? null : subscriptionTiers.get(selectedTierIndex);
-                showDialog(new PremiumFeatureBottomSheet(PremiumPreviewFragment.this, cell.data.type, false, tier));
+                showDialog(new PremiumFeatureBottomSheet(PremiumPreviewFragments.this, cell.data.type, false, tier));
             }
         });
         contentView.addView(listView);
@@ -629,7 +628,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         return false;
     }
 
-    public static void buyPremium(BaseFragment fragment) {
+    public static void buyPremium(BaseFragments fragment) {
         buyPremium(fragment, "settings");
     }
 
@@ -693,23 +692,23 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         AndroidUtilities.updateViewVisibilityAnimated(buttonDivider, listView.canScrollVertically(1), 1f, true);
     }
 
-    public static void buyPremium(BaseFragment fragment, String source) {
+    public static void buyPremium(BaseFragments fragment, String source) {
         buyPremium(fragment, null, source, true);
     }
 
-    public static void buyPremium(BaseFragment fragment, String source, boolean forcePremium) {
+    public static void buyPremium(BaseFragments fragment, String source, boolean forcePremium) {
         buyPremium(fragment, null, source, forcePremium);
     }
 
-    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source) {
+    public static void buyPremium(BaseFragments fragment, SubscriptionTier tier, String source) {
         buyPremium(fragment, tier, source, true);
     }
 
-    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium) {
+    public static void buyPremium(BaseFragments fragment, SubscriptionTier tier, String source, boolean forcePremium) {
         buyPremium(fragment, tier, source, forcePremium, null);
     }
 
-    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, BillingFlowParams.SubscriptionUpdateParams updateParams) {
+    public static void buyPremium(BaseFragments fragment, SubscriptionTier tier, String source, boolean forcePremium, BillingFlowParams.SubscriptionUpdateParams updateParams) {
         if (BuildVars.IS_BILLING_UNAVAILABLE) {
             fragment.showDialog(new PremiumNotAvailableBottomSheet(fragment));
             return;
@@ -731,7 +730,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         }
         SubscriptionTier selectedTier = tier;
 
-        PremiumPreviewFragment.sentPremiumButtonClick();
+        PremiumPreviewFragments.sentPremiumButtonClick();
 
         if (BuildVars.useInvoiceBilling()) {
             Activity activity = fragment.getParentActivity();
@@ -779,8 +778,8 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         BillingController.getInstance().queryPurchases(BillingClient.ProductType.SUBS, (billingResult1, list) -> AndroidUtilities.runOnUIThread(() -> {
             if (billingResult1.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                 Runnable onSuccess = () -> {
-                    if (fragment instanceof PremiumPreviewFragment) {
-                        PremiumPreviewFragment premiumPreviewFragment = (PremiumPreviewFragment) fragment;
+                    if (fragment instanceof PremiumPreviewFragments) {
+                        PremiumPreviewFragments premiumPreviewFragment = (PremiumPreviewFragments) fragment;
                         if (finalForcePremium) {
                             premiumPreviewFragment.setForcePremium();
                         }
@@ -788,7 +787,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
 
                         premiumPreviewFragment.listView.smoothScrollToPosition(0);
                     } else {
-                        PremiumPreviewFragment previewFragment = new PremiumPreviewFragment(null);
+                        PremiumPreviewFragments previewFragment = new PremiumPreviewFragments(null);
                         if (finalForcePremium) {
                             previewFragment.setForcePremium();
                         }
@@ -1726,7 +1725,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         TLRPC.TL_jsonObject data = new TLRPC.TL_jsonObject();
         event.data = data;
         TLRPC.TL_jsonObjectValue item = new TLRPC.TL_jsonObjectValue();
-        String value = PremiumPreviewFragment.featureTypeToServerString(type);
+        String value = PremiumPreviewFragments.featureTypeToServerString(type);
         if (value != null) {
             TLRPC.TL_jsonString jsonString = new TLRPC.TL_jsonString();
             jsonString.value = value;

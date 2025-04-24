@@ -26,7 +26,6 @@ import android.util.Pair;
 import android.view.View;
 
 import androidx.core.content.FileProvider;
-import androidx.exifinterface.media.ExifInterface;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
@@ -50,7 +49,7 @@ import org.telegram.messenger.VideoEditedInfo;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.BasePermissionsActivity;
@@ -75,7 +74,7 @@ public class ImageUpdater implements NotificationCenter.NotificationCenterDelega
     public final static int FOR_TYPE_CHANNEL = 1;
     public final static int FOR_TYPE_GROUP = 2;
 
-    public BaseFragment parentFragment;
+    public BaseFragments parentFragment;
     private ImageUpdaterDelegate delegate;
     private ChatAttachAlert chatAttachAlert;
 

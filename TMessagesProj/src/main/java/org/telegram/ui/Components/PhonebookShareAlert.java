@@ -49,7 +49,7 @@ import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
@@ -68,7 +68,7 @@ public class PhonebookShareAlert extends BottomSheet {
     private View shadow;
     private TextView buttonTextView;
 
-    private BaseFragment parentFragment;
+    private BaseFragments parentFragment;
 
     private boolean inLayout;
 
@@ -239,19 +239,19 @@ public class PhonebookShareAlert extends BottomSheet {
         }
     }
 
-    public PhonebookShareAlert(BaseFragment parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String firstName, String lastName) {
+    public PhonebookShareAlert(BaseFragments parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String firstName, String lastName) {
         this(parent, contact, user, uri, file, null, firstName, lastName);
     }
 
-    public PhonebookShareAlert(BaseFragment parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String phone, String firstName, String lastName) {
+    public PhonebookShareAlert(BaseFragments parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String phone, String firstName, String lastName) {
         this(parent, contact, user, uri, file, phone, firstName, lastName, null);
     }
 
-    public PhonebookShareAlert(BaseFragment parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String firstName, String lastName, Theme.ResourcesProvider resourcesProvider) {
+    public PhonebookShareAlert(BaseFragments parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String firstName, String lastName, Theme.ResourcesProvider resourcesProvider) {
         this(parent, contact, user, uri, file, null, firstName, lastName, resourcesProvider);
     }
 
-    public PhonebookShareAlert(BaseFragment parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String phone, String firstName, String lastName, Theme.ResourcesProvider resourcesProvider) {
+    public PhonebookShareAlert(BaseFragments parent, ContactsController.Contact contact, TLRPC.User user, Uri uri, File file, String phone, String firstName, String lastName, Theme.ResourcesProvider resourcesProvider) {
         super(parent.getParentActivity(), false, resourcesProvider);
 
         String name = ContactsController.formatName(firstName, lastName);

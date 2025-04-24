@@ -49,7 +49,7 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessageObject;
 import org.telegram.messenger.R;
 import org.telegram.messenger.browser.Browser;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.AlertsCreator;
@@ -85,7 +85,7 @@ public class AboutLinkCell extends FrameLayout {
     private Browser.Progress currentProgress;
     private LoadingDrawable currentLoading;
 
-    private BaseFragment parentFragment;
+    private BaseFragments parentFragment;
     private Theme.ResourcesProvider resourcesProvider;
 
     private FrameLayout container;
@@ -100,11 +100,11 @@ public class AboutLinkCell extends FrameLayout {
 
     private GestureDetectorCompat gestureDetector;
 
-    public AboutLinkCell(Context context, BaseFragment fragment) {
+    public AboutLinkCell(Context context, BaseFragments fragment) {
         this(context, fragment, null);
     }
 
-    public AboutLinkCell(Context context, BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
+    public AboutLinkCell(Context context, BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
         super(context);
 
         this.resourcesProvider = resourcesProvider;

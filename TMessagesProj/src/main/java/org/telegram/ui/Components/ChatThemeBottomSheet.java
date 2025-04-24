@@ -56,7 +56,7 @@ import org.telegram.tgnet.ResultCallback;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.EmojiThemes;
 import org.telegram.ui.ActionBar.Theme;
@@ -1249,7 +1249,7 @@ public class ChatThemeBottomSheet extends BottomSheet implements NotificationCen
     }
 
     private void showAsSheet(ThemePreviewActivity themePreviewActivity) {
-        BaseFragment.BottomSheetParams params = new BaseFragment.BottomSheetParams();
+        BaseFragments.BottomSheetParams params = new BaseFragments.BottomSheetParams();
         params.transitionFromLeft = true;
         params.allowNestedScroll = false;
         themePreviewActivity.setResourceProvider(chatActivity.getResourceProvider());

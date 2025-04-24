@@ -40,7 +40,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.DialogCell;
@@ -51,7 +51,7 @@ public class LinkActionView extends LinearLayout {
 
     TextView linkView;
     String link;
-    BaseFragment fragment;
+    BaseFragments fragment;
     ImageView optionsView;
     private final TextView copyView;
     private final TextView shareView;
@@ -73,7 +73,7 @@ public class LinkActionView extends LinearLayout {
     private final boolean isChannel;
     private final float[] point = new float[2];
 
-    public LinkActionView(Context context, BaseFragment fragment, BottomSheet bottomSheet, long chatId, boolean permanent, boolean isChannel) {
+    public LinkActionView(Context context, BaseFragments fragment, BottomSheet bottomSheet, long chatId, boolean permanent, boolean isChannel) {
         super(context);
         this.fragment = fragment;
         this.permanent = permanent;

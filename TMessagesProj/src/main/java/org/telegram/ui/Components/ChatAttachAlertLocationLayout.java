@@ -256,7 +256,7 @@ public class ChatAttachAlertLocationLayout extends ChatAttachAlert.AttachAlertLa
             frameLayout.addView(lastPressedMarkerView, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, 71));
             lastPressedMarkerView.setAlpha(0.0f);
             lastPressedMarkerView.setOnClickListener(v -> {
-                ChatActivity chatActivity = (ChatActivity) parentAlert.baseFragment;
+                ChatActivity chatActivity = (ChatActivity) parentAlert.baseFragments;
                 if (chatActivity.isInScheduleMode()) {
                     AlertsCreator.createScheduleDatePickerDialog(getParentActivity(), chatActivity.getDialogId(), (notify, scheduleDate) -> {
                         delegate.didSelectLocation(location.venue, locationType, notify, scheduleDate);
@@ -370,7 +370,7 @@ public class ChatAttachAlertLocationLayout extends ChatAttachAlert.AttachAlertLa
     public ChatAttachAlertLocationLayout(ChatAttachAlert alert, Context context, Theme.ResourcesProvider resourcesProvider) {
         super(alert, context, resourcesProvider);
         AndroidUtilities.fixGoogleMapsBug();
-        ChatActivity chatActivity = (ChatActivity) parentAlert.baseFragment;
+        ChatActivity chatActivity = (ChatActivity) parentAlert.baseFragments;
         dialogId = chatActivity.getDialogId();
         if (parentAlert.isStoryLocationPicker) {
             locationType = LOCATION_TYPE_STORY;
@@ -1179,7 +1179,7 @@ public class ChatAttachAlertLocationLayout extends ChatAttachAlert.AttachAlertLa
         }
         TLRPC.User user = null;
         if (DialogObject.isUserDialog(dialogId)) {
-            user = parentAlert.baseFragment.getMessagesController().getUser(dialogId);
+            user = parentAlert.baseFragments.getMessagesController().getUser(dialogId);
         }
         AlertsCreator.createLocationUpdateDialog(getParentActivity(), user, param -> {
             TLRPC.TL_messageMediaGeoLive location = new TLRPC.TL_messageMediaGeoLive();
@@ -1242,19 +1242,19 @@ public class ChatAttachAlertLocationLayout extends ChatAttachAlert.AttachAlertLa
     }
 
     private MessagesController getMessagesController() {
-        return parentAlert.baseFragment.getMessagesController();
+        return parentAlert.baseFragments.getMessagesController();
     }
 
     private LocationController getLocationController() {
-        return parentAlert.baseFragment.getLocationController();
+        return parentAlert.baseFragments.getLocationController();
     }
 
     private UserConfig getUserConfig() {
-        return parentAlert.baseFragment.getUserConfig();
+        return parentAlert.baseFragments.getUserConfig();
     }
 
     private Activity getParentActivity() {
-        return parentAlert != null && parentAlert.baseFragment != null ? parentAlert.baseFragment.getParentActivity() : null;
+        return parentAlert != null && parentAlert.baseFragments != null ? parentAlert.baseFragments.getParentActivity() : null;
     }
 
     private void onMapInit() {
@@ -1311,7 +1311,7 @@ public class ChatAttachAlertLocationLayout extends ChatAttachAlert.AttachAlertLa
             adapter.fetchLocationAddress();
         });
         map.setOnMyLocationChangeListener(location -> {
-            if (parentAlert == null || parentAlert.baseFragment == null) {
+            if (parentAlert == null || parentAlert.baseFragments == null) {
                 return;
             }
             positionMarker(location);

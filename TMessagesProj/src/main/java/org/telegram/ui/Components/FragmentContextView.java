@@ -35,7 +35,6 @@ import android.text.Spanned;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
@@ -46,15 +45,10 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
-import androidx.core.graphics.ColorUtils;
-import androidx.core.math.MathUtils;
-
-import com.google.android.gms.vision.Frame;
 
 import org.telegram.messenger.AccountInstance;
 import org.telegram.messenger.AndroidUtilities;
@@ -62,7 +56,6 @@ import org.telegram.messenger.AnimationNotificationsLocker;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.ContactsController;
 import org.telegram.messenger.DialogObject;
-import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.LocationController;
 import org.telegram.messenger.MediaController;
@@ -79,7 +72,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSlider;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.voip.CellFlickerDrawable;
@@ -120,7 +113,7 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
     private AudioPlayerAlert.ClippingTextViewSwitcher titleTextView;
     private AudioPlayerAlert.ClippingTextViewSwitcher subtitleTextView;
     private AnimatorSet animatorSet;
-    private BaseFragment fragment;
+    private BaseFragments fragment;
     private ChatActivityInterface chatActivity;
     private View applyingView;
     private FrameLayout frameLayout;
@@ -245,15 +238,15 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
         void onAnimation(boolean start, boolean show);
     }
 
-    public FragmentContextView(Context context, BaseFragment parentFragment, boolean location) {
+    public FragmentContextView(Context context, BaseFragments parentFragment, boolean location) {
         this(context, parentFragment, null, location, null);
     }
 
-    public FragmentContextView(Context context, BaseFragment parentFragment, boolean location, Theme.ResourcesProvider resourcesProvider) {
+    public FragmentContextView(Context context, BaseFragments parentFragment, boolean location, Theme.ResourcesProvider resourcesProvider) {
         this(context, parentFragment, null, location, resourcesProvider);
     }
 
-    public FragmentContextView(Context context, BaseFragment parentFragment, View paddingView, boolean location, Theme.ResourcesProvider resourcesProvider) {
+    public FragmentContextView(Context context, BaseFragments parentFragment, View paddingView, boolean location, Theme.ResourcesProvider resourcesProvider) {
         super(context);
         this.resourcesProvider = resourcesProvider;
 

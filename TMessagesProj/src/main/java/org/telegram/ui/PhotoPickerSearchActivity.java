@@ -30,7 +30,7 @@ import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.EditTextBoldCursor;
@@ -43,10 +43,10 @@ import org.telegram.ui.Components.SizeNotifierFrameLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PhotoPickerSearchActivity extends BaseFragment {
+public class PhotoPickerSearchActivity extends BaseFragments {
 
     private static class ViewPage extends FrameLayout {
-        private BaseFragment parentFragment;
+        private BaseFragments parentFragment;
         private FrameLayout fragmentView;
         private ActionBar actionBar;
         private RecyclerListView listView;
