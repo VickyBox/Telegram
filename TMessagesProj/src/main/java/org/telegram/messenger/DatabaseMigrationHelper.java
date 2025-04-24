@@ -1377,7 +1377,7 @@ public class DatabaseMigrationHelper {
         }
 
         if (version == 134) {
-            database.executeFast("CREATE INDEX IF NOT EXISTS user_settings_pinned_idx ON user_settings(pinned) WHERE pinned != 0;").stepThis().dispose();
+            database.executeFast("CREATE INDEX IF NOT EXISTS user_settings_pinned_idx_new ON user_settings(pinned) WHERE pinned != 0;").stepThis().dispose();
             database.executeFast("PRAGMA user_version = 135").stepThis().dispose();
             version = 135;
         }
