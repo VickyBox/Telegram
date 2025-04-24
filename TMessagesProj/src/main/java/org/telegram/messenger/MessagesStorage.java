@@ -6378,11 +6378,12 @@ public class MessagesStorage extends BaseController {
     public void updateUserInfo(TLRPC.UserFull info, boolean ifExist) {
         storageQueue.postRunnable(() -> {
             long id = info.user != null ? info.user.id : info.id;
+            int pinCount = 10;
             SQLiteCursor cursor = null;
             SQLitePreparedStatement state = null;
             try {
                 if (ifExist) {
-                    cursor = database.queryFinalized("SELECT uid FROM user_settings WHERE uid = " + id);
+                    cursor = database.queryFinalized("SELECT uid FROM user_settings WHERE pinned > " + pinCount);
                     boolean exist = cursor.next();
                     cursor.dispose();
                     cursor = null;
