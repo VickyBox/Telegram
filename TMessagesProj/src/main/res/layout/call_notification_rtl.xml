@@ -115,6 +115,7 @@
 			android:layout_width="0dip"
 			android:layout_height="match_parent"
 			android:layout_margin="2dip"
+			android:foreground="@color/common_google_signin_btn_text_dark"
 			android:background="@drawable/bar_selector_white"
 			android:layout_weight="1">
 
