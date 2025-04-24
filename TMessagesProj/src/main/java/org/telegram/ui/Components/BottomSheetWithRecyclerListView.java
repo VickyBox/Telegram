@@ -18,7 +18,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.R;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 
@@ -29,7 +29,7 @@ public abstract class BottomSheetWithRecyclerListView extends BottomSheet {
     protected ActionBar actionBar;
     boolean wasDrawn;
     protected int contentHeight;
-    private BaseFragment baseFragment;
+    private BaseFragments baseFragments;
     public final boolean hasFixedSize;
     protected boolean clipToActionBar;
     public NestedSizeNotifierLayout nestedSizeNotifierLayout;
@@ -38,13 +38,13 @@ public abstract class BottomSheetWithRecyclerListView extends BottomSheet {
     boolean showShadow = true;
     private float shadowAlpha = 1f;
 
-    public BottomSheetWithRecyclerListView(BaseFragment fragment, boolean needFocus, boolean hasFixedSize) {
+    public BottomSheetWithRecyclerListView(BaseFragments fragment, boolean needFocus, boolean hasFixedSize) {
         this(fragment, needFocus, hasFixedSize, false, fragment == null ? null : fragment.getResourceProvider());
     }
 
-    public BottomSheetWithRecyclerListView(BaseFragment fragment, boolean needFocus, boolean hasFixedSize, boolean useNested, Theme.ResourcesProvider resourcesProvider) {
+    public BottomSheetWithRecyclerListView(BaseFragments fragment, boolean needFocus, boolean hasFixedSize, boolean useNested, Theme.ResourcesProvider resourcesProvider) {
         super(fragment.getParentActivity(), needFocus, resourcesProvider);
-        this.baseFragment = fragment;
+        this.baseFragments = fragment;
         this.hasFixedSize = hasFixedSize;
         Context context = fragment.getParentActivity();
         headerShadowDrawable = ContextCompat.getDrawable(context, R.drawable.header_shadow).mutate();
@@ -302,15 +302,15 @@ public abstract class BottomSheetWithRecyclerListView extends BottomSheet {
         return false;
     }
 
-    public BaseFragment getBaseFragment() {
-        return baseFragment;
+    public BaseFragments getBaseFragment() {
+        return baseFragments;
     }
 
     private void updateStatusBar() {
         if (actionBar != null && actionBar.getTag() != null) {
             AndroidUtilities.setLightStatusBar(getWindow(), isLightStatusBar());
-        } else if (baseFragment != null) {
-            AndroidUtilities.setLightStatusBar(getWindow(), baseFragment.isLightStatusBar());
+        } else if (baseFragments != null) {
+            AndroidUtilities.setLightStatusBar(getWindow(), baseFragments.isLightStatusBar());
         }
     }
 

@@ -113,7 +113,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
-import com.google.android.exoplayer2.util.Consumer;
 import com.google.zxing.common.detector.MathUtils;
 
 import org.telegram.PhoneFormat.PhoneFormat;
@@ -172,7 +171,7 @@ import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.EmojiThemes;
 import org.telegram.ui.ActionBar.INavigationLayout;
@@ -316,7 +315,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -327,7 +325,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("unchecked")
-public class ChatActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate, LocationActivity.LocationActivityDelegate, ChatAttachAlertDocumentLayout.DocumentSelectActivityDelegate, ChatActivityInterface, FloatingDebugProvider, InstantCameraView.Delegate {
+public class ChatActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate, LocationActivity.LocationActivityDelegate, ChatAttachAlertDocumentLayout.DocumentSelectActivityDelegate, ChatActivityInterface, FloatingDebugProvider, InstantCameraView.Delegate {
     private final static boolean PULL_DOWN_BACK_FRAGMENT = false;
     private final static boolean DISABLE_PROGRESS_VIEW = true;
     private final static int SKELETON_DISAPPEAR_MS = 200;
@@ -2615,7 +2613,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         }
         int i = cur;
         for (int a = 0; a < parentLayout.getFragmentStack().size(); a++) {
-            BaseFragment fragment = parentLayout.getFragmentStack().get(a);
+            BaseFragments fragment = parentLayout.getFragmentStack().get(a);
             if (fragment != this && fragment instanceof ChatActivity) {
                 ChatActivity chatActivity = (ChatActivity) fragment;
                 if (chatActivity.dialog_id == dialog_id) {
@@ -2920,7 +2918,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                         }
                     }
                 } else if (id == view_as_topics) {
-                    TopicsFragment.prepareToSwitchAnimation(ChatActivity.this);
+                    TopicsFragments.prepareToSwitchAnimation(ChatActivity.this);
                 } else if (id == copy) {
                     SpannableStringBuilder str = new SpannableStringBuilder();
                     long previousUid = 0;
@@ -3144,7 +3142,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     updateBottomOverlay();
                     updateTopPanel(true);
                 } else if (id == open_forum) {
-                    TopicsFragment.prepareToSwitchAnimation(ChatActivity.this);
+                    TopicsFragments.prepareToSwitchAnimation(ChatActivity.this);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putLong("chat_id", -dialog_id);
 //                    presentFragment(new TopicsFragment(bundle));
@@ -3478,8 +3476,8 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         if (ChatObject.isForum(currentChat) && isTopic && getParentLayout() != null && getParentLayout().getFragmentStack() != null) {
             boolean hasMyForum = false;
             for (int i = 0; i < getParentLayout().getFragmentStack().size(); ++i) {
-                BaseFragment fragment = getParentLayout().getFragmentStack().get(i);
-                if (fragment instanceof TopicsFragment && ((TopicsFragment) fragment).getDialogId() == dialog_id) {
+                BaseFragments fragment = getParentLayout().getFragmentStack().get(i);
+                if (fragment instanceof TopicsFragments && ((TopicsFragments) fragment).getDialogId() == dialog_id) {
                     hasMyForum = true;
                     break;
                 }
@@ -7528,7 +7526,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     getMessagesController().getTranslateController().toggleTranslatingDialog(getDialogId());
                 } else {
                     MessagesController.getNotificationsSettings(currentAccount).edit().putInt("dialog_show_translate_count" + getDialogId(), 14).commit();
-                    showDialog(new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
+                    showDialog(new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_TRANSLATIONS, false));
                 }
                 updateTopPanel(true);
             }
@@ -12768,7 +12766,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                         mentionContainer.onPanTransitionUpdate(y);
                     }
                     if (AndroidUtilities.isTablet() && getParentActivity() instanceof LaunchActivity) {
-                        BaseFragment mainFragment = ((LaunchActivity)getParentActivity()).getActionBarLayout().getLastFragment();
+                        BaseFragments mainFragment = ((LaunchActivity)getParentActivity()).getActionBarLayout().getLastFragment();
                         if (mainFragment instanceof DialogsActivity) {
                             ((DialogsActivity)mainFragment).setPanTranslationOffset(y);
                         }
@@ -18026,7 +18024,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
                 if (threadMessageObject != null && !isTopic && parentLayout != null) {
                     for (int a = 0, N = parentLayout.getFragmentStack().size() - 1; a < N; a++) {
-                        BaseFragment fragment = parentLayout.getFragmentStack().get(a);
+                        BaseFragments fragment = parentLayout.getFragmentStack().get(a);
                         if (fragment != this && fragment instanceof ChatActivity) {
                             ChatActivity chatActivity = (ChatActivity) fragment;
                             if (chatActivity.needRemovePreviousSameChatActivity && chatActivity.dialog_id == dialog_id && chatActivity.getTopicId() == getTopicId() && chatActivity.getChatMode() == getChatMode()) {
@@ -18953,7 +18951,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         } else {
             getMediaDataController().saveDraft(inlineReturn, 0, query, null, null, false);
             if (parentLayout.getFragmentStack().size() > 1) {
-                BaseFragment prevFragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
+                BaseFragments prevFragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
                 if (prevFragment instanceof ChatActivity && ((ChatActivity) prevFragment).dialog_id == inlineReturn) {
                     finishFragment();
                 } else {
@@ -19828,7 +19826,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
         if (threadMessageObject != null && !isTopic && parentLayout != null) {
             for (int a = 0, N = parentLayout.getFragmentStack().size() - 1; a < N; a++) {
-                BaseFragment fragment = parentLayout.getFragmentStack().get(a);
+                BaseFragments fragment = parentLayout.getFragmentStack().get(a);
                 if (fragment != this && fragment instanceof ChatActivity) {
                     ChatActivity chatActivity = (ChatActivity) fragment;
                     if (chatActivity.needRemovePreviousSameChatActivity && chatActivity.dialog_id == dialog_id && getTopicId() == getTopicId() && chatActivity.getChatMode() == getChatMode()) {
@@ -20227,14 +20225,14 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             return;
         }
         final long channelId = obj.messageOwner.action.channel_id;
-        final BaseFragment lastFragment = parentLayout.getFragmentStack().size() > 0 ? parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1) : null;
+        final BaseFragments lastFragment = parentLayout.getFragmentStack().size() > 0 ? parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1) : null;
         int index = parentLayout.getFragmentStack().indexOf(ChatActivity.this);
 
         INavigationLayout actionBarLayout = parentLayout;
 
         if (index > 0 && !(lastFragment instanceof ChatActivity) && !(lastFragment instanceof ProfileActivity) && currentChat.creator) {
             for (int a = index, N = actionBarLayout.getFragmentStack().size() - 1; a < N; a++) {
-                BaseFragment fragment = actionBarLayout.getFragmentStack().get(a);
+                BaseFragments fragment = actionBarLayout.getFragmentStack().get(a);
                 if (fragment instanceof ChatActivity) {
                     final Bundle bundle = new Bundle();
                     bundle.putLong("chat_id", channelId);
@@ -20350,7 +20348,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
     @Override
     public boolean needDelayOpenAnimation() {
         if (chatMode != MODE_SCHEDULED && getParentLayout() != null && getParentLayout().getFragmentStack().size() > 1) {
-            BaseFragment previousFragment = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
+            BaseFragments previousFragment = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
             if (previousFragment instanceof ChatActivity && ((ChatActivity) previousFragment).isKeyboardVisible()) {
                 return false;
             }
@@ -20505,7 +20503,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
             if (!backward && parentLayout != null && needRemovePreviousSameChatActivity) {
                 for (int a = 0, N = parentLayout.getFragmentStack().size() - 1; a < N; a++) {
-                    BaseFragment fragment = parentLayout.getFragmentStack().get(a);
+                    BaseFragments fragment = parentLayout.getFragmentStack().get(a);
                     if (fragment != this && fragment instanceof ChatActivity) {
                         ChatActivity chatActivity = (ChatActivity) fragment;
                         if (chatActivity.needRemovePreviousSameChatActivity && chatActivity.dialog_id == dialog_id && chatActivity.getTopicId() == getTopicId() && chatActivity.getChatMode() == getChatMode() && chatActivity.threadMessageId == threadMessageId && chatActivity.reportType == reportType) {
@@ -20567,7 +20565,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
             if (PULL_DOWN_BACK_FRAGMENT) {
                 if (!backward && fromPullingDownTransition && parentLayout != null && parentLayout.getFragmentStack().size() >= 2) {
-                    BaseFragment fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
+                    BaseFragments fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
                     if (fragment instanceof ChatActivity) {
                         backToPreviousFragment = (ChatActivity) fragment;
                         parentLayout.removeFragmentFromStack(backToPreviousFragment);
@@ -20702,7 +20700,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         if (closeChatDialog != null && dialog == closeChatDialog) {
             getMessagesController().deleteDialog(dialog_id, 0);
             if (parentLayout != null && !parentLayout.getFragmentStack().isEmpty() && parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1) != this) {
-                BaseFragment fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1);
+                BaseFragments fragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1);
                 removeSelfFromStack();
                 fragment.finishFragment();
             } else {
@@ -22364,7 +22362,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             link.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(@NonNull View view) {
-                    presentFragment(new PremiumPreviewFragment(null));
+                    presentFragment(new PremiumPreviewFragments(null));
                 }
 
                 @Override
@@ -23531,7 +23529,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
                 if (SharedConfig.getDevicePerformanceClass() != SharedConfig.PERFORMANCE_CLASS_LOW) {
                     TLRPC.TL_help_premiumPromo premiumPromo = MediaDataController.getInstance(currentAccount).getPremiumPromo();
-                    String typeString = PremiumPreviewFragment.featureTypeToServerString(PremiumPreviewFragment.PREMIUM_FEATURE_DOWNLOAD_SPEED);
+                    String typeString = PremiumPreviewFragments.featureTypeToServerString(PremiumPreviewFragments.PREMIUM_FEATURE_DOWNLOAD_SPEED);
                     if (premiumPromo != null) {
                         int index = -1;
                         for (int i = 0; i < premiumPromo.video_sections.size(); i++) {
@@ -26267,11 +26265,11 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             }
             case OPTION_HIDE_SPONSORED_MESSAGE: {
                 MessageObject message = selectedObject;
-                showDialog(new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_ADS, true));
+                showDialog(new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_ADS, true));
                 break;
             }
             case OPTION_SPEED_PROMO: {
-                showDialog(new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_DOWNLOAD_SPEED, true));
+                showDialog(new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_DOWNLOAD_SPEED, true));
                 break;
             }
             case OPTION_OPEN_PROFILE: {
@@ -26287,7 +26285,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
     }
 
     @Override
-    public boolean didSelectDialogs(DialogsActivity fragment, ArrayList<MessagesStorage.TopicKey> dids, CharSequence message, boolean param, TopicsFragment topicsFragment) {
+    public boolean didSelectDialogs(DialogsActivity fragment, ArrayList<MessagesStorage.TopicKey> dids, CharSequence message, boolean param, TopicsFragments topicsFragment) {
         if (forwardingMessage == null && selectedMessagesIds[0].size() == 0 && selectedMessagesIds[1].size() == 0) {
             return false;
         }
@@ -26395,7 +26393,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     fragment.finishFragment();
                 }
             } else {
-                List<BaseFragment> fragments = new ArrayList<>(getParentLayout().getFragmentStack());
+                List<BaseFragments> fragments = new ArrayList<>(getParentLayout().getFragmentStack());
                 if (!fragments.isEmpty() && fragments.get(fragments.size() - 1) == fragment) {
                     fragment.finishFragment();
                 } else {
@@ -28183,7 +28181,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     }
 
                     @Override
-                    public BaseFragment getBaseFragment() {
+                    public BaseFragments getBaseFragment() {
                         return ChatActivity.this;
                     }
 
@@ -29568,7 +29566,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
         @Override
         public void needShowPremiumFeatures(String source) {
-            presentFragment(new PremiumPreviewFragment(source));
+            presentFragment(new PremiumPreviewFragments(source));
         }
 
         @Override
@@ -29579,7 +29577,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     return;
                 }
                 topUndoView.showWithAction(0, UndoView.ACTION_PREMIUM_TRANSCRIPTION, null, () -> {
-                    new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_VOICE_TO_TEXT, true).show();
+                    new PremiumFeatureBottomSheet(ChatActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_VOICE_TO_TEXT, true).show();
                     getMessagesController().pressTranscribeButton();
                 });
                 try {
@@ -31198,7 +31196,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
     @Override
     public AnimatorSet onCustomTransitionAnimation(boolean isOpen, Runnable callback) {
         if (isOpen && fromPullingDownTransition && getParentLayout() != null && getParentLayout().getFragmentStack().size() > 1) {
-            BaseFragment previousFragment = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
+            BaseFragments previousFragment = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
             if (previousFragment instanceof ChatActivity) {
                 wasManualScroll = true;
                 ChatActivity previousChat = (ChatActivity) previousFragment;
@@ -31311,8 +31309,8 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             }
         }
         if (switchFromTopics && getParentLayout() != null && getParentLayout().getFragmentStack().size() > 1) {
-            BaseFragment previousFragment = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
-            if (!(previousFragment instanceof TopicsFragment)) {
+            BaseFragments previousFragment = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
+            if (!(previousFragment instanceof TopicsFragments)) {
                 return null;
             }
             ValueAnimator valueAnimator = isOpen ? ValueAnimator.ofFloat(0f, 1f) : ValueAnimator.ofFloat(1f, 0f);

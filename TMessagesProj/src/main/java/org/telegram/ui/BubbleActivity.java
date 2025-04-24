@@ -26,7 +26,7 @@ import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.DrawerLayoutContainer;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 public class BubbleActivity extends BasePermissionsActivity implements INavigationLayout.INavigationLayoutDelegate {
 
     private boolean finished;
-    private ArrayList<BaseFragment> mainFragmentsStack = new ArrayList<>();
+    private ArrayList<BaseFragments> mainFragmentsStack = new ArrayList<>();
 
     private PasscodeView passcodeView;
     private INavigationLayout actionBarLayout;
@@ -151,7 +151,7 @@ public class BubbleActivity extends BasePermissionsActivity implements INavigati
             finish();
             return false;
         }
-        BaseFragment chatActivity = null;
+        BaseFragments chatActivity = null;
         if (intent.getAction() != null && intent.getAction().startsWith("com.tmessages.openchat")) {
             long chatId = intent.getLongExtra("chatId", 0);
             long userId = intent.getLongExtra("userId", 0);
@@ -198,11 +198,11 @@ public class BubbleActivity extends BasePermissionsActivity implements INavigati
         finished = true;
     }
 
-    public void presentFragment(BaseFragment fragment) {
+    public void presentFragment(BaseFragments fragment) {
         actionBarLayout.presentFragment(fragment);
     }
 
-    public boolean presentFragment(final BaseFragment fragment, final boolean removeLast, boolean forceWithoutAnimation) {
+    public boolean presentFragment(final BaseFragments fragment, final boolean removeLast, boolean forceWithoutAnimation) {
         return actionBarLayout.presentFragment(fragment, removeLast, forceWithoutAnimation, true, false);
     }
 
@@ -235,7 +235,7 @@ public class BubbleActivity extends BasePermissionsActivity implements INavigati
             editorView.onActivityResult(requestCode, resultCode, data);
         }
         if (actionBarLayout.getFragmentStack().size() != 0) {
-            BaseFragment fragment = actionBarLayout.getFragmentStack().get(actionBarLayout.getFragmentStack().size() - 1);
+            BaseFragments fragment = actionBarLayout.getFragmentStack().get(actionBarLayout.getFragmentStack().size() - 1);
             fragment.onActivityResultFragment(requestCode, resultCode, data);
         }
     }
@@ -246,7 +246,7 @@ public class BubbleActivity extends BasePermissionsActivity implements INavigati
         if (!checkPermissionsResult(requestCode, permissions, grantResults)) return;
 
         if (actionBarLayout.getFragmentStack().size() != 0) {
-            BaseFragment fragment = actionBarLayout.getFragmentStack().get(actionBarLayout.getFragmentStack().size() - 1);
+            BaseFragments fragment = actionBarLayout.getFragmentStack().get(actionBarLayout.getFragmentStack().size() - 1);
             fragment.onRequestPermissionsResultFragment(requestCode, permissions, grantResults);
         }
 

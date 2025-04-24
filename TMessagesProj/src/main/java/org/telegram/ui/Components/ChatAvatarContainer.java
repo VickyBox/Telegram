@@ -47,13 +47,13 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.Stories.StoriesUtilities;
-import org.telegram.ui.TopicsFragment;
+import org.telegram.ui.TopicsFragments;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -135,15 +135,15 @@ public class ChatAvatarContainer extends FrameLayout implements NotificationCent
         }
     }
 
-    public ChatAvatarContainer(Context context, BaseFragment baseFragment, boolean needTime) {
-        this(context, baseFragment, needTime, null);
+    public ChatAvatarContainer(Context context, BaseFragments baseFragments, boolean needTime) {
+        this(context, baseFragments, needTime, null);
     }
     
-    public ChatAvatarContainer(Context context, BaseFragment baseFragment, boolean needTime, Theme.ResourcesProvider resourcesProvider) {
+    public ChatAvatarContainer(Context context, BaseFragments baseFragments, boolean needTime, Theme.ResourcesProvider resourcesProvider) {
         super(context);
         this.resourcesProvider = resourcesProvider;
-        if (baseFragment instanceof ChatActivity) {
-            parentFragment = (ChatActivity) baseFragment;
+        if (baseFragments instanceof ChatActivity) {
+            parentFragment = (ChatActivity) baseFragments;
         }
 
         final boolean avatarClickable = parentFragment != null && parentFragment.getChatMode() == 0 && !UserObject.isReplyUser(parentFragment.getCurrentUser());
@@ -177,8 +177,8 @@ public class ChatAvatarContainer extends FrameLayout implements NotificationCent
                 }
             }
         };
-        if (baseFragment instanceof ChatActivity || baseFragment instanceof TopicsFragment) {
-            sharedMediaPreloader = new SharedMediaLayout.SharedMediaPreloader(baseFragment);
+        if (baseFragments instanceof ChatActivity || baseFragments instanceof TopicsFragments) {
+            sharedMediaPreloader = new SharedMediaLayout.SharedMediaPreloader(baseFragments);
             if (parentFragment != null && (parentFragment.isThreadChat() || parentFragment.getChatMode() == 2)) {
                 avatarImageView.setVisibility(GONE);
             }

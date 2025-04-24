@@ -31,25 +31,24 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 
-import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 public class JoinGroupAlert extends BottomSheet {
 
     private final String hash;
-    private final BaseFragment fragment;
+    private final BaseFragments fragment;
     private TLRPC.ChatInvite chatInvite;
     private TLRPC.Chat currentChat;
     private TextView requestTextView;
     private RadialProgressView requestProgressView;
 
-    public JoinGroupAlert(final Context context, TLObject obj, String group, BaseFragment parentFragment, Theme.ResourcesProvider resourcesProvider) {
+    public JoinGroupAlert(final Context context, TLObject obj, String group, BaseFragments parentFragment, Theme.ResourcesProvider resourcesProvider) {
         super(context, false, resourcesProvider);
         setApplyBottomPadding(false);
         setApplyTopPadding(false);
@@ -339,7 +338,7 @@ public class JoinGroupAlert extends BottomSheet {
         return new CombinedDrawable(verifiedDrawable, verifiedCheckDrawable);
     }
 
-    public static void showBulletin(Context context, BaseFragment fragment, boolean isChannel) {
+    public static void showBulletin(Context context, BaseFragments fragment, boolean isChannel) {
         if (context == null) {
             if (fragment != null) {
                 context = fragment.getContext();

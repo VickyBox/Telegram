@@ -10189,7 +10189,7 @@ public class Theme {
         return false;
     }
 
-    public static void turnOffAutoNight(@NonNull BaseFragment fragment) {
+    public static void turnOffAutoNight(@NonNull BaseFragments fragment) {
         if (selectedAutoNightType != AUTO_NIGHT_TYPE_NONE) {
             if (fragment != null) {
                 try {

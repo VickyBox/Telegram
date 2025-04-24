@@ -64,7 +64,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
@@ -72,7 +72,7 @@ import org.telegram.ui.Components.Premium.PremiumButtonView;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.ContentPreviewViewer;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class EmojiPacksAlert extends BottomSheet implements NotificationCenter.N
 
     private LongSparseArray<AnimatedEmojiDrawable> animatedEmojiDrawables;
 
-    private BaseFragment fragment;
+    private BaseFragments fragment;
 
     private View paddingView;
     private EmojiPacksLoader customEmojiPacks;
@@ -220,15 +220,15 @@ public class EmojiPacksAlert extends BottomSheet implements NotificationCenter.N
         return false;
     }
 
-    public EmojiPacksAlert(BaseFragment fragment, Context context, Theme.ResourcesProvider resourceProvider, TLObject parentObject) {
+    public EmojiPacksAlert(BaseFragments fragment, Context context, Theme.ResourcesProvider resourceProvider, TLObject parentObject) {
         this(fragment, context, resourceProvider, null, parentObject);
     }
 
-    public EmojiPacksAlert(BaseFragment fragment, Context context, Theme.ResourcesProvider resourceProvider, ArrayList<TLRPC.InputStickerSet> stickerSets) {
+    public EmojiPacksAlert(BaseFragments fragment, Context context, Theme.ResourcesProvider resourceProvider, ArrayList<TLRPC.InputStickerSet> stickerSets) {
         this(fragment, context, resourceProvider, stickerSets, null);
     }
 
-    private EmojiPacksAlert(BaseFragment fragment, Context context, Theme.ResourcesProvider resourceProvider, ArrayList<TLRPC.InputStickerSet> stickerSets, TLObject parentObject) {
+    private EmojiPacksAlert(BaseFragments fragment, Context context, Theme.ResourcesProvider resourceProvider, ArrayList<TLRPC.InputStickerSet> stickerSets, TLObject parentObject) {
         super(context, false, resourceProvider = fragment != null && fragment.getResourceProvider() != null ? fragment.getResourceProvider() : resourceProvider);
         this.fragment = fragment;
         fixNavigationBar();
@@ -904,9 +904,9 @@ public class EmojiPacksAlert extends BottomSheet implements NotificationCenter.N
     private long premiumButtonClicked;
     public void showPremiumAlert() {
         if (fragment != null) {
-            new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
+            new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
         } else if (getContext() instanceof LaunchActivity) {
-            ((LaunchActivity) getContext()).presentFragment(new PremiumPreviewFragment(null));
+            ((LaunchActivity) getContext()).presentFragment(new PremiumPreviewFragments(null));
         }
     }
 
@@ -930,10 +930,10 @@ public class EmojiPacksAlert extends BottomSheet implements NotificationCenter.N
         updateButton();
     }
 
-    public static void installSet(BaseFragment fragment, TLObject set, boolean showBulletIn) {
+    public static void installSet(BaseFragments fragment, TLObject set, boolean showBulletIn) {
         installSet(fragment, set, showBulletIn, null, null);
     }
-    public static void installSet(BaseFragment fragment, TLObject obj, boolean showBulletIn, Utilities.Callback<Boolean> onDone, Runnable onStickersLoaded) {
+    public static void installSet(BaseFragments fragment, TLObject obj, boolean showBulletIn, Utilities.Callback<Boolean> onDone, Runnable onStickersLoaded) {
         int currentAccount = fragment == null ? UserConfig.selectedAccount : fragment.getCurrentAccount();
         View fragmentView = fragment == null ? null : fragment.getFragmentView();
         if (obj == null) {
@@ -994,7 +994,7 @@ public class EmojiPacksAlert extends BottomSheet implements NotificationCenter.N
         }));
     }
 
-    public static void uninstallSet(BaseFragment fragment, TLRPC.TL_messages_stickerSet set, boolean showBulletin, Runnable onUndo, boolean forget) {
+    public static void uninstallSet(BaseFragments fragment, TLRPC.TL_messages_stickerSet set, boolean showBulletin, Runnable onUndo, boolean forget) {
         if (fragment == null || set == null || fragment.getFragmentView() == null) {
             return;
         }
@@ -1530,7 +1530,7 @@ public class EmojiPacksAlert extends BottomSheet implements NotificationCenter.N
 
         private boolean single;
 
-        public BaseFragment dummyFragment = new BaseFragment() {
+        public BaseFragments dummyFragment = new BaseFragments() {
             @Override
             public int getCurrentAccount() {
                 return currentAccount;

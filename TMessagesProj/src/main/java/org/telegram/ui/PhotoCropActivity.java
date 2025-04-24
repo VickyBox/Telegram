@@ -27,13 +27,13 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
 
 import java.io.File;
 
-public class PhotoCropActivity extends BaseFragment {
+public class PhotoCropActivity extends BaseFragments {
 
     public interface PhotoEditActivityDelegate {
         void didFinishEdit(Bitmap bitmap);

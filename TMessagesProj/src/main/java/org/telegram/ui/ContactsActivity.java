@@ -79,7 +79,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Adapters.ContactsAdapter;
@@ -106,7 +106,7 @@ import org.telegram.ui.Stories.StoriesListPlaceProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ContactsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class ContactsActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private ContactsAdapter listViewAdapter;
     private StickerEmptyView emptyView;
@@ -1185,7 +1185,7 @@ public class ContactsActivity extends BaseFragment implements NotificationCenter
     public AnimatorSet onCustomTransitionAnimation(boolean isOpen, Runnable callback) {
         ValueAnimator valueAnimator = isOpen ? ValueAnimator.ofFloat(1f, 0) : ValueAnimator.ofFloat(0, 1f);
         ViewGroup parent = (ViewGroup) fragmentView.getParent();
-        BaseFragment previousFragment = parentLayout.getFragmentStack().size() > 1 ? parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2) : null;
+        BaseFragments previousFragment = parentLayout.getFragmentStack().size() > 1 ? parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2) : null;
         DialogsActivity dialogsActivity = null;
         if (previousFragment instanceof DialogsActivity) {
             dialogsActivity = (DialogsActivity) previousFragment;

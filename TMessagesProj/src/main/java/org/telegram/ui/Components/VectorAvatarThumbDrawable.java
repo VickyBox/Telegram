@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
 
-import com.google.android.exoplayer2.util.Log;
-
 import org.telegram.messenger.DocumentObject;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
@@ -120,16 +118,16 @@ public class VectorAvatarThumbDrawable extends Drawable implements AnimatedEmoji
         }
         int cx = getBounds().centerX();
         int cy = getBounds().centerY();
-        int size = (int) (getBounds().width() * AvatarConstructorFragment.STICKER_DEFAULT_SCALE) >> 1;
+        int size = (int) (getBounds().width() * AvatarConstructorFragments.STICKER_DEFAULT_SCALE) >> 1;
         if (animatedEmojiDrawable != null) {
             if (animatedEmojiDrawable.getImageReceiver() != null) {
-                animatedEmojiDrawable.getImageReceiver().setRoundRadius((int) (size * 2 * AvatarConstructorFragment.STICKER_DEFAULT_ROUND_RADIUS));
+                animatedEmojiDrawable.getImageReceiver().setRoundRadius((int) (size * 2 * AvatarConstructorFragments.STICKER_DEFAULT_ROUND_RADIUS));
             }
             animatedEmojiDrawable.setBounds(cx - size, cy - size, cx + size, cy + size);
             animatedEmojiDrawable.draw(canvas);
         }
         if (imageReceiver != null) {
-            imageReceiver.setRoundRadius((int) (size * 2 * AvatarConstructorFragment.STICKER_DEFAULT_ROUND_RADIUS));
+            imageReceiver.setRoundRadius((int) (size * 2 * AvatarConstructorFragments.STICKER_DEFAULT_ROUND_RADIUS));
             imageReceiver.setImageCoords(cx - size, cy - size, size * 2, size * 2);
             imageReceiver.draw(canvas);
         }

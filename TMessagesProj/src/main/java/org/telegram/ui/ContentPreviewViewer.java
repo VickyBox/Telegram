@@ -49,7 +49,6 @@ import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.SendMessagesHelper;
 import org.telegram.messenger.UserConfig;
-import org.telegram.messenger.Utilities;
 import org.telegram.messenger.WebFile;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
@@ -649,7 +648,7 @@ public class ContentPreviewViewer {
                     if (activity.getActionBarLayout() != null && activity.getActionBarLayout().getLastFragment() != null) {
                         activity.getActionBarLayout().getLastFragment().dismissCurrentDialog();
                     }
-                    activity.presentFragment(new PremiumPreviewFragment(PremiumPreviewFragment.featureTypeToServerString(PremiumPreviewFragment.PREMIUM_FEATURE_STICKERS)));
+                    activity.presentFragment(new PremiumPreviewFragments(PremiumPreviewFragments.featureTypeToServerString(PremiumPreviewFragments.PREMIUM_FEATURE_STICKERS)));
                 }
                 menuVisible = false;
                 containerView.invalidate();

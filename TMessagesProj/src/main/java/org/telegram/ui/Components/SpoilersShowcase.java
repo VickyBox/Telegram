@@ -1,20 +1,16 @@
 package org.telegram.ui.Components;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import org.telegram.messenger.AndroidUtilities;
-import org.telegram.ui.ActionBar.BaseFragment;
-import org.telegram.ui.Components.spoilers.SpoilerEffect;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.Components.spoilers.SpoilerEffect2;
 
-public class SpoilersShowcase extends BaseFragment {
+public class SpoilersShowcase extends BaseFragments {
 
     @Override
     public View createView(Context context) {

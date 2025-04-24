@@ -101,10 +101,9 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
-import org.telegram.ui.BasePermissionsActivity;
 import org.telegram.ui.Components.AlertsCreator;
 import org.telegram.ui.Components.BlurringShader;
 import org.telegram.ui.Components.Bulletin;
@@ -130,7 +129,7 @@ import org.telegram.ui.Components.URLSpanUserMention;
 import org.telegram.ui.Components.VideoEditTextureView;
 import org.telegram.ui.Components.ZoomControlView;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.Stories.DarkThemeResourceProvider;
 import org.telegram.ui.Stories.DialogStoriesCell;
@@ -4515,7 +4514,7 @@ public class StoryRecorder implements NotificationCenter.NotificationCenterDeleg
         if (shownLimitReached) {
             return;
         }
-        final LimitReachedBottomSheet sheet = new LimitReachedBottomSheet(new BaseFragment() {
+        final LimitReachedBottomSheet sheet = new LimitReachedBottomSheet(new BaseFragments() {
             @Override
             public boolean isLightStatusBar() {
                 return false;
@@ -4538,7 +4537,7 @@ public class StoryRecorder implements NotificationCenter.NotificationCenterDeleg
             }
 
             @Override
-            public boolean presentFragment(BaseFragment fragment) {
+            public boolean presentFragment(BaseFragments fragment) {
                 openPremium();
                 return false;
             }
@@ -4581,7 +4580,7 @@ public class StoryRecorder implements NotificationCenter.NotificationCenterDeleg
         if (captionEdit != null) {
             captionEdit.hidePeriodPopup();
         }
-        PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(new BaseFragment() {
+        PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(new BaseFragments() {
             { currentAccount = StoryRecorder.this.currentAccount; }
             @Override
             public Dialog showDialog(Dialog dialog) {
@@ -4608,7 +4607,7 @@ public class StoryRecorder implements NotificationCenter.NotificationCenterDeleg
             public boolean isLightStatusBar() {
                 return false;
             }
-        }, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
+        }, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
         sheet.setOnDismissListener(d -> {
             if (previewView != null) {
                 previewView.updatePauseReason(4, false);

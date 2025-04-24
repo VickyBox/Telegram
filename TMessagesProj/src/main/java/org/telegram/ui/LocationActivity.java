@@ -84,7 +84,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Adapters.LocationActivityAdapter;
@@ -118,7 +118,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class LocationActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class LocationActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private ImageView locationButton;
     private ImageView proximityButton;

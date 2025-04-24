@@ -35,7 +35,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.HeaderCell;
@@ -81,7 +81,7 @@ public class InviteLinkBottomSheet extends BottomSheet {
 
     int rowCount;
     Adapter adapter;
-    BaseFragment fragment;
+    BaseFragments fragment;
 
     private RecyclerListView listView;
     private TextView titleTextView;
@@ -105,7 +105,7 @@ public class InviteLinkBottomSheet extends BottomSheet {
     private boolean canEdit = true;
     public boolean isNeedReopen = false;
 
-    public InviteLinkBottomSheet(Context context, TLRPC.TL_chatInviteExported invite, TLRPC.ChatFull info, HashMap<Long, TLRPC.User> users, BaseFragment fragment, long chatId, boolean permanent, boolean isChannel) {
+    public InviteLinkBottomSheet(Context context, TLRPC.TL_chatInviteExported invite, TLRPC.ChatFull info, HashMap<Long, TLRPC.User> users, BaseFragments fragment, long chatId, boolean permanent, boolean isChannel) {
         super(context, false);
         this.invite = invite;
         this.users = users;

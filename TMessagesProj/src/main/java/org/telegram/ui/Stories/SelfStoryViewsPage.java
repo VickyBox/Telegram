@@ -46,7 +46,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.FixedHeightEmptyCell;
 import org.telegram.ui.Cells.ReactedUserHolderView;
@@ -71,7 +71,7 @@ import org.telegram.ui.Components.ReplaceableIconDrawable;
 import org.telegram.ui.Components.SearchField;
 import org.telegram.ui.Components.StickerEmptyView;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.RecyclerListViewScroller;
 import org.telegram.ui.Stories.recorder.StoryPrivacyBottomSheet;
@@ -325,7 +325,7 @@ public class SelfStoryViewsPage extends FrameLayout implements NotificationCente
                         arr.add(inputStickerSet);
                         MessageContainsEmojiButton button = new MessageContainsEmojiButton(currentAccount, getContext(), resourcesProvider, arr, MessageContainsEmojiButton.SINGLE_REACTION_TYPE);
                         button.setOnClickListener(v -> {
-                            new EmojiPacksAlert(new BaseFragment() {
+                            new EmojiPacksAlert(new BaseFragments() {
                                 @Override
                                 public int getCurrentAccount() {
                                     return currentAccount;
@@ -740,7 +740,7 @@ public class SelfStoryViewsPage extends FrameLayout implements NotificationCente
                     view = new ReactedUserHolderView(ReactedUserHolderView.STYLE_STORY, currentAccount, getContext(), resourcesProvider, false) {
                         @Override
                         public void openStory(long dialogId, Runnable onDone) {
-                            BaseFragment lastFragment = LaunchActivity.getLastFragment();
+                            BaseFragments lastFragment = LaunchActivity.getLastFragment();
                             if (lastFragment == null) {
                                 return;
                             }
@@ -934,7 +934,7 @@ public class SelfStoryViewsPage extends FrameLayout implements NotificationCente
     }
 
     private void showPremiumAlert() {
-        PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(storyViewer.fragment, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
+        PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(storyViewer.fragment, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
         sheet.show();
     }
 

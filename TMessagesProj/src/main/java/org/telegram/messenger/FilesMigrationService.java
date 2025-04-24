@@ -22,7 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
@@ -185,7 +185,7 @@ public class FilesMigrationService extends Service {
         }
     }
 
-    public static void checkBottomSheet(BaseFragment fragment) {
+    public static void checkBottomSheet(BaseFragments fragment) {
         SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
         if (!Environment.isExternalStorageLegacy() || sharedPreferences.getBoolean("migration_to_scoped_storage_finished", false) || sharedPreferences.getInt("migration_to_scoped_storage_count", 0) >= 5 || wasShown || filesMigrationBottomSheet != null || isRunning) {
             return;
@@ -219,7 +219,7 @@ public class FilesMigrationService extends Service {
 
     public static class FilesMigrationBottomSheet extends BottomSheet {
 
-        BaseFragment fragment;
+        BaseFragments fragment;
 
         @Override
         protected boolean canDismissWithSwipe() {
@@ -231,7 +231,7 @@ public class FilesMigrationService extends Service {
             return false;
         }
 
-        public FilesMigrationBottomSheet(BaseFragment fragment) {
+        public FilesMigrationBottomSheet(BaseFragments fragment) {
             super(fragment.getParentActivity(), false);
             this.fragment = fragment;
             setCanceledOnTouchOutside(false);

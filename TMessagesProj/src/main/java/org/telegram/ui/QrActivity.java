@@ -77,7 +77,7 @@ import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.ResultCallback;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarLayout;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.EmojiThemes;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -103,7 +103,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class QrActivity extends BaseFragment {
+public class QrActivity extends BaseFragments {
 
     private static final ArrayMap<String, int[]> qrColorsMap = new ArrayMap<>();
     private static final int LOGO_OPTIMAL_FRAME = 33;
@@ -1274,7 +1274,7 @@ public class QrActivity extends BaseFragment {
         private final Paint backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         public final ChatThemeBottomSheet.Adapter adapter;
         private final LinearSmoothScroller scroller;
-        private final BaseFragment fragment;
+        private final BaseFragments fragment;
         private final Window window;
         private final Drawable backgroundDrawable;
 
@@ -1299,7 +1299,7 @@ public class QrActivity extends BaseFragment {
         protected boolean isLightDarkChangeAnimation;
         private boolean prevIsPortrait;
 
-        public ThemeListViewController(BaseFragment fragment, Window window) {
+        public ThemeListViewController(BaseFragments fragment, Window window) {
             this.fragment = fragment;
             this.window = window;
 

@@ -24,7 +24,7 @@ import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ArchivedStickerSetCell;
 import org.telegram.ui.StickersActivity;
@@ -39,9 +39,9 @@ public class StickersArchiveAlert extends AlertDialog.Builder {
     private int reqId;
     private boolean ignoreLayout;
     private int currentType;
-    private BaseFragment parentFragment;
+    private BaseFragments parentFragment;
 
-    public StickersArchiveAlert(Context context, BaseFragment baseFragment, ArrayList<TLRPC.StickerSetCovered> sets) {
+    public StickersArchiveAlert(Context context, BaseFragments baseFragments, ArrayList<TLRPC.StickerSetCovered> sets) {
         super(context);
 
         TLRPC.StickerSetCovered set = sets.get(0);
@@ -53,7 +53,7 @@ public class StickersArchiveAlert extends AlertDialog.Builder {
             setTitle(LocaleController.getString("ArchivedStickersAlertTitle", R.string.ArchivedStickersAlertTitle));
         }
         stickerSets = new ArrayList<>(sets);
-        parentFragment = baseFragment;
+        parentFragment = baseFragments;
 
         LinearLayout container = new LinearLayout(context);
         container.setOrientation(LinearLayout.VERTICAL);

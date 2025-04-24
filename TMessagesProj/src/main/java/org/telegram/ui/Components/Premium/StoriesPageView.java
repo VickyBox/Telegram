@@ -3,7 +3,6 @@ package org.telegram.ui.Components.Premium;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -34,11 +33,10 @@ import org.telegram.ui.Components.BackupImageView;
 import org.telegram.ui.Components.GradientTools;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 
 public class StoriesPageView extends BaseListPageView {
 
@@ -56,37 +54,37 @@ public class StoriesPageView extends BaseListPageView {
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_order,
                 LocaleController.getString("PremiumStoriesPriority", R.string.PremiumStoriesPriority),
                 LocaleController.getString("PremiumStoriesPriorityDescription", R.string.PremiumStoriesPriorityDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_PRIORITY_ORDER
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_PRIORITY_ORDER
         ));
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_stealth,
                 LocaleController.getString("PremiumStoriesStealth", R.string.PremiumStoriesStealth),
                 LocaleController.getString("PremiumStoriesStealthDescription", R.string.PremiumStoriesStealthDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_STEALTH_MODE
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_STEALTH_MODE
         ));
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_views,
                 LocaleController.getString("PremiumStoriesViews", R.string.PremiumStoriesViews),
                 LocaleController.getString("PremiumStoriesViewsDescription", R.string.PremiumStoriesViewsDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_VIEWS_HISTORY
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_VIEWS_HISTORY
         ));
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_timer,
                 LocaleController.getString("PremiumStoriesExpiration", R.string.PremiumStoriesExpiration),
                 LocaleController.getString("PremiumStoriesExpirationDescription", R.string.PremiumStoriesExpirationDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_EXPIRATION_DURATION
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_EXPIRATION_DURATION
         ));
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_save,
                 LocaleController.getString("PremiumStoriesSaveToGallery", R.string.PremiumStoriesSaveToGallery),
                 LocaleController.getString("PremiumStoriesSaveToGalleryDescription", R.string.PremiumStoriesSaveToGalleryDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_SAVE_TO_GALLERY
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_SAVE_TO_GALLERY
         ));
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_caption,
                 LocaleController.getString("PremiumStoriesCaption", R.string.PremiumStoriesCaption),
                 LocaleController.getString("PremiumStoriesCaptionDescription", R.string.PremiumStoriesCaptionDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_CAPTION
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_CAPTION
         ));
         itemsTmp.add(new Item(VIEW_TYPE_ITEM, R.drawable.msg_stories_link,
                 LocaleController.getString("PremiumStoriesFormatting", R.string.PremiumStoriesFormatting),
                 LocaleController.getString("PremiumStoriesFormattingDescription", R.string.PremiumStoriesFormattingDescription),
-                PremiumPreviewFragment.PREMIUM_FEATURE_STORIES_LINKS_AND_FORMATTING
+                PremiumPreviewFragments.PREMIUM_FEATURE_STORIES_LINKS_AND_FORMATTING
         ));
 
         MessagesController messagesController = MessagesController.getInstance(UserConfig.selectedAccount);

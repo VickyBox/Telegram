@@ -403,7 +403,7 @@ public class ChatAttachAlertContactsLayout extends ChatAttachAlert.AttachAlertLa
                     contact.user = user;
                 }
 
-                PhonebookShareAlert phonebookShareAlert = new PhonebookShareAlert(parentAlert.baseFragment, contact, null, null, null, firstName, lastName, resourcesProvider);
+                PhonebookShareAlert phonebookShareAlert = new PhonebookShareAlert(parentAlert.baseFragments, contact, null, null, null, firstName, lastName, resourcesProvider);
                 phonebookShareAlert.setDelegate((user, notify, scheduleDate) -> {
                     parentAlert.dismiss(true);
                     delegate.didSelectContact(user, notify, scheduleDate);

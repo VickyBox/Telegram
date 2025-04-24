@@ -35,7 +35,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.TextInfoPrivacyCell;
@@ -45,7 +45,7 @@ import org.telegram.ui.Components.BottomSheetWithRecyclerListView;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
     private TLRPC.User user;
 
     @SuppressLint("NotifyDataSetChanged")
-    public GiftPremiumBottomSheet(BaseFragment fragment, TLRPC.User user) {
+    public GiftPremiumBottomSheet(BaseFragments fragment, TLRPC.User user) {
         super(fragment, false, true);
         fixNavigationBar();
         this.user = user;
@@ -262,11 +262,11 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
         }
 
         if (getBaseFragment() != null) {
-            List<BaseFragment> fragments = new ArrayList<>(((LaunchActivity) getBaseFragment().getParentActivity()).getActionBarLayout().getFragmentStack());
+            List<BaseFragments> fragments = new ArrayList<>(((LaunchActivity) getBaseFragment().getParentActivity()).getActionBarLayout().getFragmentStack());
 
             INavigationLayout layout = getBaseFragment().getParentLayout();
             ChatActivity lastChatActivity = null;
-            for (BaseFragment fragment : fragments) {
+            for (BaseFragments fragment : fragments) {
                 if (fragment instanceof ChatActivity) {
                     lastChatActivity = (ChatActivity) fragment;
                     if (lastChatActivity.getDialogId() != user.id) {
@@ -486,7 +486,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
 
         @Override
         public void onClick(View widget) {
-            getBaseFragment().presentFragment(new PremiumPreviewFragment("profile"));
+            getBaseFragment().presentFragment(new PremiumPreviewFragments("profile"));
             dismiss();
         }
 

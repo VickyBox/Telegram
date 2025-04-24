@@ -74,7 +74,7 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -86,7 +86,7 @@ import org.telegram.ui.Components.Premium.PremiumButtonView;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.ContentPreviewViewer;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 
 import java.io.File;
@@ -137,7 +137,7 @@ public class StickersAlert extends BottomSheet implements NotificationCenter.Not
     private AnimatorSet[] shadowAnimation = new AnimatorSet[2];
     private View[] shadow = new View[2];
     private FrameLayout emptyView;
-    private BaseFragment parentFragment;
+    private BaseFragments parentFragment;
     private GridLayoutManager layoutManager;
     private Activity parentActivity;
     private int itemSize, itemHeight;
@@ -396,17 +396,17 @@ public class StickersAlert extends BottomSheet implements NotificationCenter.Not
         init(context);
     }
 
-    public StickersAlert(Context context, BaseFragment baseFragment, TLRPC.InputStickerSet set, TLRPC.TL_messages_stickerSet loadedSet, StickersAlertDelegate stickersAlertDelegate) {
-        this(context, baseFragment, set, loadedSet, stickersAlertDelegate, null);
+    public StickersAlert(Context context, BaseFragments baseFragments, TLRPC.InputStickerSet set, TLRPC.TL_messages_stickerSet loadedSet, StickersAlertDelegate stickersAlertDelegate) {
+        this(context, baseFragments, set, loadedSet, stickersAlertDelegate, null);
     }
 
-    public StickersAlert(Context context, BaseFragment baseFragment, TLRPC.InputStickerSet set, TLRPC.TL_messages_stickerSet loadedSet, StickersAlertDelegate stickersAlertDelegate, Theme.ResourcesProvider resourcesProvider) {
+    public StickersAlert(Context context, BaseFragments baseFragments, TLRPC.InputStickerSet set, TLRPC.TL_messages_stickerSet loadedSet, StickersAlertDelegate stickersAlertDelegate, Theme.ResourcesProvider resourcesProvider) {
         super(context, false, resourcesProvider);
         fixNavigationBar();
         delegate = stickersAlertDelegate;
         inputStickerSet = set;
         stickerSet = loadedSet;
-        parentFragment = baseFragment;
+        parentFragment = baseFragments;
         loadStickerSet();
         init(context);
     }
@@ -1128,9 +1128,9 @@ public class StickersAlert extends BottomSheet implements NotificationCenter.Not
                     setButton(null, null, -1);
                     premiumButtonView.setButton(LocaleController.getString("UnlockPremiumEmoji", R.string.UnlockPremiumEmoji), e -> {
                         if (parentFragment != null) {
-                            new PremiumFeatureBottomSheet(parentFragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
+                            new PremiumFeatureBottomSheet(parentFragment, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
                         } else if (getContext() instanceof LaunchActivity) {
-                            ((LaunchActivity) getContext()).presentFragment(new PremiumPreviewFragment(null));
+                            ((LaunchActivity) getContext()).presentFragment(new PremiumPreviewFragments(null));
                         }
                     });
 

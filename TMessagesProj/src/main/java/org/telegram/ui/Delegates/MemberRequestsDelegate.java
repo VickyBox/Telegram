@@ -55,7 +55,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.AvatarPreviewPagerIndicator;
 import org.telegram.ui.Cells.MemberRequestCell;
@@ -89,7 +89,7 @@ public class MemberRequestsDelegate implements MemberRequestCell.OnClickListener
 
     private final ArrayList<TLRPC.TL_chatInviteImporter> allImporters = new ArrayList<>();
     private final Adapter adapter = new Adapter();
-    private final BaseFragment fragment;
+    private final BaseFragments fragment;
     private final FrameLayout layoutContainer;
     private final MemberRequestsController controller;
     private final long chatId;
@@ -115,7 +115,7 @@ public class MemberRequestsDelegate implements MemberRequestCell.OnClickListener
     private boolean isFirstLoading = true;
     private boolean isShowLastItemDivider = true;
 
-    public MemberRequestsDelegate(BaseFragment fragment, FrameLayout layoutContainer, long chatId, boolean showSearchMenu) {
+    public MemberRequestsDelegate(BaseFragments fragment, FrameLayout layoutContainer, long chatId, boolean showSearchMenu) {
         this.fragment = fragment;
         this.layoutContainer = layoutContainer;
         this.chatId = chatId;

@@ -44,7 +44,7 @@ import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.Bulletin;
@@ -56,7 +56,7 @@ import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.Components.ReactionsContainerLayout;
 import org.telegram.ui.Components.StableAnimator;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.SelectAnimatedEmojiDialog;
 
 import java.util.ArrayList;
@@ -87,7 +87,7 @@ public class CustomEmojiReactionsWindow {
     private Runnable onDismiss;
     private float dismissProgress;
     private boolean dismissed;
-    BaseFragment baseFragment;
+    BaseFragments baseFragments;
     Theme.ResourcesProvider resourcesProvider;
 
     float yTranslation;
@@ -98,12 +98,12 @@ public class CustomEmojiReactionsWindow {
     private ValueAnimator valueAnimator;
     private final int type;
 
-    public CustomEmojiReactionsWindow(int type, BaseFragment baseFragment, List<ReactionsLayoutInBubble.VisibleReaction> reactions, HashSet<ReactionsLayoutInBubble.VisibleReaction> selectedReactions, ReactionsContainerLayout reactionsContainerLayout, Theme.ResourcesProvider resourcesProvider) {
+    public CustomEmojiReactionsWindow(int type, BaseFragments baseFragments, List<ReactionsLayoutInBubble.VisibleReaction> reactions, HashSet<ReactionsLayoutInBubble.VisibleReaction> selectedReactions, ReactionsContainerLayout reactionsContainerLayout, Theme.ResourcesProvider resourcesProvider) {
         this.type = type;
         this.reactions = reactions;
-        this.baseFragment = baseFragment;
+        this.baseFragments = baseFragments;
         this.resourcesProvider = resourcesProvider;
-        Context context = baseFragment != null ? baseFragment.getContext() : reactionsContainerLayout.getContext();
+        Context context = baseFragments != null ? baseFragments.getContext() : reactionsContainerLayout.getContext();
         windowView = new FrameLayout(context) {
             @Override
             public boolean dispatchKeyEvent(KeyEvent event) {
@@ -164,7 +164,7 @@ public class CustomEmojiReactionsWindow {
         // sizeNotifierFrameLayout.setFitsSystemWindows(true);
 
         containerView = new ContainerView(context);
-        selectAnimatedEmojiDialog = new SelectAnimatedEmojiDialog(baseFragment, context, false, null, SelectAnimatedEmojiDialog.TYPE_REACTIONS, type != TYPE_STORY, resourcesProvider, 16) {
+        selectAnimatedEmojiDialog = new SelectAnimatedEmojiDialog(baseFragments, context, false, null, SelectAnimatedEmojiDialog.TYPE_REACTIONS, type != TYPE_STORY, resourcesProvider, 16) {
 
             @Override
             public boolean prevWindowKeyboardVisible() {
@@ -181,8 +181,8 @@ public class CustomEmojiReactionsWindow {
                     if (!attachToParent) {
                         windowManager.updateViewLayout(windowView, createLayoutParams(true));
                     }
-                    if (baseFragment instanceof ChatActivity) {
-                        ((ChatActivity) baseFragment).needEnterText();
+                    if (baseFragments instanceof ChatActivity) {
+                        ((ChatActivity) baseFragments).needEnterText();
                     }
                     if (reactionsContainerLayout.getDelegate() != null) {
                         reactionsContainerLayout.getDelegate().needEnterText();
@@ -198,7 +198,7 @@ public class CustomEmojiReactionsWindow {
 
             @Override
             protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, Integer until) {
-                if (!UserConfig.getInstance(baseFragment.getCurrentAccount()).isPremium()) {
+                if (!UserConfig.getInstance(baseFragments.getCurrentAccount()).isPremium()) {
                     windowView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
                     BulletinFactory.of(windowView, null).createEmojiBulletin(
                             document,
@@ -320,12 +320,12 @@ public class CustomEmojiReactionsWindow {
     }
 
     private void showUnlockPremiumAlert() {
-        if (baseFragment instanceof ChatActivity) {
-            baseFragment.showDialog(new PremiumFeatureBottomSheet(baseFragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
+        if (baseFragments instanceof ChatActivity) {
+            baseFragments.showDialog(new PremiumFeatureBottomSheet(baseFragments, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
         } else {
-            BaseFragment fragment = LaunchActivity.getLastFragment();
+            BaseFragments fragment = LaunchActivity.getLastFragment();
             if (fragment != null) {
-                fragment.showDialog(new PremiumFeatureBottomSheet(baseFragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
+                fragment.showDialog(new PremiumFeatureBottomSheet(baseFragments, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
             }
         }
     }
@@ -629,8 +629,8 @@ public class CustomEmojiReactionsWindow {
         dismissed = true;
         AndroidUtilities.hideKeyboard(windowView);
         createTransition(false);
-        if (wasFocused && baseFragment instanceof ChatActivity) {
-            ((ChatActivity) baseFragment).onEditTextDialogClose(true, true);
+        if (wasFocused && baseFragments instanceof ChatActivity) {
+            ((ChatActivity) baseFragments).onEditTextDialogClose(true, true);
         }
     }
 
@@ -687,8 +687,8 @@ public class CustomEmojiReactionsWindow {
                 removeView();
             }
         });
-        if (wasFocused && baseFragment instanceof ChatActivity) {
-            ((ChatActivity) baseFragment).onEditTextDialogClose(true, true);
+        if (wasFocused && baseFragments instanceof ChatActivity) {
+            ((ChatActivity) baseFragments).onEditTextDialogClose(true, true);
         }
     }
 

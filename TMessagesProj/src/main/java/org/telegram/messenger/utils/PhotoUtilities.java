@@ -13,7 +13,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.BulletinFactory;
@@ -44,12 +44,12 @@ public class PhotoUtilities {
         }
     }
 
-    public static void setImageAsAvatar(MediaController.PhotoEntry entry, BaseFragment baseFragment, Runnable onDone) {
-        INavigationLayout layout = baseFragment.getParentLayout();
-        int currentAccount = baseFragment.getCurrentAccount();
+    public static void setImageAsAvatar(MediaController.PhotoEntry entry, BaseFragments baseFragments, Runnable onDone) {
+        INavigationLayout layout = baseFragments.getParentLayout();
+        int currentAccount = baseFragments.getCurrentAccount();
 
         ImageUpdater imageUpdater = new ImageUpdater(true, ImageUpdater.FOR_TYPE_USER, true);
-        imageUpdater.parentFragment = baseFragment;
+        imageUpdater.parentFragment = baseFragments;
         imageUpdater.processEntry(entry);
         imageUpdater.setDelegate((photo, video, videoStartTimestamp, videoPath, bigSize, smallSize, isVideo, emojiMarkup) -> AndroidUtilities.runOnUIThread(() -> {
             TLRPC.TL_photos_uploadProfilePhoto req = new TLRPC.TL_photos_uploadProfilePhoto();
