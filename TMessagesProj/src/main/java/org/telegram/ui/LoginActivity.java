@@ -93,10 +93,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.safetynet.SafetyNet;
+import com.google.zxing.common.detector.MathUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.telegram.PhoneFormat.PhoneFormat;
+import org.telegram.messenger.AccountInstance;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.AuthTokensHelper;
@@ -125,7 +127,7 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.CheckBoxCell;
@@ -179,7 +181,7 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressLint("HardwareIds")
-public class LoginActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class LoginActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
     public final static boolean ENABLE_PASTED_TEXT_PROCESSING = false;
     private final static int SHOW_DELAY = SharedConfig.getDevicePerformanceClass() <= SharedConfig.PERFORMANCE_CLASS_AVERAGE ? 150 : 100;
 
@@ -1100,11 +1102,11 @@ public class LoginActivity extends BaseFragments implements NotificationCenter.N
         }
     }
 
-    public static void needShowInvalidAlert(BaseFragments fragment, String phoneNumber, boolean banned) {
+    public static void needShowInvalidAlert(BaseFragment fragment, String phoneNumber, boolean banned) {
         needShowInvalidAlert(fragment, phoneNumber, null, banned);
     }
 
-    public static void needShowInvalidAlert(BaseFragments fragment, String phoneNumber, PhoneInputData inputData, boolean banned) {
+    public static void needShowInvalidAlert(BaseFragment fragment, String phoneNumber, PhoneInputData inputData, boolean banned) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }

@@ -38,7 +38,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.ShadowSectionCell;
@@ -59,7 +59,7 @@ import org.telegram.ui.Components.SeekBarView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SaveToGallerySettingsActivity extends BaseFragments {
+public class SaveToGallerySettingsActivity extends BaseFragment {
 
     int type;
     long dialogId;

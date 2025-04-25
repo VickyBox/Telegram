@@ -66,7 +66,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.DialogCell;
@@ -89,7 +89,7 @@ import org.telegram.ui.Components.TextStyleSpan;
 
 import java.util.ArrayList;
 
-public class FilterChatlistActivity extends BaseFragments {
+public class FilterChatlistActivity extends BaseFragment {
 
     private RecyclerListView listView;
     private ListAdapter adapter;
@@ -888,7 +888,7 @@ public class FilterChatlistActivity extends BaseFragments {
         ButtonsBox buttonsBox;
         TextView copyButton, shareButton, generateButton;
 
-        BaseFragments parentFragment;
+        BaseFragment parentFragment;
 
         class ButtonsBox extends FrameLayout {
 
@@ -933,7 +933,7 @@ public class FilterChatlistActivity extends BaseFragments {
             }
         }
 
-        public InviteLinkCell(Context context, BaseFragments fragment) {
+        public InviteLinkCell(Context context, BaseFragment fragment) {
             super(context);
 
             parentFragment = fragment;

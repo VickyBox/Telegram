@@ -83,6 +83,8 @@ import androidx.recyclerview.widget.LinearSmoothScrollerCustom;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.exoplayer2.util.Log;
+
 import org.telegram.messenger.AccountInstance;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.AnimationNotificationsLocker;
@@ -123,7 +125,7 @@ import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.MenuDrawable;
@@ -197,6 +199,7 @@ import org.telegram.ui.Components.Reactions.ReactionsLayoutInBubble;
 import org.telegram.ui.Components.RecyclerAnimationScrollHelper;
 import org.telegram.ui.Components.RecyclerItemsEnterAnimator;
 import org.telegram.ui.Components.RecyclerListView;
+import org.telegram.ui.Components.ScaleStateListAnimator;
 import org.telegram.ui.Components.SearchViewPager;
 import org.telegram.ui.Components.SharedMediaLayout;
 import org.telegram.ui.Components.SimpleThemeDescription;
@@ -219,7 +222,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DialogsActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate, FloatingDebugProvider {
+public class DialogsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, FloatingDebugProvider {
 
     public final static boolean DISPLAY_SPEEDOMETER_IN_DOWNLOADS_SEARCH = true;
 
@@ -2550,7 +2553,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
     }
 
     public interface DialogsActivityDelegate {
-        boolean didSelectDialogs(DialogsActivity fragment, ArrayList<MessagesStorage.TopicKey> dids, CharSequence message, boolean param, TopicsFragments topicsFragment);
+        boolean didSelectDialogs(DialogsActivity fragment, ArrayList<MessagesStorage.TopicKey> dids, CharSequence message, boolean param, TopicsFragment topicsFragment);
     }
 
     public DialogsActivity(Bundle args) {
@@ -2939,7 +2942,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
                     speedItem.getIconView().setColorFilter(new PorterDuffColorFilter(Theme.getColor(Theme.key_actionBarActionModeDefaultIcon), PorterDuff.Mode.SRC_IN));
                     speedItem.setTranslationX(AndroidUtilities.dp(32));
                     speedItem.setAlpha(0f);
-                    speedItem.setOnClickListener(v -> showDialog(new PremiumFeatureBottomSheet(DialogsActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_DOWNLOAD_SPEED, true)));
+                    speedItem.setOnClickListener(v -> showDialog(new PremiumFeatureBottomSheet(DialogsActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_DOWNLOAD_SPEED, true)));
                     speedItem.setClickable(false);
                     speedItem.setFixBackground(true);
                     FrameLayout.LayoutParams speedParams = new FrameLayout.LayoutParams(AndroidUtilities.dp(42), ViewGroup.LayoutParams.MATCH_PARENT);
@@ -3198,7 +3201,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
                         } catch (Exception ignore) {
                         }
                         topBulletin = BulletinFactory.of(DialogsActivity.this).createSimpleBulletin(R.raw.filter_reorder, AndroidUtilities.replaceTags(LocaleController.formatString("LimitReachedReorderFolder", R.string.LimitReachedReorderFolder, LocaleController.getString(R.string.FilterAllChats))), LocaleController.getString("PremiumMore", R.string.PremiumMore), Bulletin.DURATION_PROLONG, () -> {
-                            showDialog(new PremiumFeatureBottomSheet(DialogsActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT, true));
+                            showDialog(new PremiumFeatureBottomSheet(DialogsActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT, true));
                             filterTabsView.setIsEditing(false);
                             showDoneItem(false);
                         }).show(true);
@@ -4146,8 +4149,8 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
 
             @Override
             protected long getDialogId(String query) {
-                if (query != null && query.length() > 0 && rightSlidingDialogContainer != null && rightSlidingDialogContainer.getFragment() instanceof TopicsFragments) {
-                    return ((TopicsFragments) rightSlidingDialogContainer.getFragment()).getDialogId();
+                if (query != null && query.length() > 0 && rightSlidingDialogContainer != null && rightSlidingDialogContainer.getFragment() instanceof TopicsFragment) {
+                    return ((TopicsFragment) rightSlidingDialogContainer.getFragment()).getDialogId();
                 }
                 return 0;
             }
@@ -4298,8 +4301,8 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
 
             @Override
             public long getSearchForumDialogId() {
-                if (rightSlidingDialogContainer != null && rightSlidingDialogContainer.getFragment() instanceof TopicsFragments) {
-                    return ((TopicsFragments) rightSlidingDialogContainer.getFragment()).getDialogId();
+                if (rightSlidingDialogContainer != null && rightSlidingDialogContainer.getFragment() instanceof TopicsFragment) {
+                    return ((TopicsFragment) rightSlidingDialogContainer.getFragment()).getDialogId();
                 }
                 return 0;
             }
@@ -5583,7 +5586,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
             dialogsHintCellVisible = true;
             dialogsHintCell.setVisibility(View.VISIBLE);
             dialogsHintCell.setOnClickListener(v -> {
-                presentFragment(new PremiumPreviewFragments("dialogs_hint").setSelectAnnualByDefault());
+                presentFragment(new PremiumPreviewFragment("dialogs_hint").setSelectAnnualByDefault());
                 AndroidUtilities.runOnUIThread(() -> {
                     MessagesController.getInstance(currentAccount).removeSuggestion(0, "PREMIUM_RESTORE");
                     updateDialogsHint();
@@ -5603,7 +5606,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
             dialogsHintCellVisible = true;
             dialogsHintCell.setVisibility(View.VISIBLE);
             dialogsHintCell.setOnClickListener(v -> {
-                presentFragment(new PremiumPreviewFragments("dialogs_hint").setSelectAnnualByDefault());
+                presentFragment(new PremiumPreviewFragment("dialogs_hint").setSelectAnnualByDefault());
                 AndroidUtilities.runOnUIThread(() -> {
                     MessagesController.getInstance(currentAccount).removeSuggestion(0, isPremiumHintUpgrade ? "PREMIUM_UPGRADE" : "PREMIUM_ANNUAL");
                     updateDialogsHint();
@@ -5738,7 +5741,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
 
                 @Override
                 public void didFinishChatCreation(GroupCreateFinalActivity fragment, long chatId) {
-                    BaseFragments[] lastFragments = new BaseFragments[]{fragment, null};
+                    BaseFragment[] lastFragments = new BaseFragment[]{fragment, null};
                     Utilities.doCallbacks(
                             next -> {
                                 if (requestPeerType.has_username != null && requestPeerType.has_username) {
@@ -6060,7 +6063,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
 
                             if (SharedConfig.getDevicePerformanceClass() != SharedConfig.PERFORMANCE_CLASS_LOW) {
                                 TLRPC.TL_help_premiumPromo premiumPromo = MediaDataController.getInstance(currentAccount).getPremiumPromo();
-                                String typeString = PremiumPreviewFragments.featureTypeToServerString(PremiumPreviewFragments.PREMIUM_FEATURE_DOWNLOAD_SPEED);
+                                String typeString = PremiumPreviewFragment.featureTypeToServerString(PremiumPreviewFragment.PREMIUM_FEATURE_DOWNLOAD_SPEED);
                                 if (premiumPromo != null) {
                                     int index = -1;
                                     for (int i = 0; i < premiumPromo.video_sections.size(); i++) {
@@ -6695,7 +6698,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
     }
 
     @Override
-    public boolean presentFragment(BaseFragments fragment) {
+    public boolean presentFragment(BaseFragment fragment) {
         boolean b = super.presentFragment(fragment);
         if (b) {
             if (viewPages != null) {
@@ -7570,8 +7573,8 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
             } else if (obj instanceof ContactsController.Contact) {
                 ContactsController.Contact contact = (ContactsController.Contact) obj;
                 AlertsCreator.createContactInviteDialog(DialogsActivity.this, contact.first_name, contact.last_name, contact.phones.get(0));
-            } else if (obj instanceof TLRPC.TL_forumTopic && rightSlidingDialogContainer != null && rightSlidingDialogContainer.getFragment() instanceof TopicsFragments) {
-                dialogId = ((TopicsFragments) rightSlidingDialogContainer.getFragment()).getDialogId();
+            } else if (obj instanceof TLRPC.TL_forumTopic && rightSlidingDialogContainer != null && rightSlidingDialogContainer.getFragment() instanceof TopicsFragment) {
+                dialogId = ((TopicsFragment) rightSlidingDialogContainer.getFragment()).getDialogId();
                 topicId = ((TLRPC.TL_forumTopic) obj).id;
             }
 
@@ -7607,7 +7610,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
                     bundle.putLong("chat_id", -dialogId);
                     bundle.putBoolean("for_select", true);
                     bundle.putBoolean("forward_to", true);
-                    TopicsFragments topicsFragment = new TopicsFragments(bundle);
+                    TopicsFragment topicsFragment = new TopicsFragment(bundle);
                     topicsFragment.setForwardFromDialogFragment(DialogsActivity.this);
                     presentFragment(topicsFragment);
                 } else {
@@ -7648,14 +7651,14 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
                 if (openedDialogId.dialogId == dialogId && adapter != searchViewPager.dialogsSearchAdapter) {
                     if (getParentActivity() instanceof LaunchActivity) {
                         LaunchActivity launchActivity = (LaunchActivity) getParentActivity();
-                        List<BaseFragments> rightFragments = launchActivity.getRightActionBarLayout().getFragmentStack();
+                        List<BaseFragment> rightFragments = launchActivity.getRightActionBarLayout().getFragmentStack();
                         if (!rightFragments.isEmpty()) {
                             if (rightFragments.size() == 1 && rightFragments.get(rightFragments.size() - 1) instanceof ChatActivity) {
                                 ((ChatActivity) rightFragments.get(rightFragments.size() - 1)).onPageDownClicked();
                             } else if (rightFragments.size() == 2) {
                                 launchActivity.getRightActionBarLayout().closeLastFragment();
                             } else if (getParentActivity() instanceof LaunchActivity) {
-                                BaseFragments first = rightFragments.get(0);
+                                BaseFragment first = rightFragments.get(0);
                                 rightFragments.clear();
                                 rightFragments.add(first);
                                 launchActivity.getRightActionBarLayout().rebuildFragments(INavigationLayout.REBUILD_FLAG_REBUILD_LAST);
@@ -7679,16 +7682,16 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
                     TLRPC.Chat chat = getMessagesController().getChat(-dialogId);
                     if (chat != null && chat.forum && topicId == 0) {
                         if (!LiteMode.isEnabled(LiteMode.FLAG_CHAT_FORUM_TWOCOLUMN)) {
-                            presentFragment(new TopicsFragments(args));
+                            presentFragment(new TopicsFragment(args));
                         } else {
                             if (!canOpenInRightSlidingView) {
-                                presentFragment(new TopicsFragments(args));
+                                presentFragment(new TopicsFragment(args));
                             } else if (!searching) {
-                                if (rightSlidingDialogContainer.currentFragment != null && ((TopicsFragments) rightSlidingDialogContainer.currentFragment).getDialogId() == dialogId) {
+                                if (rightSlidingDialogContainer.currentFragment != null && ((TopicsFragment) rightSlidingDialogContainer.currentFragment).getDialogId() == dialogId) {
                                     rightSlidingDialogContainer.finishPreview();
                                 } else {
                                     viewPages[0].listView.prepareSelectorForAnimation();
-                                    TopicsFragments topicsFragment = new TopicsFragments(args);
+                                    TopicsFragment topicsFragment = new TopicsFragment(args);
                                     topicsFragment.parentDialogsActivity = this;
                                     rightSlidingDialogContainer.presentFragment(getParentLayout(), topicsFragment);
                                 }
@@ -10902,7 +10905,7 @@ public class DialogsActivity extends BaseFragments implements NotificationCenter
         didSelectResult(dialogId, topicId, useAlert, param, null);
     }
 
-    public void didSelectResult(final long dialogId, int topicId, boolean useAlert, final boolean param, TopicsFragments topicsFragment) {
+    public void didSelectResult(final long dialogId, int topicId, boolean useAlert, final boolean param, TopicsFragment topicsFragment) {
         if (!checkCanWrite(dialogId)) {
             return;
         }

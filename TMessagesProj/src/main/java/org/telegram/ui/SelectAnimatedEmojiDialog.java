@@ -89,7 +89,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.FixedHeightEmptyCell;
@@ -391,7 +391,7 @@ public class SelectAnimatedEmojiDialog extends FrameLayout implements Notificati
     private Theme.ResourcesProvider resourcesProvider;
 
     private float scaleX, scaleY;
-    private BaseFragments baseFragments;
+    private BaseFragment baseFragment;
 
     private int topMarginDp;
     DefaultItemAnimator emojiItemAnimator;
@@ -400,20 +400,20 @@ public class SelectAnimatedEmojiDialog extends FrameLayout implements Notificati
 
     }
 
-    public SelectAnimatedEmojiDialog(BaseFragments baseFragments, Context context, boolean includeEmpty, Theme.ResourcesProvider resourcesProvider) {
-        this(baseFragments, context, includeEmpty, null, TYPE_EMOJI_STATUS, resourcesProvider);
+    public SelectAnimatedEmojiDialog(BaseFragment baseFragment, Context context, boolean includeEmpty, Theme.ResourcesProvider resourcesProvider) {
+        this(baseFragment, context, includeEmpty, null, TYPE_EMOJI_STATUS, resourcesProvider);
     }
 
-    public SelectAnimatedEmojiDialog(BaseFragments baseFragments, Context context, boolean includeEmpty, Integer emojiX, int type, Theme.ResourcesProvider resourcesProvider) {
-        this(baseFragments, context, includeEmpty, emojiX, type, true, resourcesProvider, 16);
+    public SelectAnimatedEmojiDialog(BaseFragment baseFragment, Context context, boolean includeEmpty, Integer emojiX, int type, Theme.ResourcesProvider resourcesProvider) {
+        this(baseFragment, context, includeEmpty, emojiX, type, true, resourcesProvider, 16);
     }
 
-    public SelectAnimatedEmojiDialog(BaseFragments baseFragments, Context context, boolean includeEmpty, Integer emojiX, int type, boolean shouldDrawBackground, Theme.ResourcesProvider resourcesProvider, int topPaddingDp) {
+    public SelectAnimatedEmojiDialog(BaseFragment baseFragment, Context context, boolean includeEmpty, Integer emojiX, int type, boolean shouldDrawBackground, Theme.ResourcesProvider resourcesProvider, int topPaddingDp) {
         super(context);
         this.resourcesProvider = resourcesProvider;
         this.type = type;
         this.includeEmpty = includeEmpty;
-        this.baseFragments = baseFragments;
+        this.baseFragment = baseFragment;
         this.includeHint = MessagesController.getGlobalMainSettings().getInt("emoji" + (type == TYPE_EMOJI_STATUS ? "status" : "reaction") + "usehint", 0) < 3;
 
         selectorPaint.setColor(Theme.getColor(Theme.key_listSelector, resourcesProvider));
@@ -545,12 +545,12 @@ public class SelectAnimatedEmojiDialog extends FrameLayout implements Notificati
             addView(bubble2View, LayoutHelper.createFrame(17, 9, Gravity.TOP | Gravity.LEFT, bubbleX / AndroidUtilities.density + (bubbleRight ? -25 : 10), 6 + 8 - 9 + topMarginDp, 0, 0));
         }
 
-        boolean showSettings = baseFragments != null && type != TYPE_TOPIC_ICON && type != TYPE_AVATAR_CONSTRUCTOR && shouldDrawBackground;
+        boolean showSettings = baseFragment != null && type != TYPE_TOPIC_ICON && type != TYPE_AVATAR_CONSTRUCTOR && shouldDrawBackground;
         for (int i = 0; i < 2; i++) {
             EmojiTabsStrip emojiTabs = new EmojiTabsStrip(context, resourcesProvider, true, false, true, type, showSettings ? () -> {
                 search(null, false, false);
                 onSettings();
-                baseFragments.presentFragment(new StickersActivity(MediaDataController.TYPE_EMOJIPACKS, frozenEmojiPacks));
+                baseFragment.presentFragment(new StickersActivity(MediaDataController.TYPE_EMOJIPACKS, frozenEmojiPacks));
                 if (dismiss != null) {
                     dismiss.run();
                 }
@@ -2263,9 +2263,9 @@ public class SelectAnimatedEmojiDialog extends FrameLayout implements Notificati
                     if (pack != null) {
                         button.set(pack.set.title, !pack.free && !UserConfig.getInstance(currentAccount).isPremium(), pack.installed, e -> {
                             if (!pack.free && !UserConfig.getInstance(currentAccount).isPremium()) {
-                                BaseFragments fragment = LaunchActivity.getLastFragment();
+                                BaseFragment fragment = LaunchActivity.getLastFragment();
                                 if (fragment != null) {
-                                    fragment.showDialog(new PremiumFeatureBottomSheet(baseFragments, getContext(), currentAccount, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
+                                    fragment.showDialog(new PremiumFeatureBottomSheet(baseFragment, getContext(), currentAccount, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
                                 }
                                 return;
                             }

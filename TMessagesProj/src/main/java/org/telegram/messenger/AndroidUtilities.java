@@ -35,6 +35,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -134,7 +135,7 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
@@ -1308,7 +1309,7 @@ public class AndroidUtilities {
         }
     }
 
-    public static boolean isMapsInstalled(BaseFragments fragment) {
+    public static boolean isMapsInstalled(BaseFragment fragment) {
         String pkg = ApplicationLoader.getMapsProvider().getMapsAppPackageName();
         try {
             ApplicationLoader.applicationContext.getPackageManager().getApplicationInfo(pkg, 0);
@@ -3548,7 +3549,7 @@ public class AndroidUtilities {
         return key_hash;
     }
 
-    public static void openDocument(MessageObject message, Activity activity, BaseFragments parentFragment) {
+    public static void openDocument(MessageObject message, Activity activity, BaseFragment parentFragment) {
         if (message == null) {
             return;
         }
@@ -4144,7 +4145,7 @@ public class AndroidUtilities {
             NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.proxySettingsChanged);
             if (activity instanceof LaunchActivity) {
                 INavigationLayout layout = ((LaunchActivity) activity).getActionBarLayout();
-                BaseFragments fragment = layout.getLastFragment();
+                BaseFragment fragment = layout.getLastFragment();
                 boolean bulletinSent = false;
                 if (fragment instanceof ChatActivity) {
                     UndoView undoView = ((ChatActivity) fragment).getUndoView();
@@ -4495,7 +4496,7 @@ public class AndroidUtilities {
         return friction / (2f * (float) Math.sqrt(mass * tension));
     }
 
-    public static void openSharing(BaseFragments fragment, String url) {
+    public static void openSharing(BaseFragment fragment, String url) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -4745,7 +4746,7 @@ public class AndroidUtilities {
         if (parentLayout == null || rowName == null) {
             return;
         }
-        BaseFragments openingFragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1);
+        BaseFragment openingFragment = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 1);
         try {
             Field listViewField = openingFragment.getClass().getDeclaredField("listView");
             listViewField.setAccessible(true);

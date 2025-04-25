@@ -60,7 +60,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.ListView.AdapterWithDiffUtils;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
@@ -70,7 +70,7 @@ import org.telegram.ui.Components.Reactions.HwEmojis;
 import org.telegram.ui.Components.Reactions.ReactionsEffectOverlay;
 import org.telegram.ui.Components.Reactions.ReactionsLayoutInBubble;
 import org.telegram.ui.Components.Reactions.ReactionsUtils;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -153,7 +153,7 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
     private float otherViewsScale;
     private boolean clicked;
     long lastReactionSentTime;
-    BaseFragments fragment;
+    BaseFragment fragment;
     private PremiumLockIconView premiumLockIconView;
     private InternalImageView customEmojiReactionsIconView;
     private float customEmojiReactionsEnterProgress;
@@ -180,7 +180,7 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
     public TextView hintView;
     private float bubblesOffset;
 
-    public ReactionsContainerLayout(int type, BaseFragments fragment, @NonNull Context context, int currentAccount, Theme.ResourcesProvider resourcesProvider) {
+    public ReactionsContainerLayout(int type, BaseFragment fragment, @NonNull Context context, int currentAccount, Theme.ResourcesProvider resourcesProvider) {
         super(context);
         this.type = type;
         durationScale = Settings.Global.getFloat(context.getContentResolver(), Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f);
@@ -566,7 +566,7 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
     }
 
     private void showUnlockPremium(float x, float y) {
-        PremiumFeatureBottomSheet bottomSheet = new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragments.PREMIUM_FEATURE_REACTIONS, true);
+        PremiumFeatureBottomSheet bottomSheet = new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragment.PREMIUM_FEATURE_REACTIONS, true);
         bottomSheet.show();
     }
 
@@ -1316,7 +1316,7 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
         this.currentAccount = currentAccount;
     }
 
-    public void setFragment(BaseFragments lastFragment) {
+    public void setFragment(BaseFragment lastFragment) {
         fragment = lastFragment;
     }
 

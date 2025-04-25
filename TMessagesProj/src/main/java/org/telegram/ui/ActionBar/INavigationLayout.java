@@ -26,9 +26,9 @@ public interface INavigationLayout {
 
     boolean presentFragment(NavigationParams params);
     boolean checkTransitionAnimation();
-    boolean addFragmentToStack(BaseFragments fragment, int position);
-    void removeFragmentFromStack(BaseFragments fragment, boolean immediate);
-    List<BaseFragments> getFragmentStack();
+    boolean addFragmentToStack(BaseFragment fragment, int position);
+    void removeFragmentFromStack(BaseFragment fragment, boolean immediate);
+    List<BaseFragment> getFragmentStack();
     void setDelegate(INavigationLayoutDelegate INavigationLayoutDelegate);
     void closeLastFragment(boolean animated, boolean forceNoAnimation);
     DrawerLayoutContainer getDrawerLayoutContainer();
@@ -91,7 +91,7 @@ public interface INavigationLayout {
         };
     }
 
-    default void removeFragmentFromStack(BaseFragments fragment) {
+    default void removeFragmentFromStack(BaseFragment fragment) {
         removeFragmentFromStack(fragment, false);
     }
     default boolean isActionBarInCrossfade() {
@@ -143,11 +143,11 @@ public interface INavigationLayout {
         drawHeaderShadow(canvas, 0xFF, y);
     }
 
-    default BaseFragments getBackgroundFragment() {
+    default BaseFragment getBackgroundFragment() {
         return getFragmentStack().size() <= 1 ? null : getFragmentStack().get(getFragmentStack().size() - 2);
     }
 
-    default BaseFragments getLastFragment() {
+    default BaseFragment getLastFragment() {
         return getFragmentStack().isEmpty() ? null : getFragmentStack().get(getFragmentStack().size() - 1);
     }
 
@@ -168,14 +168,14 @@ public interface INavigationLayout {
     }
 
     default void bringToFront(int i) {
-        BaseFragments fragment = getFragmentStack().get(i);
+        BaseFragment fragment = getFragmentStack().get(i);
         removeFragmentFromStack(fragment);
         addFragmentToStack(fragment);
         rebuildFragments(REBUILD_FLAG_REBUILD_ONLY_LAST);
     }
 
     default void removeAllFragments() {
-        for (BaseFragments fragment : new ArrayList<>(getFragmentStack())) {
+        for (BaseFragment fragment : new ArrayList<>(getFragmentStack())) {
             removeFragmentFromStack(fragment);
         }
     }
@@ -203,7 +203,7 @@ public interface INavigationLayout {
         closeLastFragment(animated, false);
     }
 
-    default void setFragmentStack(List<BaseFragments> stack) {
+    default void setFragmentStack(List<BaseFragment> stack) {
         init(stack);
     }
 
@@ -211,7 +211,7 @@ public interface INavigationLayout {
      * @deprecated This method was replaced with {@link INavigationLayout#setFragmentStack(List)}
      */
     @Deprecated
-    default void init(List<BaseFragments> stack) {
+    default void init(List<BaseFragment> stack) {
         throw new RuntimeException("Neither setFragmentStack(...) or init(...) were overriden!");
     }
 
@@ -222,23 +222,23 @@ public interface INavigationLayout {
         removeFragmentFromStack(getFragmentStack().get(i));
     }
 
-    default boolean addFragmentToStack(BaseFragments fragment) {
+    default boolean addFragmentToStack(BaseFragment fragment) {
         return addFragmentToStack(fragment, -1);
     }
 
-    default boolean presentFragment(BaseFragments fragment) {
+    default boolean presentFragment(BaseFragment fragment) {
         return presentFragment(new NavigationParams(fragment));
     }
 
-    default boolean presentFragment(BaseFragments fragment, boolean removeLast) {
+    default boolean presentFragment(BaseFragment fragment, boolean removeLast) {
         return presentFragment(new NavigationParams(fragment).setRemoveLast(removeLast));
     }
 
-    default boolean presentFragmentAsPreview(BaseFragments fragment) {
+    default boolean presentFragmentAsPreview(BaseFragment fragment) {
         return presentFragment(new NavigationParams(fragment).setPreview(true));
     }
 
-    default boolean presentFragmentAsPreviewWithMenu(BaseFragments fragment, ActionBarPopupWindow.ActionBarPopupWindowLayout menuView) {
+    default boolean presentFragmentAsPreviewWithMenu(BaseFragment fragment, ActionBarPopupWindow.ActionBarPopupWindowLayout menuView) {
         return presentFragment(new NavigationParams(fragment).setPreview(true).setMenuView(menuView));
     }
 
@@ -246,7 +246,7 @@ public interface INavigationLayout {
      * @deprecated You should use {@link INavigationLayout.NavigationParams} for advanced params
      */
     @Deprecated
-    default boolean presentFragment(BaseFragments fragment, boolean removeLast, boolean forceWithoutAnimation, boolean check, boolean preview) {
+    default boolean presentFragment(BaseFragment fragment, boolean removeLast, boolean forceWithoutAnimation, boolean check, boolean preview) {
         return presentFragment(new NavigationParams(fragment).setRemoveLast(removeLast).setNoAnimation(forceWithoutAnimation).setCheckPresentFromDelegate(check).setPreview(preview));
     }
 
@@ -254,14 +254,14 @@ public interface INavigationLayout {
      * @deprecated You should use {@link INavigationLayout.NavigationParams} for advanced params
      */
     @Deprecated
-    default boolean presentFragment(BaseFragments fragment, boolean removeLast, boolean forceWithoutAnimation, boolean check, boolean preview, ActionBarPopupWindow.ActionBarPopupWindowLayout menuView) {
+    default boolean presentFragment(BaseFragment fragment, boolean removeLast, boolean forceWithoutAnimation, boolean check, boolean preview, ActionBarPopupWindow.ActionBarPopupWindowLayout menuView) {
         return presentFragment(new NavigationParams(fragment).setRemoveLast(removeLast).setNoAnimation(forceWithoutAnimation).setCheckPresentFromDelegate(check).setPreview(preview).setMenuView(menuView));
     }
 
     default void dismissDialogs() {
-        List<BaseFragments> fragmentsStack = getFragmentStack();
+        List<BaseFragment> fragmentsStack = getFragmentStack();
         if (!fragmentsStack.isEmpty()) {
-            BaseFragments lastFragment = fragmentsStack.get(fragmentsStack.size() - 1);
+            BaseFragment lastFragment = fragmentsStack.get(fragmentsStack.size() - 1);
             lastFragment.dismissCurrentDialog();
         }
     }
@@ -289,11 +289,11 @@ public interface INavigationLayout {
         /**
          * @deprecated You should override {@link INavigationLayoutDelegate#needPresentFragment(INavigationLayout, NavigationParams)} for more fields
          */
-        default boolean needPresentFragment(BaseFragments fragment, boolean removeLast, boolean forceWithoutAnimation, INavigationLayout layout) {
+        default boolean needPresentFragment(BaseFragment fragment, boolean removeLast, boolean forceWithoutAnimation, INavigationLayout layout) {
             return true;
         }
 
-        default boolean needAddFragmentToStack(BaseFragments fragment, INavigationLayout layout) {
+        default boolean needAddFragmentToStack(BaseFragment fragment, INavigationLayout layout) {
             return true;
         }
 
@@ -311,7 +311,7 @@ public interface INavigationLayout {
     }
 
     class NavigationParams {
-        public BaseFragments fragment;
+        public BaseFragment fragment;
         public boolean removeLast;
         public boolean noAnimation;
         public boolean checkPresentFromDelegate = true;
@@ -322,7 +322,7 @@ public interface INavigationLayout {
         public boolean isFromDelay;
         public boolean delayDone;
 
-        public NavigationParams(BaseFragments fragment) {
+        public NavigationParams(BaseFragment fragment) {
             this.fragment = fragment;
         }
 

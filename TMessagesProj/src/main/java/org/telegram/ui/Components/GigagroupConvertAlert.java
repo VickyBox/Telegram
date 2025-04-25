@@ -24,7 +24,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 
@@ -65,7 +65,7 @@ public class GigagroupConvertAlert extends BottomSheet {
         }
     }
 
-    public GigagroupConvertAlert(final Context context, BaseFragments parentFragment) {
+    public GigagroupConvertAlert(final Context context, BaseFragment parentFragment) {
         super(context, true);
         setApplyBottomPadding(false);
         setApplyTopPadding(false);

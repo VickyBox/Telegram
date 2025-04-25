@@ -47,7 +47,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.AlertsCreator;
@@ -62,7 +62,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 @TargetApi(23)
-public class ActionIntroActivity extends BaseFragments implements LocationController.LocationFetchCallback {
+public class ActionIntroActivity extends BaseFragment implements LocationController.LocationFetchCallback {
 
     private RLottieImageView imageView;
     private TextView buttonTextView;

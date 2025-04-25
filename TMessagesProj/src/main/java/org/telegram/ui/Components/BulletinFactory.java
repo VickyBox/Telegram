@@ -14,6 +14,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
@@ -35,17 +36,17 @@ import org.telegram.messenger.UserObject;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class BulletinFactory {
 
-    public static BulletinFactory of(BaseFragments fragment) {
+    public static BulletinFactory of(BaseFragment fragment) {
         return new BulletinFactory(fragment);
     }
 
@@ -53,7 +54,7 @@ public final class BulletinFactory {
         return new BulletinFactory(containerLayout, resourcesProvider);
     }
 
-    public static boolean canShowBulletin(BaseFragments fragment) {
+    public static boolean canShowBulletin(BaseFragment fragment) {
         return fragment != null && fragment.getParentActivity() != null && fragment.getLayoutContainer() != null;
     }
 
@@ -61,11 +62,11 @@ public final class BulletinFactory {
     public static final int ICON_TYPE_WARNING = 1;
 
     public static BulletinFactory global() {
-        BaseFragments baseFragments = LaunchActivity.getLastFragment();
-        if (baseFragments == null) {
+        BaseFragment baseFragment = LaunchActivity.getLastFragment();
+        if (baseFragment == null) {
             return null;
         }
-        return BulletinFactory.of(baseFragments);
+        return BulletinFactory.of(baseFragment);
     }
 
     public static void showForError(TLRPC.TL_error error) {
@@ -152,11 +153,11 @@ public final class BulletinFactory {
         }
     }
 
-    private final BaseFragments fragment;
+    private final BaseFragment fragment;
     private final FrameLayout containerLayout;
     private final Theme.ResourcesProvider resourcesProvider;
 
-    private BulletinFactory(BaseFragments fragment) {
+    private BulletinFactory(BaseFragment fragment) {
         if (fragment != null && fragment.storyViewer != null && fragment.storyViewer.attachedToParent()) {
             this.fragment = null;
             this.containerLayout = fragment.storyViewer.getContainerForBulletin();
@@ -696,7 +697,7 @@ public final class BulletinFactory {
             spannable.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(@NonNull View widget) {
-                    fragment.presentFragment(new PremiumPreviewFragments("settings"));
+                    fragment.presentFragment(new PremiumPreviewFragment("settings"));
                 }
 
                 @Override
@@ -798,12 +799,12 @@ public final class BulletinFactory {
     //region Static Factory
 
     @CheckResult
-    public static Bulletin createMuteBulletin(BaseFragments fragment, int setting) {
+    public static Bulletin createMuteBulletin(BaseFragment fragment, int setting) {
         return createMuteBulletin(fragment, setting, 0, null);
     }
 
     @CheckResult
-    public static Bulletin createMuteBulletin(BaseFragments fragment, int setting, int timeInSeconds, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createMuteBulletin(BaseFragment fragment, int setting, int timeInSeconds, Theme.ResourcesProvider resourcesProvider) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), resourcesProvider);
 
         final String text;
@@ -853,7 +854,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createMuteBulletin(BaseFragments fragment, boolean mute, int chatsCount, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createMuteBulletin(BaseFragment fragment, boolean mute, int chatsCount, Theme.ResourcesProvider resourcesProvider) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), resourcesProvider);
         layout.textView.setText(
             mute ?
@@ -869,12 +870,12 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createMuteBulletin(BaseFragments fragment, boolean muted, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createMuteBulletin(BaseFragment fragment, boolean muted, Theme.ResourcesProvider resourcesProvider) {
         return createMuteBulletin(fragment, muted ? NotificationsController.SETTING_MUTE_FOREVER : NotificationsController.SETTING_MUTE_UNMUTE, 0, resourcesProvider);
     }
 
     @CheckResult
-    public static Bulletin createDeleteMessagesBulletin(BaseFragments fragment, int count, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createDeleteMessagesBulletin(BaseFragment fragment, int count, Theme.ResourcesProvider resourcesProvider) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), resourcesProvider);
         layout.setAnimation(R.raw.ic_delete, "Envelope", "Cover", "Bucket");
         layout.textView.setText(LocaleController.formatPluralString("MessagesDeletedHint", count));
@@ -882,7 +883,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createUnpinAllMessagesBulletin(BaseFragments fragment, int count, boolean hide, Runnable undoAction, Runnable delayedAction, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createUnpinAllMessagesBulletin(BaseFragment fragment, int count, boolean hide, Runnable undoAction, Runnable delayedAction, Theme.ResourcesProvider resourcesProvider) {
         if (fragment.getParentActivity() == null) {
             if (delayedAction != null) {
                 delayedAction.run();
@@ -907,7 +908,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createSaveToGalleryBulletin(BaseFragments fragment, boolean video, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createSaveToGalleryBulletin(BaseFragment fragment, boolean video, Theme.ResourcesProvider resourcesProvider) {
         return of(fragment).createDownloadBulletin(video ? FileType.VIDEO : FileType.PHOTO, resourcesProvider);
     }
 
@@ -927,7 +928,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createPromoteToAdminBulletin(BaseFragments fragment, String userFirstName) {
+    public static Bulletin createPromoteToAdminBulletin(BaseFragment fragment, String userFirstName) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), fragment.getResourceProvider());
         layout.setAnimation(R.raw.ic_admin, "Shield");
         layout.textView.setText(AndroidUtilities.replaceTags(LocaleController.formatString("UserSetAsAdminHint", R.string.UserSetAsAdminHint, userFirstName)));
@@ -935,7 +936,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createAddedAsAdminBulletin(BaseFragments fragment, String userFirstName) {
+    public static Bulletin createAddedAsAdminBulletin(BaseFragment fragment, String userFirstName) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), fragment.getResourceProvider());
         layout.setAnimation(R.raw.ic_admin, "Shield");
         layout.textView.setText(AndroidUtilities.replaceTags(LocaleController.formatString("UserAddedAsAdminHint", R.string.UserAddedAsAdminHint, userFirstName)));
@@ -1027,7 +1028,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createRemoveFromChatBulletin(BaseFragments fragment, TLRPC.User user, String chatName) {
+    public static Bulletin createRemoveFromChatBulletin(BaseFragment fragment, TLRPC.User user, String chatName) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), fragment.getResourceProvider());
         layout.setAnimation(R.raw.ic_ban, "Hand");
         String name;
@@ -1041,7 +1042,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createBanBulletin(BaseFragments fragment, boolean banned) {
+    public static Bulletin createBanBulletin(BaseFragment fragment, boolean banned) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), fragment.getResourceProvider());
         final String text;
         if (banned) {
@@ -1071,7 +1072,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createCopyLinkBulletin(BaseFragments fragment) {
+    public static Bulletin createCopyLinkBulletin(BaseFragment fragment) {
         return of(fragment).createCopyLinkBulletin();
     }
 
@@ -1081,17 +1082,17 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createPinMessageBulletin(BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createPinMessageBulletin(BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
         return createPinMessageBulletin(fragment, true, null, null, resourcesProvider);
     }
 
     @CheckResult
-    public static Bulletin createUnpinMessageBulletin(BaseFragments fragment, Runnable undoAction, Runnable delayedAction, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createUnpinMessageBulletin(BaseFragment fragment, Runnable undoAction, Runnable delayedAction, Theme.ResourcesProvider resourcesProvider) {
         return createPinMessageBulletin(fragment, false, undoAction, delayedAction, resourcesProvider);
     }
 
     @CheckResult
-    private static Bulletin createPinMessageBulletin(BaseFragments fragment, boolean pinned, Runnable undoAction, Runnable delayedAction, Theme.ResourcesProvider resourcesProvider) {
+    private static Bulletin createPinMessageBulletin(BaseFragment fragment, boolean pinned, Runnable undoAction, Runnable delayedAction, Theme.ResourcesProvider resourcesProvider) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), resourcesProvider);
         layout.setAnimation(pinned ? R.raw.ic_pin : R.raw.ic_unpin, 28, 28, "Pin", "Line");
         layout.textView.setText(LocaleController.getString(pinned ? "MessagePinnedHint" : "MessageUnpinnedHint", pinned ? R.string.MessagePinnedHint : R.string.MessageUnpinnedHint));
@@ -1102,7 +1103,7 @@ public final class BulletinFactory {
     }
 
     @CheckResult
-    public static Bulletin createSoundEnabledBulletin(BaseFragments fragment, int setting, Theme.ResourcesProvider resourcesProvider) {
+    public static Bulletin createSoundEnabledBulletin(BaseFragment fragment, int setting, Theme.ResourcesProvider resourcesProvider) {
         final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(fragment.getParentActivity(), resourcesProvider);
 
         final String text;

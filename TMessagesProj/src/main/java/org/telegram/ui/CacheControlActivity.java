@@ -76,7 +76,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -115,7 +115,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class CacheControlActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class CacheControlActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private static final int VIEW_TYPE_TEXT_SETTINGS = 0;
     private static final int VIEW_TYPE_INFO = 1;

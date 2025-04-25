@@ -52,7 +52,7 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.CheckBoxCell;
@@ -79,7 +79,7 @@ import org.telegram.ui.Components.voip.CellFlickerDrawable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SessionsActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class SessionsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     public static final int TYPE_DEVICES = 0;
     public static final int TYPE_WEB_SESSIONS = 1;

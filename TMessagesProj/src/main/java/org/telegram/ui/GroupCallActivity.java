@@ -105,7 +105,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -121,6 +121,8 @@ import org.telegram.ui.Components.AudioPlayerAlert;
 import org.telegram.ui.Components.AvatarDrawable;
 import org.telegram.ui.Components.BackupImageView;
 import org.telegram.ui.Components.BlobDrawable;
+import org.telegram.ui.Components.Bulletin;
+import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.Components.CheckBoxSquare;
 import org.telegram.ui.Components.CubicBezierInterpolator;
 import org.telegram.ui.Components.EditTextBoldCursor;
@@ -1657,7 +1659,7 @@ public class GroupCallActivity extends BottomSheet implements NotificationCenter
 
     protected void makeFocusable(BottomSheet bottomSheet, AlertDialog alertDialog, EditTextBoldCursor editText, boolean showKeyboard) {
         if (!enterEventSent) {
-            BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+            BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
             if (fragment instanceof ChatActivity) {
                 boolean keyboardVisible = ((ChatActivity) fragment).needEnterText();
                 enterEventSent = true;
@@ -1780,7 +1782,7 @@ public class GroupCallActivity extends BottomSheet implements NotificationCenter
             }
         };
         setOnDismissListener(dialog -> {
-            BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+            BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
             if (anyEnterEventSent) {
                 if (fragment instanceof ChatActivity) {
                     ((ChatActivity) fragment).onEditTextDialogClose(true, true);
@@ -5974,7 +5976,7 @@ public class GroupCallActivity extends BottomSheet implements NotificationCenter
         } else {
             boolean keyboardIsOpen = false;
             if (parentActivity != null) {
-                BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+                BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
                 if (fragment instanceof ChatActivity) {
                     keyboardIsOpen = ((ChatActivity) fragment).needEnterText();
                     anyEnterEventSent = true;
@@ -6069,7 +6071,7 @@ public class GroupCallActivity extends BottomSheet implements NotificationCenter
                     if (shouldAdd && "USER_NOT_PARTICIPANT".equals(error.text)) {
                         processSelectedOption(null, id, 3);
                     } else {
-                        BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+                        BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
                         AlertsCreator.processError(currentAccount, error, fragment, req);
                     }
                 });
@@ -7071,7 +7073,7 @@ public class GroupCallActivity extends BottomSheet implements NotificationCenter
             } else if (object instanceof TLRPC.User) {
                 TLRPC.User user = (TLRPC.User) object;
                 builder.setPositiveButton(LocaleController.getString("VoipGroupAdd", R.string.VoipGroupAdd), (dialogInterface, i) -> {
-                    BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+                    BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
                     accountInstance.getMessagesController().addUserToChat(currentChat.id, user, 0, null, fragment, () -> inviteUserToCall(peerId, false));
                 });
             }
@@ -7097,7 +7099,7 @@ public class GroupCallActivity extends BottomSheet implements NotificationCenter
             dismiss();
         } else if (option == 8) {
             parentActivity.switchToAccount(currentAccount, true);
-            BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+            BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
             if (fragment instanceof ChatActivity) {
                 if (((ChatActivity) fragment).getDialogId() == peerId) {
                     dismiss();

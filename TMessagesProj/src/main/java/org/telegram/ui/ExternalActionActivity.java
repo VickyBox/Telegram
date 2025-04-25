@@ -37,7 +37,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.DrawerLayoutContainer;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
@@ -51,8 +51,8 @@ import java.util.ArrayList;
 public class ExternalActionActivity extends Activity implements INavigationLayout.INavigationLayoutDelegate {
 
     private boolean finished;
-    private static ArrayList<BaseFragments> mainFragmentsStack = new ArrayList<>();
-    private static ArrayList<BaseFragments> layerFragmentsStack = new ArrayList<>();
+    private static ArrayList<BaseFragment> mainFragmentsStack = new ArrayList<>();
+    private static ArrayList<BaseFragment> layerFragmentsStack = new ArrayList<>();
 
     private PasscodeView passcodeView;
     protected INavigationLayout actionBarLayout;
@@ -444,11 +444,11 @@ public class ExternalActionActivity extends Activity implements INavigationLayou
         finished = true;
     }
 
-    public void presentFragment(BaseFragments fragment) {
+    public void presentFragment(BaseFragment fragment) {
         actionBarLayout.presentFragment(fragment);
     }
 
-    public boolean presentFragment(final BaseFragments fragment, final boolean removeLast, boolean forceWithoutAnimation) {
+    public boolean presentFragment(final BaseFragment fragment, final boolean removeLast, boolean forceWithoutAnimation) {
         return actionBarLayout.presentFragment(fragment, removeLast, forceWithoutAnimation, true, false);
     }
 
@@ -473,7 +473,7 @@ public class ExternalActionActivity extends Activity implements INavigationLayou
                 actionBarLayout.getView().setLayoutParams(relativeLayoutParams);
 
                 if (AndroidUtilities.isSmallTablet() && actionBarLayout.getFragmentStack().size() == 2) {
-                    BaseFragments chatFragment = actionBarLayout.getFragmentStack().get(1);
+                    BaseFragment chatFragment = actionBarLayout.getFragmentStack().get(1);
                     chatFragment.onPause();
                     actionBarLayout.getFragmentStack().remove(1);
                     actionBarLayout.showLastFragment();
@@ -636,12 +636,12 @@ public class ExternalActionActivity extends Activity implements INavigationLayou
     }
 
     @Override
-    public boolean needPresentFragment(BaseFragments fragment, boolean removeLast, boolean forceWithoutAnimation, INavigationLayout layout) {
+    public boolean needPresentFragment(BaseFragment fragment, boolean removeLast, boolean forceWithoutAnimation, INavigationLayout layout) {
         return true;
     }
 
     @Override
-    public boolean needAddFragmentToStack(BaseFragments fragment, INavigationLayout layout) {
+    public boolean needAddFragmentToStack(BaseFragment fragment, INavigationLayout layout) {
         return true;
     }
 

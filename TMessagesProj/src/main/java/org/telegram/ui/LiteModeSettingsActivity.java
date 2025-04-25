@@ -46,7 +46,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.TextCell;
@@ -68,7 +68,7 @@ import org.telegram.ui.Components.Switch;
 
 import java.util.ArrayList;
 
-public class LiteModeSettingsActivity extends BaseFragments {
+public class LiteModeSettingsActivity extends BaseFragment {
 
     FrameLayout contentView;
 

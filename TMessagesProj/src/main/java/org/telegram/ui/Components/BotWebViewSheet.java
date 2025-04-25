@@ -56,7 +56,7 @@ import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
@@ -327,7 +327,7 @@ public class BotWebViewSheet extends Dialog implements NotificationCenter.Notifi
 
             @Override
             public void onWebAppOpenInvoice(String slug, TLObject response) {
-                BaseFragments parentFragment = ((LaunchActivity) parentActivity).getActionBarLayout().getLastFragment();
+                BaseFragment parentFragment = ((LaunchActivity) parentActivity).getActionBarLayout().getLastFragment();
                 PaymentFormActivity paymentFormActivity = null;
                 if (response instanceof TLRPC.TL_payments_paymentForm) {
                     TLRPC.TL_payments_paymentForm form = (TLRPC.TL_payments_paymentForm) response;
@@ -367,7 +367,7 @@ public class BotWebViewSheet extends Dialog implements NotificationCenter.Notifi
             public void onWebAppSwitchInlineQuery(TLRPC.User botUser, String query, List<String> chatTypes) {
                 if (chatTypes.isEmpty()) {
                     if (parentActivity instanceof LaunchActivity) {
-                        BaseFragments lastFragment = ((LaunchActivity) parentActivity).getActionBarLayout().getLastFragment();
+                        BaseFragment lastFragment = ((LaunchActivity) parentActivity).getActionBarLayout().getLastFragment();
                         if (lastFragment instanceof ChatActivity) {
                             ((ChatActivity) lastFragment).getChatActivityEnterView().setFieldText("@" + UserObject.getPublicUsername(botUser) + " " + query);
                             dismiss();
@@ -403,7 +403,7 @@ public class BotWebViewSheet extends Dialog implements NotificationCenter.Notifi
                         args1.putString("inline_query_input", "@" + UserObject.getPublicUsername(botUser) + " " + query);
 
                         if (parentActivity instanceof LaunchActivity) {
-                            BaseFragments lastFragment = ((LaunchActivity) parentActivity).getActionBarLayout().getLastFragment();
+                            BaseFragment lastFragment = ((LaunchActivity) parentActivity).getActionBarLayout().getLastFragment();
                             if (MessagesController.getInstance(currentAccount).checkCanOpenChat(args1, lastFragment)) {
                                 overlayActionBarLayoutDialog.dismiss();
 
@@ -840,11 +840,11 @@ public class BotWebViewSheet extends Dialog implements NotificationCenter.Notifi
         requestWebView(currentAccount, peerId, botId, buttonText, buttonUrl, type, replyToMsgId, silent, null, null, false, null, null, 0);
     }
 
-    public void requestWebView(int currentAccount, long peerId, long botId, String buttonText, String buttonUrl, @WebViewType int type, int replyToMsgId, boolean silent, BaseFragments lastFragment, TLRPC.BotApp app, boolean allowWrite, String startParam, TLRPC.User botUser) {
+    public void requestWebView(int currentAccount, long peerId, long botId, String buttonText, String buttonUrl, @WebViewType int type, int replyToMsgId, boolean silent, BaseFragment lastFragment, TLRPC.BotApp app, boolean allowWrite, String startParam, TLRPC.User botUser) {
         requestWebView(currentAccount, peerId, botId, buttonText, buttonUrl, type, replyToMsgId, silent, lastFragment, app, allowWrite, startParam, botUser, 0);
     }
 
-    public void requestWebView(int currentAccount, long peerId, long botId, String buttonText, String buttonUrl, @WebViewType int type, int replyToMsgId, boolean silent, BaseFragments lastFragment, TLRPC.BotApp app, boolean allowWrite, String startParam, TLRPC.User botUser, int flags) {
+    public void requestWebView(int currentAccount, long peerId, long botId, String buttonText, String buttonUrl, @WebViewType int type, int replyToMsgId, boolean silent, BaseFragment lastFragment, TLRPC.BotApp app, boolean allowWrite, String startParam, TLRPC.User botUser, int flags) {
         this.currentAccount = currentAccount;
         this.peerId = peerId;
         this.botId = botId;

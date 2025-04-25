@@ -43,7 +43,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -89,7 +89,7 @@ public class NewContactBottomSheet extends BottomSheet implements AdapterView.On
     private String initialLastName;
 
     private final static int done_button = 1;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     int classGuid;
     private AnimatedPhoneNumberEditText codeField;
     private View codeDividerView;
@@ -103,7 +103,7 @@ public class NewContactBottomSheet extends BottomSheet implements AdapterView.On
     private FrameLayout doneButtonContainer;
     private TextView plusTextView;
 
-    public NewContactBottomSheet(BaseFragments parentFragment, Context context) {
+    public NewContactBottomSheet(BaseFragment parentFragment, Context context) {
         super(context, true);
         waitingKeyboard = true;
         smoothKeyboardAnimationEnabled = true;

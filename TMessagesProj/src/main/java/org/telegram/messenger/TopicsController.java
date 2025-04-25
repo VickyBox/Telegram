@@ -16,7 +16,7 @@ import org.telegram.tgnet.RequestDelegate;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.Components.Forum.ForumUtilities;
 
 import java.util.ArrayList;
@@ -658,7 +658,7 @@ public class TopicsController extends BaseController {
         });
     }
 
-    public void pinTopic(long chatId, int topicId, boolean pin, BaseFragments fragment) {
+    public void pinTopic(long chatId, int topicId, boolean pin, BaseFragment fragment) {
         TLRPC.TL_channels_updatePinnedForumTopic req = new TLRPC.TL_channels_updatePinnedForumTopic();
         req.channel = getMessagesController().getInputChannel(chatId);
         req.topic_id = topicId;

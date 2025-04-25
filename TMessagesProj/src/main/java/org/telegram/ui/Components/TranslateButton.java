@@ -28,7 +28,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.RestrictedLanguagesSelectActivity;
@@ -39,7 +39,7 @@ public class TranslateButton extends FrameLayout {
 
     private final int currentAccount;
     private final long dialogId;
-    private final BaseFragments fragment;
+    private final BaseFragment fragment;
 
     private Theme.ResourcesProvider resourcesProvider;
 
@@ -55,7 +55,7 @@ public class TranslateButton extends FrameLayout {
         this(context, chatActivity.getCurrentAccount(), chatActivity.getDialogId(), chatActivity, resourcesProvider);
     }
 
-    public TranslateButton(Context context, int currentAccount, long dialogId, BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
+    public TranslateButton(Context context, int currentAccount, long dialogId, BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
         super(context);
 
         this.currentAccount = currentAccount;

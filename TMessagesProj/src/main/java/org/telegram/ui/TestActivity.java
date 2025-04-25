@@ -15,14 +15,14 @@ import android.widget.FrameLayout;
 
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.webrtc.Camera1Enumerator;
 import org.webrtc.Camera2Enumerator;
 import org.webrtc.CameraEnumerator;
 import org.webrtc.VideoCapturer;
 
 @TargetApi(18)
-public class TestActivity extends BaseFragments {
+public class TestActivity extends BaseFragment {
 
     public TestActivity() {
         super();

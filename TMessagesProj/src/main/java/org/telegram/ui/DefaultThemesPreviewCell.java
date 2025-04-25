@@ -27,7 +27,7 @@ import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.EmojiThemes;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.DrawerProfileCell;
@@ -55,13 +55,13 @@ public class DefaultThemesPreviewCell extends LinearLayout {
     private int navBarColor;
 
     private int selectedPosition = -1;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     int currentType;
     int themeIndex;
 
     private Boolean wasPortrait = null;
 
-    public DefaultThemesPreviewCell(Context context, BaseFragments parentFragment, int type) {
+    public DefaultThemesPreviewCell(Context context, BaseFragment parentFragment, int type) {
         super(context);
         this.currentType = type;
         this.parentFragment = parentFragment;

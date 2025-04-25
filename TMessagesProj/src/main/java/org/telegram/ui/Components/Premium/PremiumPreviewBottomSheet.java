@@ -40,7 +40,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ShadowSectionCell;
@@ -57,13 +57,13 @@ import org.telegram.ui.Components.Premium.GLIcon.GLIconRenderer;
 import org.telegram.ui.Components.Premium.GLIcon.GLIconTextureView;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.PremiumFeatureCell;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 
 public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView implements NotificationCenter.NotificationCenterDelegate {
 
-    ArrayList<PremiumPreviewFragments.PremiumFeatureData> premiumFeatures = new ArrayList<>();
+    ArrayList<PremiumPreviewFragment.PremiumFeatureData> premiumFeatures = new ArrayList<>();
     int currentAccount;
     TLRPC.User user;
     GiftPremiumBottomSheet.GiftTier giftTier;
@@ -85,7 +85,7 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
     StarParticlesView starParticlesView;
     GLIconTextureView iconTextureView;
     ViewGroup iconContainer;
-    BaseFragments fragment;
+    BaseFragment fragment;
 
     public float startEnterFromX;
     public float startEnterFromY;
@@ -106,11 +106,11 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
     FrameLayout buttonContainer;
     FrameLayout bulletinContainer;
 
-    public PremiumPreviewBottomSheet(BaseFragments fragment, int currentAccount, TLRPC.User user, Theme.ResourcesProvider resourcesProvider) {
+    public PremiumPreviewBottomSheet(BaseFragment fragment, int currentAccount, TLRPC.User user, Theme.ResourcesProvider resourcesProvider) {
         this(fragment, currentAccount, user, null, resourcesProvider);
     }
 
-    public PremiumPreviewBottomSheet(BaseFragments fragment, int currentAccount, TLRPC.User user, GiftPremiumBottomSheet.GiftTier gift, Theme.ResourcesProvider resourcesProvider) {
+    public PremiumPreviewBottomSheet(BaseFragment fragment, int currentAccount, TLRPC.User user, GiftPremiumBottomSheet.GiftTier gift, Theme.ResourcesProvider resourcesProvider) {
         super(fragment, false, false, false, resourcesProvider);
         fixNavigationBar();
         this.fragment = fragment;
@@ -119,7 +119,7 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
         this.currentAccount = currentAccount;
         this.giftTier = gift;
         dummyCell = new PremiumFeatureCell(getContext());
-        PremiumPreviewFragments.fillPremiumFeaturesList(premiumFeatures, currentAccount);
+        PremiumPreviewFragment.fillPremiumFeaturesList(premiumFeatures, currentAccount);
 
         if (giftTier != null || UserConfig.getInstance(currentAccount).isPremium()) {
             buttonContainer.setVisibility(View.GONE);
@@ -146,7 +146,7 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
         recyclerListView.setOnItemClickListener((view, position) -> {
             if (view instanceof PremiumFeatureCell) {
                 PremiumFeatureCell cell = (PremiumFeatureCell) view;
-                PremiumPreviewFragments.sentShowFeaturePreview(currentAccount, cell.data.type);
+                PremiumPreviewFragment.sentShowFeaturePreview(currentAccount, cell.data.type);
 //                if (cell.data.type == PremiumPreviewFragment.PREMIUM_FEATURE_LIMITS) {
 //                    DoubledLimitsBottomSheet bottomSheet = new DoubledLimitsBottomSheet(fragment, currentAccount);
 //                    showDialog(bottomSheet);
@@ -157,7 +157,7 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
         });
 
         MediaDataController.getInstance(currentAccount).preloadPremiumPreviewStickers();
-        PremiumPreviewFragments.sentShowScreenStat("profile");
+        PremiumPreviewFragment.sentShowScreenStat("profile");
 
         fireworksOverlay = new FireworksOverlay(getContext());
         container.addView(fireworksOverlay, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
@@ -196,9 +196,9 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
         currentAccount = UserConfig.selectedAccount;
 
         PremiumButtonView premiumButtonView = new PremiumButtonView(getContext(), false, resourcesProvider);
-        premiumButtonView.setButton(PremiumPreviewFragments.getPremiumButtonText(currentAccount, null), v -> {
-            PremiumPreviewFragments.sentPremiumButtonClick();
-            PremiumPreviewFragments.buyPremium(fragment, "profile");
+        premiumButtonView.setButton(PremiumPreviewFragment.getPremiumButtonText(currentAccount, null), v -> {
+            PremiumPreviewFragment.sentPremiumButtonClick();
+            PremiumPreviewFragment.buyPremium(fragment, "profile");
         });
 
         buttonContainer = new FrameLayout(getContext());
@@ -308,7 +308,7 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
                 titleView[1].setOnLinkPressListener(l -> {
                     ArrayList<TLRPC.InputStickerSet> inputStickerSets = new ArrayList<>();
                     inputStickerSets.add(statusStickerSet);
-                    BaseFragments overridenFragment = new BaseFragments() {
+                    BaseFragment overridenFragment = new BaseFragment() {
                         @Override
                         public Activity getParentActivity() {
                             if (fragment == null) {

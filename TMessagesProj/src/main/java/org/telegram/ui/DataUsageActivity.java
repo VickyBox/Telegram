@@ -36,7 +36,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.StatsController;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.HeaderCell;
@@ -49,7 +49,7 @@ import org.telegram.ui.Components.ScrollSlidingTextTabStrip;
 
 import java.util.ArrayList;
 
-public class DataUsageActivity extends BaseFragments {
+public class DataUsageActivity extends BaseFragment {
 
     private class ViewPage extends FrameLayout {
         private RecyclerListView listView;

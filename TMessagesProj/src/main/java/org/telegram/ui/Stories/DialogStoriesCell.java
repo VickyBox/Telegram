@@ -48,7 +48,7 @@ import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.AnimatedFloat;
@@ -65,7 +65,7 @@ import org.telegram.ui.Components.Premium.LimitReachedBottomSheet;
 import org.telegram.ui.Components.RadialProgress;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.TypefaceSpan;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.Stories.recorder.HintView2;
 import org.telegram.ui.Stories.recorder.StoryRecorder;
 
@@ -129,7 +129,7 @@ public class DialogStoriesCell extends FrameLayout implements NotificationCenter
     ArrayList<Runnable> afterNextLayout = new ArrayList<>();
     private float collapsedProgress1 = -1;
     private float collapsedProgress2;
-    BaseFragments fragment;
+    BaseFragment fragment;
     private CharSequence currentTitle;
     private boolean hasOverlayText;
     private int overlayTextId;
@@ -144,7 +144,7 @@ public class DialogStoriesCell extends FrameLayout implements NotificationCenter
     private ActionBar actionBar;
     private StoriesUtilities.EnsureStoryFileLoadedObject globalCancelable;
 
-    public DialogStoriesCell(@NonNull Context context, BaseFragments fragment, int currentAccount, int type) {
+    public DialogStoriesCell(@NonNull Context context, BaseFragment fragment, int currentAccount, int type) {
         super(context);
         this.type = type;
         this.currentAccount = currentAccount;
@@ -1765,7 +1765,7 @@ public class DialogStoriesCell extends FrameLayout implements NotificationCenter
             if (premiumHint != null) {
                 premiumHint.hide();
             }
-            fragment.presentFragment(new PremiumPreviewFragments("stories"));
+            fragment.presentFragment(new PremiumPreviewFragment("stories"));
         });
         ClickableSpan[] spans = text.getSpans(0, text.length(), ClickableSpan.class);
         if (spans != null && spans.length >= 1) {

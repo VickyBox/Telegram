@@ -75,7 +75,7 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Adapters.FiltersView;
 import org.telegram.ui.ChatActivity;
@@ -681,7 +681,7 @@ public class MediaController implements AudioManager.OnAudioFocusChangeListener,
     private PipRoundVideoView pipRoundVideoView;
     private int pipSwitchingState;
     private Activity baseActivity;
-    private BaseFragments flagSecureFragment;
+    private BaseFragment flagSecureFragment;
     private View feedbackView;
     private AspectRatioFrameLayout currentAspectRatioFrameLayout;
     private boolean isDrawingWasReady;

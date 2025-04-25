@@ -53,7 +53,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.EmptyCell;
@@ -87,12 +87,13 @@ import org.telegram.ui.Components.RLottieImageView;
 import org.telegram.ui.Components.RadialProgressView;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.ViewPagerFixed;
+import org.telegram.ui.Components.voip.VoIPHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class StatisticActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class StatisticActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private TLRPC.ChatFull chat;
     private final long chatId;
@@ -2646,7 +2647,7 @@ public class StatisticActivity extends BaseFragments implements NotificationCent
             return null;
         }
 
-        public void onClick(BaseFragments fragment) {
+        public void onClick(BaseFragment fragment) {
             Bundle bundle = new Bundle();
             bundle.putLong("user_id", user.id);
             MessagesController.getInstance(UserConfig.selectedAccount).putUser(user, false);

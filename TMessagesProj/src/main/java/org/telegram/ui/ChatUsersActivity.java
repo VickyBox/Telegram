@@ -52,7 +52,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Adapters.SearchAdapterHelper;
@@ -84,7 +84,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ChatUsersActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class ChatUsersActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private static final int VIEW_TYPE_INNER_CHECK = 13;
     private static final int VIEW_TYPE_EXPANDABLE_SWITCH = 14;
@@ -979,7 +979,7 @@ public class ChatUsersActivity extends BaseFragments implements NotificationCent
                         protected void onCovert() {
                             getMessagesController().convertToGigaGroup(getParentActivity(), currentChat, ChatUsersActivity.this, (result) -> {
                                 if (result && parentLayout != null) {
-                                    BaseFragments editActivity = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
+                                    BaseFragment editActivity = parentLayout.getFragmentStack().get(parentLayout.getFragmentStack().size() - 2);
                                     if (editActivity instanceof ChatEditActivity) {
                                         editActivity.removeSelfFromStack();
 

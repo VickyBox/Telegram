@@ -8,7 +8,7 @@ import com.google.android.exoplayer2.util.Consumer;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.LaunchActivity;
 
@@ -70,7 +70,7 @@ public class UserNameResolver {
                 }
 
                 if (error != null && error.text != null && error.text.contains("FLOOD_WAIT")) {
-                    BaseFragments fragment = LaunchActivity.getLastFragment();
+                    BaseFragment fragment = LaunchActivity.getLastFragment();
                     if (fragment != null) {
                         BulletinFactory.of(fragment).createErrorBulletin(LocaleController.getString("FloodWait", R.string.FloodWait)).show();
                     }

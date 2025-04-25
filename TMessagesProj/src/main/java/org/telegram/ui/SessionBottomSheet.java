@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -26,9 +27,11 @@ import org.telegram.messenger.R;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
+import org.telegram.ui.Cells.SessionCell;
+import org.telegram.ui.Cells.TextCheckCell2;
 import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RLottieImageView;
@@ -37,10 +40,10 @@ import org.telegram.ui.Components.Switch;
 public class SessionBottomSheet extends BottomSheet {
 
     TLRPC.TL_authorization session;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     RLottieImageView imageView;
 
-    public SessionBottomSheet(BaseFragments fragment, TLRPC.TL_authorization session, boolean isCurrentSession, Callback callback) {
+    public SessionBottomSheet(BaseFragment fragment, TLRPC.TL_authorization session, boolean isCurrentSession, Callback callback) {
         super(fragment.getParentActivity(), false);
         setOpenNoDelay(true);
         Context context = fragment.getParentActivity();

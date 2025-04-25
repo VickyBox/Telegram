@@ -47,7 +47,7 @@ import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.GroupCreateUserCell;
@@ -96,7 +96,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
 
     private HeaderCell headerCell;
 
-    public static void showForDeletion(final BaseFragments fragment, final int filterId, final Utilities.Callback<Boolean> whenDone) {
+    public static void showForDeletion(final BaseFragment fragment, final int filterId, final Utilities.Callback<Boolean> whenDone) {
         ArrayList<MessagesController.DialogFilter> myFilters = fragment.getMessagesController().dialogFilters;
         MessagesController.DialogFilter f = null;
         if (myFilters != null) {
@@ -156,7 +156,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
         }
     }
 
-    public FolderBottomSheet(BaseFragments fragment, int filterId, List<Long> select) {
+    public FolderBottomSheet(BaseFragment fragment, int filterId, List<Long> select) {
         super(fragment, false, false);
 
         this.filterId = filterId;
@@ -207,7 +207,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
         init();
     }
 
-    public FolderBottomSheet(BaseFragments fragment, int filterId, TLRPC.TL_chatlists_chatlistUpdates updates) {
+    public FolderBottomSheet(BaseFragment fragment, int filterId, TLRPC.TL_chatlists_chatlistUpdates updates) {
         super(fragment, false, false);
 
         this.filterId = filterId;
@@ -228,7 +228,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
         init();
     }
 
-    public FolderBottomSheet(BaseFragments fragment, String slug, TLRPC.chatlist_ChatlistInvite invite) {
+    public FolderBottomSheet(BaseFragment fragment, String slug, TLRPC.chatlist_ChatlistInvite invite) {
         super(fragment, false, false);
 
         this.slug = slug;
@@ -397,7 +397,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
         final INavigationLayout parentLayout = getBaseFragment().getParentLayout();
         if (deleting) {
             if (parentLayout != null) {
-                BaseFragments fragment = parentLayout.getLastFragment();
+                BaseFragment fragment = parentLayout.getLastFragment();
                 UndoView undoView = null;
                 if (fragment instanceof ChatActivity) {
                     undoView = ((ChatActivity) fragment).getUndoView();
@@ -406,7 +406,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
                 } else if (fragment instanceof FiltersSetupActivity) {
                     undoView = ((FiltersSetupActivity) fragment).getUndoView();
                 } else if (fragment instanceof FilterCreateActivity) {
-                    List<BaseFragments> stack = parentLayout.getFragmentStack();
+                    List<BaseFragment> stack = parentLayout.getFragmentStack();
                     if (stack.size() >= 2 && stack.get(stack.size() - 2) instanceof FiltersSetupActivity) {
                         FiltersSetupActivity setupFragment = (FiltersSetupActivity) stack.get(stack.size() - 2);
                         fragment.finishFragment();
@@ -443,7 +443,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
                 getBaseFragment().getMessagesController().invalidateChatlistFolderUpdate(filterId);
             }
         } else if (parentLayout != null) {
-            final Utilities.Callback<BaseFragments> bulletin = (fragment) -> {
+            final Utilities.Callback<BaseFragment> bulletin = (fragment) -> {
                 if (updates != null || invite instanceof TLRPC.TL_chatlists_chatlistInviteAlready) {
                     BulletinFactory.of(fragment)
                         .createSimpleBulletin(
@@ -470,9 +470,9 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
                 after = (fid) -> bulletin.run(parentLayout.getLastFragment());
             } else {
                 after = (fid) -> {
-                    List<BaseFragments> fragments = parentLayout.getFragmentStack();
+                    List<BaseFragment> fragments = parentLayout.getFragmentStack();
                     boolean last = true;
-                    BaseFragments lastFragment = null;
+                    BaseFragment lastFragment = null;
                     for (int i = fragments.size() - 1; i >= 0; --i) {
                         lastFragment = fragments.get(i);
                         if (lastFragment instanceof DialogsActivity) {
@@ -486,7 +486,7 @@ public class FolderBottomSheet extends BottomSheetWithRecyclerListView {
                             lastFragment.removeSelfFromStack();
                         }
                     }
-                    final BaseFragments fragment = lastFragment;
+                    final BaseFragment fragment = lastFragment;
                     if (lastFragment instanceof DialogsActivity) {
                         DialogsActivity dialogsActivity = (DialogsActivity) lastFragment;
                         dialogsActivity.closeSearching();

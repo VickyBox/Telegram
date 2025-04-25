@@ -77,7 +77,7 @@ import org.telegram.messenger.camera.CameraSession;
 import org.telegram.messenger.camera.CameraView;
 import org.telegram.messenger.camera.Size;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
@@ -94,7 +94,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 @TargetApi(18)
-public class CameraScanActivity extends BaseFragments {
+public class CameraScanActivity extends BaseFragment {
 
     private TextView titleTextView;
     private TextView descriptionText;
@@ -163,7 +163,7 @@ public class CameraScanActivity extends BaseFragments {
         default void onDismiss() {}
     }
 
-    public static BottomSheet showAsSheet(BaseFragments parentFragment, boolean gallery, int type, CameraScanActivityDelegate cameraDelegate) {
+    public static BottomSheet showAsSheet(BaseFragment parentFragment, boolean gallery, int type, CameraScanActivityDelegate cameraDelegate) {
         return showAsSheet(parentFragment.getParentActivity(), gallery, type, cameraDelegate);
     }
 

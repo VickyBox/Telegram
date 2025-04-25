@@ -29,7 +29,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Adapters.StickersSearchAdapter;
@@ -102,7 +102,7 @@ public class TrendingStickersLayout extends FrameLayout implements NotificationC
     private final StickersSearchAdapter searchAdapter;
     private final FrameLayout searchLayout;
 
-    private BaseFragments parentFragment;
+    private BaseFragment parentFragment;
     private RecyclerListView.OnScrollListener onScrollListener;
 
     private int topOffset;
@@ -517,7 +517,7 @@ public class TrendingStickersLayout extends FrameLayout implements NotificationC
         this.onScrollListener = onScrollListener;
     }
 
-    public void setParentFragment(BaseFragments parentFragment) {
+    public void setParentFragment(BaseFragment parentFragment) {
         this.parentFragment = parentFragment;
     }
 

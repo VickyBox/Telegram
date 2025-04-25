@@ -25,7 +25,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.AvailableReactionCell;
@@ -41,7 +41,7 @@ import org.telegram.ui.Components.SimpleThemeDescription;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReactionsDoubleTapManageActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class ReactionsDoubleTapManageActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private LinearLayout contentView;
     private RecyclerListView listView;
@@ -173,7 +173,7 @@ public class ReactionsDoubleTapManageActivity extends BaseFragments implements N
             if (view instanceof AvailableReactionCell) {
                 AvailableReactionCell cell = (AvailableReactionCell) view;
                 if (cell.locked && !getUserConfig().isPremium()) {
-                    showDialog(new PremiumFeatureBottomSheet(this, PremiumPreviewFragments.PREMIUM_FEATURE_REACTIONS, true));
+                    showDialog(new PremiumFeatureBottomSheet(this, PremiumPreviewFragment.PREMIUM_FEATURE_REACTIONS, true));
                     return;
                 }
                 MediaDataController.getInstance(currentAccount).setDoubleTapReaction(cell.react.reaction);

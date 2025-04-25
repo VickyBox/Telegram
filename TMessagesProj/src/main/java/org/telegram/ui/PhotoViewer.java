@@ -75,6 +75,7 @@ import android.transition.TransitionManager;
 import android.transition.TransitionSet;
 import android.transition.TransitionValues;
 import android.util.FloatProperty;
+import android.util.Log;
 import android.util.Pair;
 import android.util.Property;
 import android.util.Range;
@@ -94,6 +95,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.view.ViewPropertyAnimator;
 import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
 import android.view.WindowManager;
@@ -107,6 +109,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.OverScroller;
+import android.widget.ScrollView;
 import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -135,6 +138,9 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.analytics.AnalyticsListener;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.AnimationNotificationsLocker;
@@ -185,7 +191,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -217,6 +223,7 @@ import org.telegram.ui.Components.Forum.ForumUtilities;
 import org.telegram.ui.Components.GestureDetector2;
 import org.telegram.ui.Components.GroupedPhotosListView;
 import org.telegram.ui.Components.HideViewAfterAnimation;
+import org.telegram.ui.Components.IPhotoPaintView;
 import org.telegram.ui.Components.ImageUpdater;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.LinkPath;
@@ -1700,7 +1707,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
     private float[][] animationValues = new float[2][13];
 
     private ChatActivity parentChatActivity;
-    private BaseFragments parentFragment;
+    private BaseFragment parentFragment;
 //    private MentionsAdapter mentionsAdapter;
 //    private RecyclerListView mentionListView;
 //    private LinearLayoutManager mentionLayoutManager;
@@ -4251,15 +4258,15 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         setParentActivity(activity, null, resourcesProvider);
     }
 
-    public void setParentActivity(BaseFragments fragment) {
+    public void setParentActivity(BaseFragment fragment) {
         setParentActivity(fragment, null);
     }
 
-    public void setParentActivity(BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
+    public void setParentActivity(BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
         setParentActivity(null, fragment, resourcesProvider);
     }
 
-    public void setParentActivity(Activity inActivity, BaseFragments fragment, Theme.ResourcesProvider resourcesProvider) {
+    public void setParentActivity(Activity inActivity, BaseFragment fragment, Theme.ResourcesProvider resourcesProvider) {
         Activity activity = inActivity != null ? inActivity : fragment.getParentActivity();
         Theme.createChatResources(activity, false);
         this.resourcesProvider = resourcesProvider;
@@ -6667,7 +6674,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                 parentAlert.dismiss(true);
             }
             if (parentFragment != null) {
-                parentFragment.presentFragment(new PremiumPreviewFragments("caption_limit"));
+                parentFragment.presentFragment(new PremiumPreviewFragment("caption_limit"));
             }
         }).setOnHideListener(() -> {
             limitBulletin = null;
@@ -15215,9 +15222,9 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                         if (animationEndRunnable != null) {
                             ChatActivity chatActivity = parentChatActivity;
                             if (chatActivity == null && parentAlert != null) {
-                                BaseFragments baseFragments = parentAlert.getBaseFragment();
-                                if (baseFragments instanceof ChatActivity) {
-                                    chatActivity = (ChatActivity) baseFragments;
+                                BaseFragment baseFragment = parentAlert.getBaseFragment();
+                                if (baseFragment instanceof ChatActivity) {
+                                    chatActivity = (ChatActivity) baseFragment;
                                 }
                             }
                             if (chatActivity != null) {

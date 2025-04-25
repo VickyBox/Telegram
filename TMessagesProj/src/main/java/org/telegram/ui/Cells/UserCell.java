@@ -35,7 +35,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.UserObject;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.AnimatedEmojiDrawable;
@@ -94,7 +94,7 @@ public class UserCell extends FrameLayout implements NotificationCenter.Notifica
     };
 
     public void openStory(long dialogId, Runnable runnable) {
-        BaseFragments fragment = LaunchActivity.getLastFragment();
+        BaseFragment fragment = LaunchActivity.getLastFragment();
         if (fragment != null) {
             fragment.getOrCreateStoryViewer().doOnAnimationReady(runnable);
             fragment.getOrCreateStoryViewer().open(getContext(), dialogId, StoriesListPlaceProvider.of((RecyclerListView) getParent()));

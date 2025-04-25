@@ -60,6 +60,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.exoplayer2.util.Log;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.AnimationNotificationsLocker;
 import org.telegram.messenger.ApplicationLoader;
@@ -78,6 +80,7 @@ import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.SendMessagesHelper;
 import org.telegram.messenger.SharedConfig;
+import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.UserObject;
 import org.telegram.messenger.Utilities;
 import org.telegram.messenger.browser.Browser;
@@ -90,7 +93,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -118,6 +121,7 @@ import org.telegram.ui.PhotoViewer;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.Stories.StoriesController;
 import org.telegram.ui.Stories.StoriesListPlaceProvider;
+import org.telegram.ui.Stories.StoriesUtilities;
 import org.telegram.ui.Stories.UserListPoller;
 
 import java.util.ArrayList;
@@ -582,11 +586,11 @@ public class SharedMediaLayout extends FrameLayout implements NotificationCenter
         private long dialogId;
         private int topicId;
         private long mergeDialogId;
-        private BaseFragments parentFragment;
+        private BaseFragment parentFragment;
         private ArrayList<SharedMediaPreloaderDelegate> delegates = new ArrayList<>();
         private boolean mediaWasLoaded;
 
-        public SharedMediaPreloader(BaseFragments fragment) {
+        public SharedMediaPreloader(BaseFragment fragment) {
             parentFragment = fragment;
             if (fragment instanceof ChatActivityInterface) {
                 ChatActivityInterface chatActivity = (ChatActivityInterface) fragment;
@@ -630,7 +634,7 @@ public class SharedMediaLayout extends FrameLayout implements NotificationCenter
             delegates.remove(delegate);
         }
 
-        public void onDestroy(BaseFragments fragment) {
+        public void onDestroy(BaseFragment fragment) {
             if (fragment != parentFragment) {
                 return;
             }
@@ -1227,7 +1231,7 @@ public class SharedMediaLayout extends FrameLayout implements NotificationCenter
     private final static int delete = 101;
     private final static int gotochat = 102;
 
-    private BaseFragments profileActivity;
+    private BaseFragment profileActivity;
 
     private int startedTrackingPointerId;
     private boolean startedTracking;
@@ -1246,7 +1250,7 @@ public class SharedMediaLayout extends FrameLayout implements NotificationCenter
         return profileActivity.getConnectionsManager().getConnectionState() == ConnectionsManager.ConnectionStateConnected;
     }
 
-    public SharedMediaLayout(Context context, long did, SharedMediaPreloader preloader, int commonGroupsCount, ArrayList<Integer> sortedUsers, TLRPC.ChatFull chatInfo, TLRPC.UserFull userInfo, boolean membersFirst, BaseFragments parent, Delegate delegate, int viewType, Theme.ResourcesProvider resourcesProvider) {
+    public SharedMediaLayout(Context context, long did, SharedMediaPreloader preloader, int commonGroupsCount, ArrayList<Integer> sortedUsers, TLRPC.ChatFull chatInfo, TLRPC.UserFull userInfo, boolean membersFirst, BaseFragment parent, Delegate delegate, int viewType, Theme.ResourcesProvider resourcesProvider) {
         super(context);
         this.viewType = viewType;
         this.resourcesProvider = resourcesProvider;

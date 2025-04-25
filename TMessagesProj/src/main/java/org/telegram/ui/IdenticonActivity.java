@@ -44,7 +44,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.IdenticonDrawable;
 import org.telegram.ui.Components.LayoutHelper;
@@ -53,7 +53,7 @@ import org.telegram.ui.Components.URLSpanReplacement;
 
 import java.util.ArrayList;
 
-public class IdenticonActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class IdenticonActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private TextView textView;
     private TextView codeTextView;

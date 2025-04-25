@@ -429,7 +429,7 @@ public class ChatAttachAlertPollLayout extends ChatAttachAlert.AttachAlertLayout
                     poll.results.flags |= 16;
                 }
             }
-            ChatActivity chatActivity = (ChatActivity) parentAlert.baseFragments;
+            ChatActivity chatActivity = (ChatActivity) parentAlert.baseFragment;
             if (chatActivity.isInScheduleMode()) {
                 AlertsCreator.createScheduleDatePickerDialog(chatActivity.getParentActivity(), chatActivity.getDialogId(), (notify, scheduleDate) -> {
                     delegate.sendPoll(poll, params, notify, scheduleDate);
@@ -610,7 +610,7 @@ public class ChatAttachAlertPollLayout extends ChatAttachAlert.AttachAlertLayout
         }
         answerSectionRow = rowCount++;
         settingsHeaderRow = rowCount++;
-        TLRPC.Chat chat = ((ChatActivity) parentAlert.baseFragments).getCurrentChat();
+        TLRPC.Chat chat = ((ChatActivity) parentAlert.baseFragment).getCurrentChat();
         if (!ChatObject.isChannel(chat) || chat.megagroup) {
             anonymousRow = rowCount++;
         } else {
@@ -675,7 +675,7 @@ public class ChatAttachAlertPollLayout extends ChatAttachAlert.AttachAlertLayout
             }
         }
         if (!allowDiscard) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(parentAlert.baseFragments.getParentActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(parentAlert.baseFragment.getParentActivity());
             builder.setTitle(LocaleController.getString("CancelPollAlertTitle", R.string.CancelPollAlertTitle));
             builder.setMessage(LocaleController.getString("CancelPollAlertText", R.string.CancelPollAlertText));
             builder.setPositiveButton(LocaleController.getString("PassportDiscard", R.string.PassportDiscard), (dialogInterface, i) -> parentAlert.dismiss());
@@ -943,7 +943,7 @@ public class ChatAttachAlertPollLayout extends ChatAttachAlert.AttachAlertLayout
                                 if (menu.findItem(android.R.id.copy) == null) {
                                     return;
                                 }
-                                ChatActivity.fillActionModeMenu(menu, ((ChatActivity) parentAlert.baseFragments).getCurrentEncryptedChat());
+                                ChatActivity.fillActionModeMenu(menu, ((ChatActivity) parentAlert.baseFragment).getCurrentEncryptedChat());
                             }
                         }
                     };

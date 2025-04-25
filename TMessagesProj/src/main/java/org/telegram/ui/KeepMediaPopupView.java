@@ -18,7 +18,7 @@ import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.AvatarsDrawable;
@@ -46,13 +46,13 @@ public class KeepMediaPopupView extends ActionBarPopupWindow.ActionBarPopupWindo
     private final CacheByChatsController cacheByChatsController;
     Callback callback;
     private ArrayList<CacheByChatsController.KeepMediaException> exceptions;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     FrameLayout gap;
 
-    public KeepMediaPopupView(BaseFragments baseFragments, Context context) {
+    public KeepMediaPopupView(BaseFragment baseFragment, Context context) {
         super(context, null);
-        parentFragment = baseFragments;
-        cacheByChatsController = baseFragments.getMessagesController().getCacheByChatsController();
+        parentFragment = baseFragment;
+        cacheByChatsController = baseFragment.getMessagesController().getCacheByChatsController();
         setFitItems(true);
 
 //        if (BuildVars.DEBUG_PRIVATE_VERSION) {
@@ -113,7 +113,7 @@ public class KeepMediaPopupView extends ActionBarPopupWindow.ActionBarPopupWindo
                     Bundle bundle = new Bundle();
                     bundle.putInt("type", currentType);
                     CacheByChatsController.KeepMediaException finalNewException = newException;
-                    CacheChatsExceptionsFragments cacheChatsExceptionsFragment = new CacheChatsExceptionsFragments(bundle) {
+                    CacheChatsExceptionsFragment cacheChatsExceptionsFragment = new CacheChatsExceptionsFragment(bundle) {
                         @Override
                         public void onTransitionAnimationEnd(boolean isOpen, boolean backward) {
                             super.onTransitionAnimationEnd(isOpen, backward);
@@ -127,13 +127,13 @@ public class KeepMediaPopupView extends ActionBarPopupWindow.ActionBarPopupWindo
                     AndroidUtilities.runOnUIThread(() -> cacheChatsExceptionsFragment.showPopupFor(finalNewException), 150);
                     return true;
                 });
-                baseFragments.presentFragment(activity);
+                baseFragment.presentFragment(activity);
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putInt("type", currentType);
-                CacheChatsExceptionsFragments cacheChatsExceptionsFragment = new CacheChatsExceptionsFragments(bundle);
+                CacheChatsExceptionsFragment cacheChatsExceptionsFragment = new CacheChatsExceptionsFragment(bundle);
                 cacheChatsExceptionsFragment.setExceptions(exceptions);
-                baseFragments.presentFragment(cacheChatsExceptionsFragment);
+                baseFragment.presentFragment(cacheChatsExceptionsFragment);
             }
         });
 

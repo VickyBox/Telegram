@@ -47,7 +47,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.ContextProgressView;
@@ -57,7 +57,7 @@ import org.telegram.ui.Components.ShareAlert;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class WebviewActivity extends BaseFragments {
+public class WebviewActivity extends BaseFragment {
 
     private WebView webView;
     private ActionBarMenuItem progressItem;

@@ -48,7 +48,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.HeaderCell;
@@ -64,7 +64,7 @@ import org.telegram.ui.Components.UndoView;
 
 import java.util.ArrayList;
 
-public class PeopleNearbyActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate, LocationController.LocationFetchCallback {
+public class PeopleNearbyActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, LocationController.LocationFetchCallback {
 
     private ListAdapter listViewAdapter;
     private RecyclerListView listView;

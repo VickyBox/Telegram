@@ -1,11 +1,15 @@
 package org.telegram.ui.Components;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.telegram.messenger.AndroidUtilities;
@@ -35,7 +39,7 @@ public class ChatAttachRestrictedLayout extends ChatAttachAlert.AttachAlertLayou
         addView(progressView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT));
 
         progressView.setLottie(R.raw.media_forbidden, 150, 150);
-        TLRPC.Chat chat = ((ChatActivity) parentAlert.baseFragments).getCurrentChat();
+        TLRPC.Chat chat = ((ChatActivity) parentAlert.baseFragment).getCurrentChat();
         if (id == 1) {
             progressView.setText(ChatObject.getRestrictedErrorText(chat, ChatObject.ACTION_SEND_MEDIA));
         } else if (id == 3) {

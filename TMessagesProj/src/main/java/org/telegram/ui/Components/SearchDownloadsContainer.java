@@ -29,7 +29,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.GraySectionCell;
 import org.telegram.ui.Cells.SharedAudioCell;
@@ -62,7 +62,7 @@ public class SearchDownloadsContainer extends FrameLayout implements Notificatio
     int recentFilesEndRow = -1;
 
     Activity parentActivity;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     private boolean hasCurrentDownload;
 
     FilteredSearchView.UiCallback uiCallback;
@@ -74,7 +74,7 @@ public class SearchDownloadsContainer extends FrameLayout implements Notificatio
 
     boolean checkingFilesExist;
 
-    public SearchDownloadsContainer(BaseFragments fragment, int currentAccount) {
+    public SearchDownloadsContainer(BaseFragment fragment, int currentAccount) {
         super(fragment.getParentActivity());
         this.parentFragment = fragment;
         this.parentActivity = fragment.getParentActivity();

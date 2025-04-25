@@ -61,7 +61,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.AdminedChannelCell;
@@ -91,7 +91,7 @@ import org.telegram.ui.Components.TypefaceSpan;
 
 import java.util.ArrayList;
 
-public class ChannelCreateActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate, ImageUpdater.ImageUpdaterDelegate {
+public class ChannelCreateActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, ImageUpdater.ImageUpdaterDelegate {
 
     private View doneButton;
     private CrossfadeDrawable doneButtonDrawable;
@@ -153,7 +153,7 @@ public class ChannelCreateActivity extends BaseFragments implements Notification
     private boolean createAfterUpload;
     private boolean donePressed;
     private Integer doneRequestId;
-    private Utilities.Callback2<BaseFragments, Long> onFinishListener;
+    private Utilities.Callback2<BaseFragment, Long> onFinishListener;
 
     private final static int done_button = 1;
 
@@ -183,7 +183,7 @@ public class ChannelCreateActivity extends BaseFragments implements Notification
         }
     }
 
-    public void setOnFinishListener(Utilities.Callback2<BaseFragments, Long> onFinishListener) {
+    public void setOnFinishListener(Utilities.Callback2<BaseFragment, Long> onFinishListener) {
         this.onFinishListener = onFinishListener;
     }
 

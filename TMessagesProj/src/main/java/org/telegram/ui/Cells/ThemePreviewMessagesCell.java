@@ -25,7 +25,7 @@ import org.telegram.messenger.MessageObject;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.BackgroundGradientDrawable;
@@ -50,7 +50,7 @@ public class ThemePreviewMessagesCell extends LinearLayout {
     private INavigationLayout parentLayout;
     private final int type;
 
-    public BaseFragments fragment;
+    public BaseFragment fragment;
 
     @SuppressLint("ClickableViewAccessibility")
     public ThemePreviewMessagesCell(Context context, INavigationLayout layout, int type) {

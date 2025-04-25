@@ -20,7 +20,7 @@ import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.AvailableReactionCell;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class ChatReactionsEditActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class ChatReactionsEditActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
     private final static int TYPE_INFO = 0, TYPE_HEADER = 1, TYPE_REACTION = 2, TYPE_CONTROLS_CONTAINER = 3;
 
     public final static String KEY_CHAT_ID = "chat_id";

@@ -20,7 +20,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.AvatarsImageView;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class ChatActivityMemberRequestsDelegate {
 
-    private final BaseFragments fragment;
+    private final BaseFragment fragment;
     private final Callback callback;
     private final TLRPC.Chat currentChat;
     private final int currentAccount;
@@ -51,7 +51,7 @@ public class ChatActivityMemberRequestsDelegate {
     private int pendingRequestsCount;
     private int closePendingRequestsCount = -1;
 
-    public ChatActivityMemberRequestsDelegate(BaseFragments fragment, TLRPC.Chat currentChat, Callback callback) {
+    public ChatActivityMemberRequestsDelegate(BaseFragment fragment, TLRPC.Chat currentChat, Callback callback) {
         this.fragment = fragment;
         this.currentChat = currentChat;
         this.currentAccount = fragment.getCurrentAccount();

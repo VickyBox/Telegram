@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import org.telegram.messenger.LocaleController;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
@@ -19,7 +21,7 @@ import org.telegram.ui.Components.SizeNotifierFrameLayout;
 
 public class BlurSettingsBottomSheet extends BottomSheet {
 
-    BaseFragments fragment;
+    BaseFragment fragment;
 
     public static float saturation = 1f;
     public static float blurRadius = 1f;
@@ -27,11 +29,11 @@ public class BlurSettingsBottomSheet extends BottomSheet {
     SizeNotifierFrameLayout contentView;
 
 
-    public static void show(BaseFragments fragment) {
+    public static void show(BaseFragment fragment) {
         new BlurSettingsBottomSheet(fragment).show();
     }
 
-    private BlurSettingsBottomSheet(BaseFragments fragment) {
+    private BlurSettingsBottomSheet(BaseFragment fragment) {
         super(fragment.getParentActivity(), false);
         this.fragment = fragment;
         if (fragment.getFragmentView() instanceof SizeNotifierFrameLayout) {

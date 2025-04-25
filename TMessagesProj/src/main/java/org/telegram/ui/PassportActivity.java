@@ -98,7 +98,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.CheckBoxCell;
@@ -141,7 +141,7 @@ import java.util.TimerTask;
 
 import javax.crypto.Cipher;
 
-public class PassportActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class PassportActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     public final static int TYPE_REQUEST = 0;
     public final static int TYPE_IDENTITY = 1;

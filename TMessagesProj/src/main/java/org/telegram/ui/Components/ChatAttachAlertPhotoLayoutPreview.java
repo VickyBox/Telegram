@@ -56,7 +56,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ChatActionCell;
 import org.telegram.ui.ChatActivity;
@@ -1812,14 +1812,14 @@ public class ChatAttachAlertPhotoLayoutPreview extends ChatAttachAlert.AttachAle
                         if (parentAlert.avatarPicker != 0) {
                             chatActivity = null;
                             type = PhotoViewer.SELECT_TYPE_AVATAR;
-                        } else if (parentAlert.baseFragments instanceof ChatActivity) {
-                            chatActivity = (ChatActivity) parentAlert.baseFragments;
+                        } else if (parentAlert.baseFragment instanceof ChatActivity) {
+                            chatActivity = (ChatActivity) parentAlert.baseFragment;
                             type = 0;
                         } else {
                             chatActivity = null;
                             type = 4;
                         }
-                        BaseFragments fragment = parentAlert.baseFragments;
+                        BaseFragment fragment = parentAlert.baseFragment;
                         if (fragment == null) {
                             fragment = LaunchActivity.getLastFragment();
                         }

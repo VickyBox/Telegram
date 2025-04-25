@@ -26,7 +26,7 @@ import org.telegram.messenger.SvgHelper;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.GLIconSettingsView;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 
@@ -195,7 +195,7 @@ public class StarParticlesView extends View {
                     size = AndroidUtilities.dp(size3);
                 }
 
-                if (type == PremiumPreviewFragments.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT) {
+                if (type == PremiumPreviewFragment.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT) {
                     int res;
                     if (i == 0) {
                         res = R.raw.premium_object_folder;
@@ -207,7 +207,7 @@ public class StarParticlesView extends View {
                     stars[i] = SvgHelper.getBitmap(res, size, size, ColorUtils.setAlphaComponent(Theme.getColor(colorKey, resourcesProvider), 30));
                     svg = true;
                     continue;
-                } else if (type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI || type == PremiumPreviewFragments.PREMIUM_FEATURE_REACTIONS) {
+                } else if (type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI || type == PremiumPreviewFragment.PREMIUM_FEATURE_REACTIONS) {
                     int res;
                     if (i == 0) {
                         res = R.raw.premium_object_smile1;
@@ -219,7 +219,7 @@ public class StarParticlesView extends View {
                     stars[i] = SvgHelper.getBitmap(res, size, size, ColorUtils.setAlphaComponent(Theme.getColor(colorKey, resourcesProvider), 30));
                     svg = true;
                     continue;
-                } else if (type == PremiumPreviewFragments.PREMIUM_FEATURE_ADS) {
+                } else if (type == PremiumPreviewFragment.PREMIUM_FEATURE_ADS) {
                     int res;
                     if (i == 0) {
                         res = R.raw.premium_object_adsbubble;
@@ -231,7 +231,7 @@ public class StarParticlesView extends View {
                     stars[i] = SvgHelper.getBitmap(res, size, size, ColorUtils.setAlphaComponent(Theme.getColor(colorKey, resourcesProvider), 30));
                     svg = true;
                     continue;
-                } else if (type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_AVATARS) {
+                } else if (type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_AVATARS) {
                     int res;
                     if (i == 0) {
                         res = R.raw.premium_object_video2;
@@ -258,7 +258,7 @@ public class StarParticlesView extends View {
 
                 Canvas canvas = new Canvas(bitmap);
 
-                if (type == PremiumPreviewFragments.PREMIUM_FEATURE_PROFILE_BADGE && (i == 1 || i == 2)) {
+                if (type == PremiumPreviewFragment.PREMIUM_FEATURE_PROFILE_BADGE && (i == 1 || i == 2)) {
                     android.graphics.drawable.Drawable drawable = ContextCompat.getDrawable(ApplicationLoader.applicationContext, R.drawable.msg_premium_liststar);
                     drawable.setColorFilter(new PorterDuffColorFilter(Theme.getColor(colorKey, resourcesProvider), PorterDuff.Mode.MULTIPLY));
                     drawable.setBounds(0, 0, size, size);
@@ -520,12 +520,12 @@ public class StarParticlesView extends View {
                 } else {
                     alpha = (int) (255 * ((50 + Utilities.fastRandom.nextInt(50)) / 100f));
                 }
-                if ((type == PremiumPreviewFragments.PREMIUM_FEATURE_PROFILE_BADGE && (starIndex == 1 || starIndex == 2)) ||
-                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT ||
-                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ADS ||
-                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_AVATARS ||
-                        type == PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI ||
-                        type == PremiumPreviewFragments.PREMIUM_FEATURE_REACTIONS
+                if ((type == PremiumPreviewFragment.PREMIUM_FEATURE_PROFILE_BADGE && (starIndex == 1 || starIndex == 2)) ||
+                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ADVANCED_CHAT_MANAGEMENT ||
+                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ADS ||
+                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_AVATARS ||
+                        type == PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI ||
+                        type == PremiumPreviewFragment.PREMIUM_FEATURE_REACTIONS
                 ) {
                     randomRotate = (int) (45 * ((Utilities.fastRandom.nextInt() % 100) / 100f));
                 }

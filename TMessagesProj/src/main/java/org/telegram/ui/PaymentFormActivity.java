@@ -112,7 +112,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
@@ -155,7 +155,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class PaymentFormActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class PaymentFormActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
     private final static List<String> WEBVIEW_PROTOCOLS = Arrays.asList(
             "http",
             "https"
@@ -268,7 +268,7 @@ public class PaymentFormActivity extends BaseFragments implements NotificationCe
     private String currentBotName;
     private String currentItemName;
 
-    private BaseFragments parentFragment;
+    private BaseFragment parentFragment;
 
     private LinearLayout tipLayout;
 
@@ -419,20 +419,20 @@ public class PaymentFormActivity extends BaseFragments implements NotificationCe
         cardName = receipt.credentials_title;
     }
 
-    public PaymentFormActivity(TLRPC.TL_payments_paymentForm form, String invoiceSlug, BaseFragments parentFragment) {
+    public PaymentFormActivity(TLRPC.TL_payments_paymentForm form, String invoiceSlug, BaseFragment parentFragment) {
         this(form, null, invoiceSlug, parentFragment);
     }
 
-    public PaymentFormActivity(TLRPC.TL_payments_paymentForm form, MessageObject message, BaseFragments parentFragment) {
+    public PaymentFormActivity(TLRPC.TL_payments_paymentForm form, MessageObject message, BaseFragment parentFragment) {
         this(form, message, null, parentFragment);
     }
 
-    public PaymentFormActivity(TLRPC.TL_payments_paymentForm form, MessageObject message, String invoiceSlug, BaseFragments parentFragment) {
+    public PaymentFormActivity(TLRPC.TL_payments_paymentForm form, MessageObject message, String invoiceSlug, BaseFragment parentFragment) {
         isCheckoutPreview = true;
         init(form, message, invoiceSlug, STEP_CHECKOUT, null, null, null, null, null, null, false, null, parentFragment);
     }
 
-    private PaymentFormActivity(TLRPC.TL_payments_paymentForm form, MessageObject message, String invoiceSlug, int step, TLRPC.TL_payments_validatedRequestedInfo validatedRequestedInfo, TLRPC.TL_shippingOption shipping, Long tips, String tokenJson, String card, TLRPC.TL_payments_validateRequestedInfo request, boolean saveCard, TLRPC.TL_inputPaymentCredentialsGooglePay googlePay, BaseFragments parent) {
+    private PaymentFormActivity(TLRPC.TL_payments_paymentForm form, MessageObject message, String invoiceSlug, int step, TLRPC.TL_payments_validatedRequestedInfo validatedRequestedInfo, TLRPC.TL_shippingOption shipping, Long tips, String tokenJson, String card, TLRPC.TL_payments_validateRequestedInfo request, boolean saveCard, TLRPC.TL_inputPaymentCredentialsGooglePay googlePay, BaseFragment parent) {
         init(form, message, invoiceSlug, step, validatedRequestedInfo, shipping, tips, tokenJson, card, request, saveCard, googlePay, parent);
     }
 
@@ -466,7 +466,7 @@ public class PaymentFormActivity extends BaseFragments implements NotificationCe
         return resourcesProvider;
     }
 
-    private void init(TLRPC.TL_payments_paymentForm form, MessageObject message, String slug, int step, TLRPC.TL_payments_validatedRequestedInfo validatedRequestedInfo, TLRPC.TL_shippingOption shipping, Long tips, String tokenJson, String card, TLRPC.TL_payments_validateRequestedInfo request, boolean saveCard, TLRPC.TL_inputPaymentCredentialsGooglePay googlePay, BaseFragments parent) {
+    private void init(TLRPC.TL_payments_paymentForm form, MessageObject message, String slug, int step, TLRPC.TL_payments_validatedRequestedInfo validatedRequestedInfo, TLRPC.TL_shippingOption shipping, Long tips, String tokenJson, String card, TLRPC.TL_payments_validateRequestedInfo request, boolean saveCard, TLRPC.TL_inputPaymentCredentialsGooglePay googlePay, BaseFragment parent) {
         currentStep = step;
         parentFragment = parent;
         paymentJson = tokenJson;
@@ -3084,7 +3084,7 @@ public class PaymentFormActivity extends BaseFragments implements NotificationCe
         }
         int i = cur;
         for (int a = 0; a < parentLayout.getFragmentStack().size(); a++) {
-            BaseFragments fragment = parentLayout.getFragmentStack().get(a);
+            BaseFragment fragment = parentLayout.getFragmentStack().get(a);
             if (fragment instanceof PaymentFormActivity) {
                 i = a;
                 break;
@@ -3390,13 +3390,13 @@ public class PaymentFormActivity extends BaseFragments implements NotificationCe
     private boolean onCheckoutSuccess(INavigationLayout parentLayout, Activity parentActivity) {
         if (botUser.username != null && botUser.username.equalsIgnoreCase(getMessagesController().premiumBotUsername) && invoiceSlug == null || invoiceSlug != null && getMessagesController().premiumInvoiceSlug != null && Objects.equals(invoiceSlug, getMessagesController().premiumInvoiceSlug)) {
             if (parentLayout != null) {
-                for (BaseFragments fragment : new ArrayList<>(parentLayout.getFragmentStack())) {
-                    if (fragment instanceof ChatActivity || fragment instanceof PremiumPreviewFragments) {
+                for (BaseFragment fragment : new ArrayList<>(parentLayout.getFragmentStack())) {
+                    if (fragment instanceof ChatActivity || fragment instanceof PremiumPreviewFragment) {
                         fragment.removeSelfFromStack();
                     }
                 }
 
-                parentLayout.presentFragment(new PremiumPreviewFragments(null).setForcePremium(), !isFinishing());
+                parentLayout.presentFragment(new PremiumPreviewFragment(null).setForcePremium(), !isFinishing());
                 if (parentActivity instanceof LaunchActivity) {
                     try {
                         fragmentView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
@@ -4329,18 +4329,18 @@ public class PaymentFormActivity extends BaseFragments implements NotificationCe
     }
 
     @Override
-    public boolean presentFragment(BaseFragments fragment) {
+    public boolean presentFragment(BaseFragment fragment) {
         onPresentFragment(fragment);
         return super.presentFragment(fragment);
     }
 
     @Override
-    public boolean presentFragment(BaseFragments fragment, boolean removeLast) {
+    public boolean presentFragment(BaseFragment fragment, boolean removeLast) {
         onPresentFragment(fragment);
         return super.presentFragment(fragment, removeLast);
     }
 
-    private void onPresentFragment(BaseFragments fragment) {
+    private void onPresentFragment(BaseFragment fragment) {
         AndroidUtilities.hideKeyboard(fragmentView);
         if (fragment instanceof PaymentFormActivity) {
             ((PaymentFormActivity) fragment).paymentFormCallback = paymentFormCallback;

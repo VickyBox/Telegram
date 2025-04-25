@@ -65,6 +65,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.PixelCopy;
 import android.view.SoundEffectConstants;
 import android.view.Surface;
 import android.view.SurfaceView;
@@ -139,7 +140,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -148,6 +149,7 @@ import org.telegram.ui.Cells.TextSelectionHelper;
 import org.telegram.ui.Components.AlertsCreator;
 import org.telegram.ui.Components.AnchorSpan;
 import org.telegram.ui.Components.AnimatedArrowDrawable;
+import org.telegram.ui.Components.AnimatedFileDrawable;
 import org.telegram.ui.Components.AnimationProperties;
 import org.telegram.ui.Components.AvatarDrawable;
 import org.telegram.ui.Components.BulletinFactory;
@@ -190,7 +192,7 @@ import java.util.Locale;
 public class ArticleViewer implements NotificationCenter.NotificationCenterDelegate {
 
     private Activity parentActivity;
-    private BaseFragments parentFragment;
+    private BaseFragment parentFragment;
     private ArrayList<BlockEmbedCell> createdWebViews = new ArrayList<>();
 
     private View customView;
@@ -3024,7 +3026,7 @@ public class ArticleViewer implements NotificationCenter.NotificationCenterDeleg
         }
     }
 
-    public void setParentActivity(Activity activity, BaseFragments fragment) {
+    public void setParentActivity(Activity activity, BaseFragment fragment) {
         parentFragment = fragment;
         currentAccount = UserConfig.selectedAccount;
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.messagePlayingProgressDidChanged);

@@ -24,7 +24,7 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.GroupCreateUserCell;
 import org.telegram.ui.Cells.HeaderCell;
@@ -43,7 +43,7 @@ public class CreateGroupCallBottomSheet extends BottomSheetWithRecyclerListView 
     private static final int CONTENT_VIEWS_COUNT = 3;
     private static final int CONTAINER_HEIGHT_DP = 120;
 
-    public static void show(ArrayList<TLRPC.Peer> peers, BaseFragments fragment, long dialogId, JoinCallAlert.JoinCallAlertDelegate joinCallDelegate) {
+    public static void show(ArrayList<TLRPC.Peer> peers, BaseFragment fragment, long dialogId, JoinCallAlert.JoinCallAlertDelegate joinCallDelegate) {
         if (peers.isEmpty()) {
             return;
         }
@@ -63,7 +63,7 @@ public class CreateGroupCallBottomSheet extends BottomSheetWithRecyclerListView 
     private TLRPC.Peer selectedPeer;
     private TLRPC.InputPeer selectAfterDismiss;
 
-    public CreateGroupCallBottomSheet(BaseFragments fragment, ArrayList<TLRPC.Peer> arrayList, long dialogId, JoinCallAlert.JoinCallAlertDelegate joinCallDelegate) {
+    public CreateGroupCallBottomSheet(BaseFragment fragment, ArrayList<TLRPC.Peer> arrayList, long dialogId, JoinCallAlert.JoinCallAlertDelegate joinCallDelegate) {
         super(fragment, false, false);
         TLRPC.Chat chat = MessagesController.getInstance(currentAccount).getChat(-dialogId);
         this.topPadding = 0.26f;

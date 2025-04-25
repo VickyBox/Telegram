@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
@@ -30,7 +31,7 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.DialogsActivity;
@@ -313,7 +314,7 @@ public class FiltersListBottomSheet extends BottomSheet implements NotificationC
         delegate = filtersListBottomSheetDelegate;
     }
 
-    public static ArrayList<MessagesController.DialogFilter> getCanAddDialogFilters(BaseFragments fragment, ArrayList<Long> selectedDialogs) {
+    public static ArrayList<MessagesController.DialogFilter> getCanAddDialogFilters(BaseFragment fragment, ArrayList<Long> selectedDialogs) {
         ArrayList<MessagesController.DialogFilter> result = new ArrayList<>();
         ArrayList<MessagesController.DialogFilter> filters = fragment.getMessagesController().dialogFilters;
         for (int a = 0, N = filters.size(); a < N; a++) {
@@ -325,7 +326,7 @@ public class FiltersListBottomSheet extends BottomSheet implements NotificationC
         return result;
     }
 
-    public static ArrayList<Long> getDialogsCount(BaseFragments fragment, MessagesController.DialogFilter filter, ArrayList<Long> selectedDialogs, boolean always, boolean check) {
+    public static ArrayList<Long> getDialogsCount(BaseFragment fragment, MessagesController.DialogFilter filter, ArrayList<Long> selectedDialogs, boolean always, boolean check) {
         ArrayList<Long> dids = new ArrayList<>();
         for (int b = 0, N2 = selectedDialogs.size(); b < N2; b++) {
             long did = selectedDialogs.get(b);

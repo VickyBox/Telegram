@@ -61,7 +61,7 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.DialogsActivity;
@@ -95,7 +95,7 @@ public class Bulletin {
     }
 
     @SuppressLint("RtlHardcoded")
-    public static Bulletin make(@NonNull BaseFragments fragment, @NonNull Layout contentLayout, int duration) {
+    public static Bulletin make(@NonNull BaseFragment fragment, @NonNull Layout contentLayout, int duration) {
         if (fragment instanceof ChatActivity) {
             contentLayout.setWideScreenParams(ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
         } else if (fragment instanceof DialogsActivity) {
@@ -126,14 +126,14 @@ public class Bulletin {
     }
 
     private static final HashMap<FrameLayout, Delegate> delegates = new HashMap<>();
-    private static final HashMap<BaseFragments, Delegate> fragmentDelegates = new HashMap<>();
+    private static final HashMap<BaseFragment, Delegate> fragmentDelegates = new HashMap<>();
 
     @SuppressLint("StaticFieldLeak")
     private static Bulletin visibleBulletin;
 
     private final Layout layout;
     private final ParentLayout parentLayout;
-    private final BaseFragments containerFragment;
+    private final BaseFragment containerFragment;
     private final FrameLayout containerLayout;
     private final Runnable hideRunnable = this::hide;
     private int duration;
@@ -154,7 +154,7 @@ public class Bulletin {
         containerLayout = null;
     }
 
-    private Bulletin(BaseFragments fragment, @NonNull FrameLayout containerLayout, @NonNull Layout layout, int duration) {
+    private Bulletin(BaseFragment fragment, @NonNull FrameLayout containerLayout, @NonNull Layout layout, int duration) {
         this.layout = layout;
         this.loaded = !(this.layout instanceof LoadingLayout);
         this.parentLayout = new ParentLayout(layout) {
@@ -571,7 +571,7 @@ public class Bulletin {
     }
 
     //region Offset Providers
-    public static void addDelegate(@NonNull BaseFragments fragment, @NonNull Delegate delegate) {
+    public static void addDelegate(@NonNull BaseFragment fragment, @NonNull Delegate delegate) {
         fragmentDelegates.put(fragment, delegate);
     }
 
@@ -579,7 +579,7 @@ public class Bulletin {
         delegates.put(containerLayout, delegate);
     }
 
-    private static Delegate findDelegate(BaseFragments probableFragment, FrameLayout probableContainer) {
+    private static Delegate findDelegate(BaseFragment probableFragment, FrameLayout probableContainer) {
         Delegate delegate;
         if ((delegate = fragmentDelegates.get(probableFragment)) != null) {
             return delegate;
@@ -590,7 +590,7 @@ public class Bulletin {
         return null;
     }
 
-    public static void removeDelegate(@NonNull BaseFragments fragment) {
+    public static void removeDelegate(@NonNull BaseFragment fragment) {
         fragmentDelegates.remove(fragment);
     }
 

@@ -31,6 +31,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.AnimationNotificationsLocker;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.ChatObject;
+import org.telegram.messenger.ContactsController;
 import org.telegram.messenger.Emoji;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
@@ -48,7 +49,7 @@ import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -108,7 +109,7 @@ public class FilteredSearchView extends FrameLayout implements NotificationCente
     boolean currentIncludeFolder;
 
     Activity parentActivity;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     private boolean isLoading;
     private boolean endReached;
     private int totalCount;
@@ -269,7 +270,7 @@ public class FilteredSearchView extends FrameLayout implements NotificationCente
 
     private UiCallback uiCallback;
 
-    public FilteredSearchView(@NonNull BaseFragments fragment) {
+    public FilteredSearchView(@NonNull BaseFragment fragment) {
         super(fragment.getParentActivity());
         parentFragment = fragment;
         Context context = parentActivity = fragment.getParentActivity();

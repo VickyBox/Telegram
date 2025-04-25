@@ -33,7 +33,7 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.Bulletin;
 import org.telegram.ui.Components.ColoredImageSpan;
@@ -42,7 +42,7 @@ import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.LauncherIconController;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +55,7 @@ public class AppIconsSelectorCell extends RecyclerListView implements Notificati
     private LinearLayoutManager linearLayoutManager;
     private int currentAccount;
 
-    public AppIconsSelectorCell(Context context, BaseFragments fragment, int currentAccount) {
+    public AppIconsSelectorCell(Context context, BaseFragment fragment, int currentAccount) {
         super(context);
         this.currentAccount = currentAccount;
         setPadding(0, AndroidUtilities.dp(12), 0, AndroidUtilities.dp(12));
@@ -111,7 +111,7 @@ public class AppIconsSelectorCell extends RecyclerListView implements Notificati
             IconHolderView holderView = (IconHolderView) view;
             LauncherIconController.LauncherIcon icon = availableIcons.get(position);
             if (icon.premium && !UserConfig.hasPremiumOnAccounts()) {
-                fragment.showDialog(new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragments.PREMIUM_FEATURE_APPLICATION_ICONS, true));
+                fragment.showDialog(new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragment.PREMIUM_FEATURE_APPLICATION_ICONS, true));
                 return;
             }
 

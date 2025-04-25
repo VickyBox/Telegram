@@ -23,13 +23,13 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.FixedHeightEmptyCell;
 import org.telegram.ui.Components.BottomSheetWithRecyclerListView;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 
@@ -40,24 +40,24 @@ public class DoubledLimitsBottomSheet extends BottomSheetWithRecyclerListView im
     ImageView titleImage;
 
     PremiumButtonView premiumButtonView;
-    PremiumPreviewFragments premiumPreviewFragment;
+    PremiumPreviewFragment premiumPreviewFragment;
 
     float titleProgress;
 
-    private BaseFragments baseFragments;
+    private BaseFragment baseFragment;
 
     private View divider;
-    private PremiumPreviewFragments.SubscriptionTier selectedTier;
+    private PremiumPreviewFragment.SubscriptionTier selectedTier;
     private Adapter adapter;
 
-    public DoubledLimitsBottomSheet(BaseFragments fragment, int currentAccount) {
+    public DoubledLimitsBottomSheet(BaseFragment fragment, int currentAccount) {
         this(fragment, currentAccount, null);
     }
 
-    public DoubledLimitsBottomSheet(BaseFragments fragment, int currentAccount, PremiumPreviewFragments.SubscriptionTier subscriptionTier) {
+    public DoubledLimitsBottomSheet(BaseFragment fragment, int currentAccount, PremiumPreviewFragment.SubscriptionTier subscriptionTier) {
         super(fragment, false, false, false, fragment == null ? null : fragment.getResourceProvider());
         this.selectedTier = subscriptionTier;
-        this.baseFragments = fragment;
+        this.baseFragment = fragment;
 
         clipToActionBar = true;
 
@@ -86,13 +86,13 @@ public class DoubledLimitsBottomSheet extends BottomSheetWithRecyclerListView im
         containerView.addView(divider, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, 72, Gravity.BOTTOM, 0, 0, 0, 0));
 
         premiumButtonView = new PremiumButtonView(getContext(), true, resourcesProvider);
-        premiumButtonView.buttonTextView.setText(PremiumPreviewFragments.getPremiumButtonText(currentAccount, selectedTier));
+        premiumButtonView.buttonTextView.setText(PremiumPreviewFragment.getPremiumButtonText(currentAccount, selectedTier));
 
         containerView.addView(premiumButtonView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, 48, Gravity.BOTTOM, 16, 0, 16, 12));
 
         premiumButtonView.buttonLayout.setOnClickListener((view) -> {
             if (!UserConfig.getInstance(currentAccount).isPremium()) {
-                PremiumPreviewFragments.buyPremium(fragment, selectedTier, "double_limits");
+                PremiumPreviewFragment.buyPremium(fragment, selectedTier, "double_limits");
             }
             dismiss();
         });
@@ -161,7 +161,7 @@ public class DoubledLimitsBottomSheet extends BottomSheetWithRecyclerListView im
         return adapter;
     }
 
-    public void setParentFragment(PremiumPreviewFragments premiumPreviewFragment) {
+    public void setParentFragment(PremiumPreviewFragment premiumPreviewFragment) {
         this.premiumPreviewFragment = premiumPreviewFragment;
     }
 
@@ -186,7 +186,7 @@ public class DoubledLimitsBottomSheet extends BottomSheetWithRecyclerListView im
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
         if (id == NotificationCenter.billingProductDetailsUpdated || id == NotificationCenter.premiumPromoUpdated) {
-            premiumButtonView.buttonTextView.setText(PremiumPreviewFragments.getPremiumButtonText(currentAccount, selectedTier));
+            premiumButtonView.buttonTextView.setText(PremiumPreviewFragment.getPremiumButtonText(currentAccount, selectedTier));
         } else if (id == NotificationCenter.currentUserPremiumStatusChanged) {
             bindPremium(UserConfig.getInstance(currentAccount).isPremium());
         }

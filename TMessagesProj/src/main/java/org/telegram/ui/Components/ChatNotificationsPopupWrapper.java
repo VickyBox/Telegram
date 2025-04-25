@@ -16,7 +16,7 @@ import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 
 import java.util.HashSet;
@@ -261,7 +261,7 @@ public class ChatNotificationsPopupWrapper {
         return LocaleController.formatString("MuteForButton", R.string.MuteForButton, stringBuilder.toString());
     }
 
-    public void showAsOptions(BaseFragments parentFragment, View anchorView, float touchedX, float touchedY) {
+    public void showAsOptions(BaseFragment parentFragment, View anchorView, float touchedX, float touchedY) {
         if (parentFragment == null || parentFragment.getFragmentView() == null) {
             return;
         }

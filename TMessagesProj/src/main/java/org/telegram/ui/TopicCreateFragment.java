@@ -37,7 +37,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.TextCheckCell2;
@@ -57,7 +57,7 @@ import org.telegram.ui.Components.SizeNotifierFrameLayout;
 
 import java.util.ArrayList;
 
-public class TopicCreateFragments extends BaseFragments {
+public class TopicCreateFragment extends BaseFragment {
 
     private final static int CREATE_ID = 1;
     private final static int EDIT_ID = 2;
@@ -79,14 +79,14 @@ public class TopicCreateFragments extends BaseFragments {
 
     int iconColor;
 
-    public static TopicCreateFragments create(long chatId, int topicId) {
+    public static TopicCreateFragment create(long chatId, int topicId) {
         Bundle bundle = new Bundle();
         bundle.putLong("chat_id", chatId);
         bundle.putInt("topic_id", topicId);
-        return new TopicCreateFragments(bundle);
+        return new TopicCreateFragment(bundle);
     }
 
-    private TopicCreateFragments(Bundle bundle) {
+    private TopicCreateFragment(Bundle bundle) {
         super(bundle);
     }
 
@@ -520,7 +520,7 @@ public class TopicCreateFragments extends BaseFragments {
                                 AndroidUtilities.replaceTags(LocaleController.getString("UnlockPremiumEmojiHint", R.string.UnlockPremiumEmojiHint)),
                                 LocaleController.getString("PremiumMore", R.string.PremiumMore),
                                 () -> {
-                                    new PremiumFeatureBottomSheet(this, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
+                                    new PremiumFeatureBottomSheet(this, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
                                 }
                         ).show();
             }

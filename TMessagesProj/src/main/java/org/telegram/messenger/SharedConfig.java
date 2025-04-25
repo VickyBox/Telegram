@@ -32,7 +32,7 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.Components.SwipeGestureSettingsView;
 import org.telegram.ui.LaunchActivity;
 
@@ -76,7 +76,7 @@ public class SharedConfig {
                 if (readOnlyStorageDirAlertShowed) {
                     return;
                 }
-                BaseFragments fragment = LaunchActivity.getLastFragment();
+                BaseFragment fragment = LaunchActivity.getLastFragment();
                 if (fragment != null && fragment.getParentActivity() != null) {
                     SharedConfig.storageCacheDir = null;
                     SharedConfig.saveConfig();

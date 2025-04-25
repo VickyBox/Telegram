@@ -47,7 +47,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.EmojiThemes;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeColors;
@@ -78,7 +78,7 @@ public class ThemesHorizontalListCell extends RecyclerListView implements Notifi
     private ArrayList<Theme.ThemeInfo> defaultThemes;
     private int currentType;
     private int prevCount;
-    private BaseFragments fragment;
+    private BaseFragment fragment;
 
     private class ThemesListAdapter extends RecyclerListView.SelectionAdapter {
 
@@ -678,7 +678,7 @@ public class ThemesHorizontalListCell extends RecyclerListView implements Notifi
         }
     }
 
-    public ThemesHorizontalListCell(Context context, BaseFragments fragment, int type, ArrayList<Theme.ThemeInfo> def, ArrayList<Theme.ThemeInfo> custom) {
+    public ThemesHorizontalListCell(Context context, BaseFragment fragment, int type, ArrayList<Theme.ThemeInfo> def, ArrayList<Theme.ThemeInfo> custom) {
         super(context);
 
         customThemes = custom;

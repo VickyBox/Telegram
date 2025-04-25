@@ -18,7 +18,7 @@ import androidx.core.graphics.ColorUtils;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.R;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.LaunchActivity;
@@ -37,7 +37,7 @@ public class OverlayActionBarLayoutDialog extends Dialog implements INavigationL
 
         actionBarLayout = INavigationLayout.newLayout(context);
         actionBarLayout.setFragmentStack(new ArrayList<>());
-        actionBarLayout.presentFragment(new INavigationLayout.NavigationParams(new EmptyFragments()).setNoAnimation(true));
+        actionBarLayout.presentFragment(new INavigationLayout.NavigationParams(new EmptyFragment()).setNoAnimation(true));
         actionBarLayout.setDelegate(this);
 
         frameLayout = new FrameLayout(context);
@@ -131,7 +131,7 @@ public class OverlayActionBarLayoutDialog extends Dialog implements INavigationL
         }
     }
 
-    public void addFragment(BaseFragments fragment) {
+    public void addFragment(BaseFragment fragment) {
         actionBarLayout.presentFragment(fragment, AndroidUtilities.isTablet() && !AndroidUtilities.isInMultiwindow && !AndroidUtilities.isSmallTablet());
     }
 
@@ -156,12 +156,12 @@ public class OverlayActionBarLayoutDialog extends Dialog implements INavigationL
     }
 
     @Override
-    public boolean needPresentFragment(BaseFragments fragment, boolean removeLast, boolean forceWithoutAnimation, INavigationLayout layout) {
+    public boolean needPresentFragment(BaseFragment fragment, boolean removeLast, boolean forceWithoutAnimation, INavigationLayout layout) {
         return true;
     }
 
     @Override
-    public boolean needAddFragmentToStack(BaseFragments fragment, INavigationLayout layout) {
+    public boolean needAddFragmentToStack(BaseFragment fragment, INavigationLayout layout) {
         return true;
     }
 
@@ -176,7 +176,7 @@ public class OverlayActionBarLayoutDialog extends Dialog implements INavigationL
     @Override
     public void onRebuildAllFragments(INavigationLayout layout, boolean last) {}
 
-    private final class EmptyFragments extends BaseFragments {
+    private final class EmptyFragment extends BaseFragment {
         @Override
         public View createView(Context context) {
             hasOwnBackground = true;

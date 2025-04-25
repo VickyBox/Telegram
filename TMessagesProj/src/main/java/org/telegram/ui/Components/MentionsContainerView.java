@@ -28,20 +28,24 @@ import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.ImageReceiver;
+import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.MessageObject;
 import org.telegram.messenger.NotificationCenter;
+import org.telegram.messenger.R;
 import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.UserObject;
 import org.telegram.messenger.VideoEditedInfo;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.AlertDialog;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Adapters.MentionsAdapter;
 import org.telegram.ui.Adapters.PaddedListAdapter;
 import org.telegram.ui.Cells.ContextLinkCell;
 import org.telegram.ui.Cells.StickerCell;
+import org.telegram.ui.ChatActivity;
 import org.telegram.ui.ContentPreviewViewer;
 import org.telegram.ui.PhotoViewer;
 
@@ -58,16 +62,16 @@ public class MentionsContainerView extends BlurredFrameLayout implements Notific
 
     private PaddedListAdapter paddedAdapter;
     private MentionsAdapter adapter;
-    BaseFragments baseFragments;
+    BaseFragment baseFragment;
 
     private float containerTop, containerBottom, containerPadding, listViewPadding;
     private boolean allowBlur;
     private RecyclerListView.OnItemClickListener mentionsOnItemClickListener;
     private Delegate delegate;
 
-    public MentionsContainerView(@NonNull Context context, long dialogId, int threadMessageId, BaseFragments baseFragments, SizeNotifierFrameLayout container, Theme.ResourcesProvider resourcesProvider) {
+    public MentionsContainerView(@NonNull Context context, long dialogId, int threadMessageId, BaseFragment baseFragment, SizeNotifierFrameLayout container, Theme.ResourcesProvider resourcesProvider) {
         super(context, container);
-        this.baseFragments = baseFragments;
+        this.baseFragment = baseFragment;
         this.sizeNotifierFrameLayout = container;
         this.resourcesProvider = resourcesProvider;
         this.drawBlur = false;
@@ -198,7 +202,7 @@ public class MentionsContainerView extends BlurredFrameLayout implements Notific
             public void onItemCountUpdate(int oldCount, int newCount) {
                 if (listView.getLayoutManager() != gridLayoutManager && shown) {
                     AndroidUtilities.cancelRunOnUIThread(updateVisibilityRunnable);
-                    AndroidUtilities.runOnUIThread(updateVisibilityRunnable, baseFragments.getFragmentBeginToShow() ? 0 : 100);
+                    AndroidUtilities.runOnUIThread(updateVisibilityRunnable, baseFragment.getFragmentBeginToShow() ? 0 : 100);
                 }
             }
 
@@ -434,7 +438,7 @@ public class MentionsContainerView extends BlurredFrameLayout implements Notific
         if (listViewTranslationAnimator != null) {
             listViewTranslationAnimator.cancel();
         }
-        AndroidUtilities.runOnUIThread(updateVisibilityRunnable, (baseFragments != null && baseFragments.getFragmentBeginToShow()) ? 0 : 100);
+        AndroidUtilities.runOnUIThread(updateVisibilityRunnable, (baseFragment != null && baseFragment.getFragmentBeginToShow()) ? 0 : 100);
         if (show) {
             onOpen();
         } else {
@@ -666,7 +670,7 @@ public class MentionsContainerView extends BlurredFrameLayout implements Notific
                         result.type.equals("gif") && (result.document != null || result.content != null) ||
                         result.type.equals("video") && (result.document != null/* || result.content_url != null*/))) {
                     ArrayList<Object> arrayList = botContextResults = new ArrayList<>(getAdapter().getSearchResultBotContext());
-                    PhotoViewer.getInstance().setParentActivity(baseFragments, resourcesProvider);
+                    PhotoViewer.getInstance().setParentActivity(baseFragment, resourcesProvider);
                     PhotoViewer.getInstance().openPhotoForSelect(arrayList, getAdapter().getItemPosition(position), 3, false, botContextProvider, null);
                 } else {
                     delegate.sendBotInlineResult(result, true, 0);

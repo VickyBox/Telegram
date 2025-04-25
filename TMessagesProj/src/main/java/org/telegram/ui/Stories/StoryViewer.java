@@ -63,7 +63,7 @@ import org.telegram.messenger.support.LongSparseIntArray;
 import org.telegram.messenger.video.VideoPlayerHolderBase;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ArticleViewer;
 import org.telegram.ui.Cells.ChatActionCell;
@@ -90,7 +90,7 @@ public class StoryViewer implements NotificationCenter.NotificationCenterDelegat
     public boolean allowScreenshots = true;
     public static ArrayList<StoryViewer> globalInstances = new ArrayList<>();
 
-    BaseFragments fragment;
+    BaseFragment fragment;
     public int currentAccount;
     WindowManager windowManager;
     WindowManager.LayoutParams windowLayoutParams;
@@ -251,7 +251,7 @@ public class StoryViewer implements NotificationCenter.NotificationCenterDelegat
         }
     }
 
-    public StoryViewer(BaseFragments fragment) {
+    public StoryViewer(BaseFragment fragment) {
         inputBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.fragment = fragment;
     }
@@ -371,7 +371,7 @@ public class StoryViewer implements NotificationCenter.NotificationCenterDelegat
         isClosed = false;
         unreadStateChanged = false;
 
-        BaseFragments fragment = LaunchActivity.getLastFragment();
+        BaseFragment fragment = LaunchActivity.getLastFragment();
         if (windowView == null) {
             gestureDetector = new GestureDetector(new GestureDetector.OnGestureListener() {
                 @Override
@@ -2315,7 +2315,7 @@ public class StoryViewer implements NotificationCenter.NotificationCenterDelegat
         return fullyVisible;
     }
 
-    public void presentFragment(BaseFragments fragment) {
+    public void presentFragment(BaseFragment fragment) {
         if (ATTACH_TO_FRAGMENT) {
             LaunchActivity.getLastFragment().presentFragment(fragment);
         } else {
@@ -2439,7 +2439,7 @@ public class StoryViewer implements NotificationCenter.NotificationCenterDelegat
         }
     }
 
-    public void openFor(BaseFragments fragment, RecyclerListView recyclerListView, ChatActionCell cell) {
+    public void openFor(BaseFragment fragment, RecyclerListView recyclerListView, ChatActionCell cell) {
         MessageObject messageObject = cell.getMessageObject();
         if (fragment == null || fragment.getContext() == null) {
             return;

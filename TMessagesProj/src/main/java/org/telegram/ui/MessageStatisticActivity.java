@@ -59,7 +59,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.DialogCell;
@@ -81,7 +81,7 @@ import org.telegram.ui.Components.RecyclerListView;
 
 import java.util.ArrayList;
 
-public class MessageStatisticActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class MessageStatisticActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private TLRPC.ChatFull chat;
     private final long chatId;
@@ -445,7 +445,7 @@ public class MessageStatisticActivity extends BaseFragments implements Notificat
 
         avatarContainer.setOnClickListener(view -> {
             if (getParentLayout().getFragmentStack().size() > 1) {
-                BaseFragments previousFragemnt = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
+                BaseFragment previousFragemnt = getParentLayout().getFragmentStack().get(getParentLayout().getFragmentStack().size() - 2);
                 if (previousFragemnt instanceof ChatActivity &&  ((ChatActivity) previousFragemnt).getCurrentChat().id  == chatId) {
                     finishFragment();
                     return;

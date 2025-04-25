@@ -20,7 +20,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ShadowSectionCell;
 import org.telegram.ui.Cells.TextCell;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class TopicsNotifySettingsFragments extends BaseFragments {
+public class TopicsNotifySettingsFragments extends BaseFragment {
 
     private final int VIEW_TYPE_ADD_EXCEPTION = 1;
     private final int VIEW_TYPE_TOPIC = 2;
@@ -81,7 +81,7 @@ public class TopicsNotifySettingsFragments extends BaseFragments {
                     Bundle bundle = new Bundle();
                     bundle.putLong("chat_id", -dialogId);
                     bundle.putBoolean("for_select", true);
-                    TopicsFragments topicsFragment = new TopicsFragments(bundle);
+                    TopicsFragment topicsFragment = new TopicsFragment(bundle);
                     topicsFragment.setExcludeTopics(exceptionsTopics);
                     topicsFragment.setOnTopicSelectedListener((topic) -> {
                         Bundle bundle2 = new Bundle();

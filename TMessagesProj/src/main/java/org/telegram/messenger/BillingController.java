@@ -27,7 +27,7 @@ import com.android.billingclient.api.QueryPurchasesParams;
 import org.telegram.messenger.utils.BillingUtilities;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.PremiumPreviewFragment;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -226,7 +226,7 @@ public class BillingController implements PurchasesUpdatedListener, BillingClien
         FileLog.d("Billing: Purchases updated: " + billing + ", " + list);
         if (billing.getResponseCode() != BillingClient.BillingResponseCode.OK) {
             if (billing.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
-                PremiumPreviewFragments.sentPremiumBuyCanceled();
+                PremiumPreviewFragment.sentPremiumBuyCanceled();
             }
             return;
         }

@@ -69,7 +69,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Components.AlertsCreator;
@@ -90,7 +90,7 @@ import org.telegram.ui.Components.spoilers.SpoilersTextView;
 
 import java.util.ArrayList;
 
-public class TwoStepVerificationSetupActivity extends BaseFragments {
+public class TwoStepVerificationSetupActivity extends BaseFragment {
 
     private RLottieImageView imageView;
     private TextView buttonTextView;
@@ -112,7 +112,7 @@ public class TwoStepVerificationSetupActivity extends BaseFragments {
 
     private AnimatorSet buttonAnimation;
 
-    private ArrayList<BaseFragments> fragmentsToClose = new ArrayList<>();
+    private ArrayList<BaseFragment> fragmentsToClose = new ArrayList<>();
 
     private AnimatorSet actionBarAnimator;
     private RadialProgressView radialProgressView;
@@ -216,7 +216,7 @@ public class TwoStepVerificationSetupActivity extends BaseFragments {
         emailCode = code;
     }
 
-    public void addFragmentToClose(BaseFragments fragment) {
+    public void addFragmentToClose(BaseFragment fragment) {
         fragmentsToClose.add(fragment);
     }
 
@@ -2165,7 +2165,7 @@ public class TwoStepVerificationSetupActivity extends BaseFragments {
 
     @Override
     public boolean finishFragment(boolean animated) {
-        for (BaseFragments fragment : getParentLayout().getFragmentStack()) {
+        for (BaseFragment fragment : getParentLayout().getFragmentStack()) {
             if (fragment != this && fragment instanceof TwoStepVerificationSetupActivity) {
                 ((TwoStepVerificationSetupActivity) fragment).floatingAutoAnimator.ignoreNextLayout();
             }

@@ -65,7 +65,7 @@ import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.HeaderCell;
@@ -93,7 +93,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class PasscodeActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class PasscodeActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
     public final static int TYPE_MANAGE_CODE_SETTINGS = 0,
             TYPE_SETUP_CODE = 1,
             TYPE_ENTER_CODE_TO_MANAGE_SETTINGS = 2;
@@ -795,7 +795,7 @@ public class PasscodeActivity extends BaseFragments implements NotificationCente
     /**
      * @return New fragment to open when Passcode entry gets clicked
      */
-    public static BaseFragments determineOpenFragment() {
+    public static BaseFragment determineOpenFragment() {
         if (SharedConfig.passcodeHash.length() != 0) {
             return new PasscodeActivity(TYPE_ENTER_CODE_TO_MANAGE_SETTINGS);
         }

@@ -50,7 +50,7 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Adapters.SearchAdapterHelper;
 import org.telegram.ui.Cells.GroupCreateSectionCell;
@@ -95,7 +95,7 @@ public class InviteMembersBottomSheet extends UsersAlertBase implements Notifica
     private int additionalHeight;
 
     private float touchSlop;
-    private BaseFragments parentFragment;
+    private BaseFragment parentFragment;
 
     private View.OnClickListener spanClickListener = new View.OnClickListener() {
         @Override
@@ -126,7 +126,7 @@ public class InviteMembersBottomSheet extends UsersAlertBase implements Notifica
         void didSelectDialogs(ArrayList<Long> dids);
     }
 
-    public InviteMembersBottomSheet(Context context, int account, LongSparseArray<TLObject> ignoreUsers, long chatId, BaseFragments parentFragment, Theme.ResourcesProvider resourcesProvider) {
+    public InviteMembersBottomSheet(Context context, int account, LongSparseArray<TLObject> ignoreUsers, long chatId, BaseFragment parentFragment, Theme.ResourcesProvider resourcesProvider) {
         super(context, false, account, resourcesProvider);
         this.ignoreUsers = ignoreUsers;
         needSnapToTop = false;
@@ -1007,7 +1007,7 @@ public class InviteMembersBottomSheet extends UsersAlertBase implements Notifica
         } else if (ev.getAction() == MotionEvent.ACTION_UP && Math.abs(scrollOffsetY - y) < touchSlop) {
             if (!enterEventSent) {
                 Activity activity = AndroidUtilities.findActivity(getContext());
-                BaseFragments fragment = null;
+                BaseFragment fragment = null;
                 if (activity instanceof LaunchActivity) {
                     fragment = ((LaunchActivity) activity).getActionBarLayout().getFragmentStack().get(((LaunchActivity) activity).getActionBarLayout().getFragmentStack().size() - 1);
                 }
@@ -1340,7 +1340,7 @@ public class InviteMembersBottomSheet extends UsersAlertBase implements Notifica
         if (enterEventSent) {
             Activity activity = AndroidUtilities.findActivity(getContext());
             if (activity instanceof LaunchActivity) {
-                BaseFragments fragment = ((LaunchActivity) activity).getActionBarLayout().getFragmentStack().get(((LaunchActivity) activity).getActionBarLayout().getFragmentStack().size() - 1);
+                BaseFragment fragment = ((LaunchActivity) activity).getActionBarLayout().getFragmentStack().get(((LaunchActivity) activity).getActionBarLayout().getFragmentStack().size() - 1);
                 if (fragment instanceof ChatActivity) {
                     ((ChatActivity) fragment).onEditTextDialogClose(true, true);
                 }

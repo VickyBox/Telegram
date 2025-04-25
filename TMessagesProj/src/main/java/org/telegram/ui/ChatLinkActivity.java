@@ -40,7 +40,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.ManageChatTextCell;
@@ -56,7 +56,7 @@ import org.telegram.ui.Components.RecyclerListView;
 
 import java.util.ArrayList;
 
-public class ChatLinkActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
+public class ChatLinkActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
     private ListAdapter listViewAdapter;
     private RecyclerListView listView;
@@ -548,7 +548,7 @@ public class ChatLinkActivity extends BaseFragments implements NotificationCente
         showDialog(builder.create());
     }
 
-    private void linkChat(TLRPC.Chat chat, BaseFragments createFragment) {
+    private void linkChat(TLRPC.Chat chat, BaseFragment createFragment) {
         if (chat == null) {
             return;
         }

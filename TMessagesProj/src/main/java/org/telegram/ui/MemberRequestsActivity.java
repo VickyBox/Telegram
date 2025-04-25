@@ -10,10 +10,10 @@ import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.Delegates.MemberRequestsDelegate;
 
-public class MemberRequestsActivity extends BaseFragments {
+public class MemberRequestsActivity extends BaseFragment {
 
     public static final int searchMenuItem = 0;
 

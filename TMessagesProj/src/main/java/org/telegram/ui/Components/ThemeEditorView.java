@@ -65,7 +65,8 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.ActionBarLayout;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
@@ -1435,7 +1436,7 @@ public class ThemeEditorView {
                                 actionBarLayout = launchActivity.getActionBarLayout();
                             }
                             if (actionBarLayout != null) {
-                                BaseFragments fragment;
+                                BaseFragment fragment;
                                 if (!actionBarLayout.getFragmentStack().isEmpty()) {
                                     fragment = actionBarLayout.getFragmentStack().get(actionBarLayout.getFragmentStack().size() - 1);
                                 } else {

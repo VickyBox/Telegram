@@ -25,6 +25,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.DisplayCutout;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -216,7 +217,7 @@ public class DrawerLayoutContainer extends FrameLayout {
             drawerLayout.setVisibility(newVisibility);
         }
         if (!parentActionBarLayout.getFragmentStack().isEmpty()) {
-            BaseFragments currentFragment = parentActionBarLayout.getFragmentStack().get(0);
+            BaseFragment currentFragment = parentActionBarLayout.getFragmentStack().get(0);
             if (drawerPosition == drawerLayout.getMeasuredWidth()) {
                 currentFragment.setProgressToDrawerOpened(1f);
             } else if (drawerPosition == 0) {
@@ -322,7 +323,7 @@ public class DrawerLayoutContainer extends FrameLayout {
         parentActionBarLayout = layout;
     }
 
-    public void presentFragment(BaseFragments fragment) {
+    public void presentFragment(BaseFragment fragment) {
         if (parentActionBarLayout != null) {
             parentActionBarLayout.presentFragment(fragment);
         }

@@ -127,7 +127,7 @@ public class ActionBar extends FrameLayout {
     protected int itemsColor;
     protected int itemsActionModeColor;
     private boolean isBackOverlayVisible;
-    protected BaseFragments parentFragment;
+    protected BaseFragment parentFragment;
     public ActionBarMenuOnItemClick actionBarMenuOnItemClick;
     private int titleColorToSet = 0;
     private boolean overlayTitleAnimation;

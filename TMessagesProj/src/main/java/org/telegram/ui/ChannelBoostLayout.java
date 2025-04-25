@@ -29,7 +29,7 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.FixedHeightEmptyCell;
 import org.telegram.ui.Cells.ManageChatTextCell;
@@ -65,7 +65,7 @@ public class ChannelBoostLayout extends FrameLayout {
 
     private final long dialogId;
     int currentAccount = UserConfig.selectedAccount;
-    BaseFragments fragment;
+    BaseFragment fragment;
 
     TLRPC.TL_stories_boostsStatus boostsStatus;
 
@@ -209,7 +209,7 @@ public class ChannelBoostLayout extends FrameLayout {
     boolean usersLoading;
     private LinearLayout progressLayout;
 
-    public ChannelBoostLayout(BaseFragments fragment, long dialogId, Theme.ResourcesProvider resourcesProvider) {
+    public ChannelBoostLayout(BaseFragment fragment, long dialogId, Theme.ResourcesProvider resourcesProvider) {
         super(fragment.getContext());
         this.fragment = fragment;
         Context context = fragment.getContext();

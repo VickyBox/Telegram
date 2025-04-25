@@ -41,7 +41,7 @@ import org.telegram.messenger.voip.VoIPService;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.GroupCreateUserCell;
@@ -230,7 +230,7 @@ public class JoinCallAlert extends BottomSheet {
         }
     }
 
-    public static void open(Context context, long did, AccountInstance accountInstance, BaseFragments fragment, int type, TLRPC.Peer scheduledPeer, JoinCallAlertDelegate delegate) {
+    public static void open(Context context, long did, AccountInstance accountInstance, BaseFragment fragment, int type, TLRPC.Peer scheduledPeer, JoinCallAlertDelegate delegate) {
         if (context == null || delegate == null) {
             return;
         }
@@ -276,7 +276,7 @@ public class JoinCallAlert extends BottomSheet {
         }
     }
 
-    private static void showAlert(Context context, long dialogId, ArrayList<TLRPC.Peer> peers, BaseFragments fragment, int type, TLRPC.Peer scheduledPeer, JoinCallAlertDelegate delegate) {
+    private static void showAlert(Context context, long dialogId, ArrayList<TLRPC.Peer> peers, BaseFragment fragment, int type, TLRPC.Peer scheduledPeer, JoinCallAlertDelegate delegate) {
         if (type == TYPE_CREATE) {
             CreateGroupCallBottomSheet.show(peers, fragment, dialogId, delegate);
             return;

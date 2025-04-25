@@ -53,7 +53,7 @@ import org.telegram.messenger.UserObject;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.PaymentFormActivity;
 
@@ -71,7 +71,7 @@ public class UndoView extends FrameLayout {
     private LinearLayout undoButton;
     private int undoViewHeight;
 
-    private BaseFragments parentFragment;
+    private BaseFragment parentFragment;
 
     private Object currentInfoObject;
     private Object currentInfoObject2;
@@ -221,11 +221,11 @@ public class UndoView extends FrameLayout {
         this(context, null, false, null);
     }
 
-    public UndoView(Context context, BaseFragments parent) {
+    public UndoView(Context context, BaseFragment parent) {
         this(context, parent, false, null);
     }
 
-    public UndoView(Context context, BaseFragments parent, boolean top, Theme.ResourcesProvider resourcesProvider) {
+    public UndoView(Context context, BaseFragment parent, boolean top, Theme.ResourcesProvider resourcesProvider) {
         super(context);
         this.resourcesProvider = resourcesProvider;
         parentFragment = parent;

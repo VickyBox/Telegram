@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -32,6 +33,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.checkerframework.checker.units.qual.A;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ChannelBoostsController;
 import org.telegram.messenger.ChatObject;
@@ -44,7 +46,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragments;
+import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.AdminedChannelCell;
 import org.telegram.ui.Cells.GroupCreateUserCell;
@@ -63,7 +65,8 @@ import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerItemsEnterAnimator;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.ScaleStateListAnimator;
-import org.telegram.ui.PremiumPreviewFragments;
+import org.telegram.ui.LaunchActivity;
+import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.Stories.ChannelBoostUtilities;
 
 import java.util.ArrayList;
@@ -156,7 +159,7 @@ public class LimitReachedBottomSheet extends BottomSheetWithRecyclerListView {
     public Runnable onShowPremiumScreenRunnable;
     private boolean loading = false;
     RecyclerItemsEnterAnimator enterAnimator;
-    BaseFragments parentFragment;
+    BaseFragment parentFragment;
     View divider;
     LimitParams limitParams;
     private boolean isVeryLargeFile;
@@ -164,7 +167,7 @@ public class LimitReachedBottomSheet extends BottomSheetWithRecyclerListView {
     FireworksOverlay fireworksOverlay;
     Runnable statisticClickRunnable;
 
-    public LimitReachedBottomSheet(BaseFragments fragment, Context context, int type, int currentAccount, Theme.ResourcesProvider resourcesProvider) {
+    public LimitReachedBottomSheet(BaseFragment fragment, Context context, int type, int currentAccount, Theme.ResourcesProvider resourcesProvider) {
         super(fragment, false, hasFixedSize(type), false, resourcesProvider);
         fixNavigationBar(Theme.getColor(Theme.key_dialogBackground, this.resourcesProvider));
         this.parentFragment = fragment;
@@ -248,7 +251,7 @@ public class LimitReachedBottomSheet extends BottomSheetWithRecyclerListView {
                     builder.setTitle(LocaleController.getString("PremiumNeeded", R.string.PremiumNeeded));
                     builder.setSubtitle(AndroidUtilities.replaceTags(LocaleController.getString("PremiumNeededForBoosting", R.string.PremiumNeededForBoosting)));
                     builder.setPositiveButton(LocaleController.getString("CheckPhoneNumberYes", R.string.CheckPhoneNumberYes), (dialog, which) -> {
-                        PremiumFeatureBottomSheet featureBottomSheet = new PremiumFeatureBottomSheet(parentFragment, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
+                        PremiumFeatureBottomSheet featureBottomSheet = new PremiumFeatureBottomSheet(parentFragment, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
                         parentFragment.showDialog(featureBottomSheet);
                         LimitReachedBottomSheet.this.dismiss();
                         dialog.dismiss();
@@ -370,7 +373,7 @@ public class LimitReachedBottomSheet extends BottomSheetWithRecyclerListView {
             if (parentFragment.getVisibleDialog() != null) {
                 parentFragment.getVisibleDialog().dismiss();
             }
-            parentFragment.presentFragment(new PremiumPreviewFragments(limitTypeToServerString(type)));
+            parentFragment.presentFragment(new PremiumPreviewFragment(limitTypeToServerString(type)));
             if (onShowPremiumScreenRunnable != null) {
                 onShowPremiumScreenRunnable.run();
             }

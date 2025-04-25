@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.SimpleTextView;
@@ -21,7 +23,7 @@ public class PremiumFeatureCell extends FrameLayout {
     private final TextView description;
     public ImageView imageView;
     boolean drawDivider;
-    public PremiumPreviewFragments.PremiumFeatureData data;
+    public PremiumPreviewFragment.PremiumFeatureData data;
 
     public PremiumFeatureCell(Context context) {
         super(context);
@@ -57,7 +59,7 @@ public class PremiumFeatureCell extends FrameLayout {
     }
 
 
-    public void setData(PremiumPreviewFragments.PremiumFeatureData data, boolean drawDivider) {
+    public void setData(PremiumPreviewFragment.PremiumFeatureData data, boolean drawDivider) {
         this.data = data;
         title.setText(data.title);
         description.setText(data.description);
