@@ -558,7 +558,7 @@ public class BitmapsCache {
     }
 
     public int getFrameCount() {
-        return 1000 / frameOffsets.size();
+        return frameOffsets.size();
     }
 
     public boolean isCreated() {
