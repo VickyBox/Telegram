@@ -15,14 +15,14 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
 
 public class PremiumNotAvailableBottomSheet extends BottomSheet {
 
-    public PremiumNotAvailableBottomSheet(BaseFragment fragment) {
+    public PremiumNotAvailableBottomSheet(BaseFragments fragment) {
         super(fragment.getParentActivity(), false);
         Context context = fragment.getParentActivity();
         LinearLayout linearLayout = new LinearLayout(context);

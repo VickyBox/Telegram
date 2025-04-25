@@ -29,7 +29,7 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.messenger.SendMessagesHelper;
 import org.telegram.messenger.Utilities;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.BasePermissionsActivity;
 import org.telegram.ui.PhotoAlbumPickerActivity;
@@ -43,7 +43,7 @@ public class WallpaperUpdater {
     private String currentPicturePath;
     private File picturePath = null;
     private Activity parentActivity;
-    private BaseFragment parentFragment;
+    private BaseFragments parentFragment;
     private WallpaperUpdaterDelegate delegate;
     private File currentWallpaperPath;
 
@@ -52,7 +52,7 @@ public class WallpaperUpdater {
         void needOpenColorPicker();
     }
 
-    public WallpaperUpdater(Activity activity, BaseFragment fragment, WallpaperUpdaterDelegate wallpaperUpdaterDelegate) {
+    public WallpaperUpdater(Activity activity, BaseFragments fragment, WallpaperUpdaterDelegate wallpaperUpdaterDelegate) {
         parentActivity = activity;
         parentFragment = fragment;
         delegate = wallpaperUpdaterDelegate;

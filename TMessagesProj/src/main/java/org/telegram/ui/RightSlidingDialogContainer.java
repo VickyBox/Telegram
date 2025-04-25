@@ -25,14 +25,14 @@ import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.CubicBezierInterpolator;
 
 public abstract class RightSlidingDialogContainer extends FrameLayout {
 
-    BaseFragment currentFragment;
+    BaseFragments currentFragment;
     View currentFragmentView;
     View currentFragmentFullscreenView;
     ActionBar currentActionBarView;
@@ -52,7 +52,7 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
         super(context);
     }
 
-    public void presentFragment(INavigationLayout navigationLayout, BaseFragment fragment) {
+    public void presentFragment(INavigationLayout navigationLayout, BaseFragments fragment) {
         if (isPaused) {
             return;
         }
@@ -64,7 +64,7 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
 
             fragment.onResume();
             addView(currentFragmentView = view);
-            BaseFragment oldFragment = currentFragment;
+            BaseFragments oldFragment = currentFragment;
             if (fragment instanceof BaseFragmentWithFullscreen) {
                 currentFragmentFullscreenView = ((BaseFragmentWithFullscreen) fragment).getFullscreenView();
                 addView(currentFragmentFullscreenView);
@@ -72,8 +72,8 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
             currentFragment = fragment;
 
             fragmentDialogId = 0;
-            if (currentFragment instanceof TopicsFragment) {
-                fragmentDialogId = -((TopicsFragment) currentFragment).chatId;
+            if (currentFragment instanceof TopicsFragments) {
+                fragmentDialogId = -((TopicsFragments) currentFragment).chatId;
             }
             if (fragment.getActionBar() != null) {
                 addView(currentActionBarView = fragment.getActionBar());
@@ -130,10 +130,10 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
 
     SpringAnimation replaceAnimation;
     float replaceProgress;
-    BaseFragment replacingFragment;
+    BaseFragments replacingFragment;
 
-    private void animateReplace(BaseFragment oldFragment) {
-        BaseFragment currentFragment = this.currentFragment;
+    private void animateReplace(BaseFragments oldFragment) {
+        BaseFragments currentFragment = this.currentFragment;
 
         if (!SharedConfig.animationsEnabled()) {
             currentFragment.onTransitionAnimationStart(true, false);
@@ -183,7 +183,7 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
         replaceAnimation.start();
     }
 
-    private void setReplaceProgress(BaseFragment oldFragment, BaseFragment currentFragment, float p) {
+    private void setReplaceProgress(BaseFragments oldFragment, BaseFragments currentFragment, float p) {
         if (oldFragment == null && currentFragment == null) {
             return;
         }
@@ -485,7 +485,7 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
         }
     }
 
-    public BaseFragment getFragment() {
+    public BaseFragments getFragment() {
         return currentFragment;
     }
 
@@ -552,8 +552,8 @@ public abstract class RightSlidingDialogContainer extends FrameLayout {
     }
 
     public void setTransitionPaddingBottom(int transitionPadding) {
-        if (currentFragment instanceof TopicsFragment) {
-            ((TopicsFragment)currentFragment).setTransitionPadding(transitionPadding);
+        if (currentFragment instanceof TopicsFragments) {
+            ((TopicsFragments)currentFragment).setTransitionPadding(transitionPadding);
         }
     }
 

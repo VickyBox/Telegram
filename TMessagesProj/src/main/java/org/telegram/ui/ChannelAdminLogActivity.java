@@ -97,7 +97,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -135,7 +135,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ChannelAdminLogActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class ChannelAdminLogActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     protected TLRPC.Chat currentChat;
 
@@ -2762,7 +2762,7 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                     }
 
                     @Override
-                    public BaseFragment getBaseFragment() {
+                    public BaseFragments getBaseFragment() {
                         return ChannelAdminLogActivity.this;
                     }
 

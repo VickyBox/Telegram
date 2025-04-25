@@ -53,7 +53,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.AdminedChannelCell;
@@ -82,7 +82,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class ChatEditTypeActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class ChatEditTypeActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private EditTextBoldCursor usernameTextView;
     private EditTextBoldCursor editText;

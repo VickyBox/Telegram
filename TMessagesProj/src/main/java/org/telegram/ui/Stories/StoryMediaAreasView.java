@@ -7,40 +7,29 @@ import android.graphics.Canvas;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Region;
 import android.graphics.Shader;
-import android.graphics.Xfermode;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 
-import com.google.android.exoplayer2.extractor.CeaUtil;
-import com.google.zxing.qrcode.decoder.Mode;
-
-import org.checkerframework.checker.units.qual.A;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessageObject;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
-import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.AnimatedFloat;
 import org.telegram.ui.Components.ColoredImageSpan;
-import org.telegram.ui.Components.CubicBezierInterpolator;
 import org.telegram.ui.Components.LayoutHelper;
-import org.telegram.ui.Components.Paint.Views.ReactionWidgetEntityView;
 import org.telegram.ui.Components.ScaleStateListAnimator;
 import org.telegram.ui.EmojiAnimationsOverlay;
 import org.telegram.ui.LocationActivity;
@@ -86,7 +75,7 @@ public class StoryMediaAreasView extends FrameLayout implements View.OnClickList
 
     }
 
-    protected void presentFragment(BaseFragment fragment) {
+    protected void presentFragment(BaseFragments fragment) {
 
     }
 

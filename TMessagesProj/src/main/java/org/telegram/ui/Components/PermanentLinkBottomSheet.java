@@ -24,7 +24,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -41,9 +41,9 @@ public class PermanentLinkBottomSheet extends BottomSheet {
     private final RLottieDrawable linkIcon;
     private final LinkActionView linkActionView;
     private final long chatId;
-    private BaseFragment fragment;
+    private BaseFragments fragment;
 
-    public PermanentLinkBottomSheet(Context context, boolean needFocus, BaseFragment fragment, TLRPC.ChatFull info, long chatId, boolean isChannel) {
+    public PermanentLinkBottomSheet(Context context, boolean needFocus, BaseFragments fragment, TLRPC.ChatFull info, long chatId, boolean isChannel) {
         super(context, needFocus);
         this.chatId = chatId;
 

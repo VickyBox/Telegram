@@ -61,7 +61,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Adapters.SearchAdapterHelper;
@@ -94,7 +94,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-public class NotificationsCustomSettingsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class NotificationsCustomSettingsActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private RecyclerListView listView;
     private ListAdapter adapter;

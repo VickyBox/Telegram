@@ -24,7 +24,7 @@ import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.ArchivedStickerSetCell;
@@ -38,7 +38,7 @@ import org.telegram.ui.Components.StickersAlert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArchivedStickersActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class ArchivedStickersActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private final LongSparseArray<TLRPC.StickerSetCovered> installingStickerSets = new LongSparseArray<>();
 

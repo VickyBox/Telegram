@@ -61,7 +61,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -92,7 +92,7 @@ import org.telegram.ui.Components.UndoView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class FilterCreateActivity extends BaseFragment {
+public class FilterCreateActivity extends BaseFragments {
 
     private RecyclerListView listView;
     private ListAdapter adapter;
@@ -892,7 +892,7 @@ public class FilterCreateActivity extends BaseFragment {
         });
     }
 
-    private static void processAddFilter(MessagesController.DialogFilter filter, int newFilterFlags, String newFilterName, ArrayList<Long> newAlwaysShow, ArrayList<Long> newNeverShow, boolean creatingNew, boolean atBegin, boolean hasUserChanged, boolean resetUnreadCounter, BaseFragment fragment, Runnable onFinish) {
+    private static void processAddFilter(MessagesController.DialogFilter filter, int newFilterFlags, String newFilterName, ArrayList<Long> newAlwaysShow, ArrayList<Long> newNeverShow, boolean creatingNew, boolean atBegin, boolean hasUserChanged, boolean resetUnreadCounter, BaseFragments fragment, Runnable onFinish) {
         if (filter.flags != newFilterFlags || hasUserChanged) {
             filter.pendingUnreadCount = -1;
             if (resetUnreadCounter) {
@@ -922,7 +922,7 @@ public class FilterCreateActivity extends BaseFragment {
         }
     }
 
-    public static void saveFilterToServer(MessagesController.DialogFilter filter, int newFilterFlags, String newFilterName, ArrayList<Long> newAlwaysShow, ArrayList<Long> newNeverShow, LongSparseIntArray newPinned, boolean creatingNew, boolean atBegin, boolean hasUserChanged, boolean resetUnreadCounter, boolean progress, BaseFragment fragment, Runnable onFinish) {
+    public static void saveFilterToServer(MessagesController.DialogFilter filter, int newFilterFlags, String newFilterName, ArrayList<Long> newAlwaysShow, ArrayList<Long> newNeverShow, LongSparseIntArray newPinned, boolean creatingNew, boolean atBegin, boolean hasUserChanged, boolean resetUnreadCounter, boolean progress, BaseFragments fragment, Runnable onFinish) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -1672,7 +1672,7 @@ public class FilterCreateActivity extends BaseFragment {
 
     private static class LinkCell extends FrameLayout {
 
-        private BaseFragment fragment;
+        private BaseFragments fragment;
         private int currentAccount;
         private int filterId;
 
@@ -1686,7 +1686,7 @@ public class FilterCreateActivity extends BaseFragment {
 
         boolean needDivider;
 
-        public LinkCell(Context context, BaseFragment fragment, int currentAccount, int filterId) {
+        public LinkCell(Context context, BaseFragments fragment, int currentAccount, int filterId) {
             super(context);
 
             this.fragment = fragment;
@@ -2086,7 +2086,7 @@ public class FilterCreateActivity extends BaseFragment {
 
     public static class FilterInvitesBottomSheet extends BottomSheetWithRecyclerListView {
 
-        public static void show(BaseFragment fragment, MessagesController.DialogFilter filter, Runnable onLoaded) {
+        public static void show(BaseFragments fragment, MessagesController.DialogFilter filter, Runnable onLoaded) {
             long start = System.currentTimeMillis();
             TLRPC.TL_chatlists_getExportedInvites req = new TLRPC.TL_chatlists_getExportedInvites();
             req.chatlist = new TLRPC.TL_inputChatlistDialogFilter();
@@ -2120,7 +2120,7 @@ public class FilterCreateActivity extends BaseFragment {
 
         private TextView button;
 
-        public FilterInvitesBottomSheet(BaseFragment fragment, MessagesController.DialogFilter filter, ArrayList<TLRPC.TL_exportedChatlistInvite> loadedInvites) {
+        public FilterInvitesBottomSheet(BaseFragments fragment, MessagesController.DialogFilter filter, ArrayList<TLRPC.TL_exportedChatlistInvite> loadedInvites) {
             super(fragment, false, false);
 
             this.filter = filter;
@@ -2462,7 +2462,7 @@ public class FilterCreateActivity extends BaseFragment {
         }
     }
 
-    public static boolean processErrors(TLRPC.TL_error err, BaseFragment fragment, BulletinFactory factory) {
+    public static boolean processErrors(TLRPC.TL_error err, BaseFragments fragment, BulletinFactory factory) {
         if (err == null || TextUtils.isEmpty(err.text)) {
             return true;
         }

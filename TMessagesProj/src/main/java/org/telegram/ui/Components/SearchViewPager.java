@@ -38,7 +38,7 @@ import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.MenuDrawable;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
@@ -56,7 +56,7 @@ import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.FilteredSearchView;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +100,7 @@ public class SearchViewPager extends ViewPagerFixed implements FilteredSearchVie
     int currentAccount = UserConfig.selectedAccount;
 
     private boolean lastSearchScrolledToTop;
-    BaseFragment parent;
+    BaseFragments parent;
 
     String lastSearchString;
     private FilteredSearchView.Delegate filteredSearchViewDelegate;
@@ -509,7 +509,7 @@ public class SearchViewPager extends ViewPagerFixed implements FilteredSearchVie
                 return;
             }
 
-            parent.showDialog(new PremiumFeatureBottomSheet(parent, PremiumPreviewFragment.PREMIUM_FEATURE_DOWNLOAD_SPEED, true));
+            parent.showDialog(new PremiumFeatureBottomSheet(parent, PremiumPreviewFragments.PREMIUM_FEATURE_DOWNLOAD_SPEED, true));
         } else if (id == gotoItemId) {
             if (selectedFiles.size() != 1) {
                 return;

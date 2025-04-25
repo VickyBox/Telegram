@@ -54,7 +54,7 @@ import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.FeaturedStickerSetCell2;
@@ -89,7 +89,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class StickersActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class StickersActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private static final int MENU_ARCHIVE = 0;
     private static final int MENU_DELETE = 1;
@@ -1293,7 +1293,7 @@ public class StickersActivity extends BaseFragment implements NotificationCenter
                     view = new FeaturedStickerSetCell2(mContext, getResourceProvider()) {
                         @Override
                         protected void onPremiumButtonClick() {
-                            showDialog(new PremiumFeatureBottomSheet(StickersActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
+                            showDialog(new PremiumFeatureBottomSheet(StickersActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
                         }
                     };
                     view.setBackgroundColor(getThemedColor(Theme.key_windowBackgroundWhite));
@@ -1303,7 +1303,7 @@ public class StickersActivity extends BaseFragment implements NotificationCenter
                     view = new StickerSetCell(mContext, 1) {
                         @Override
                         protected void onPremiumButtonClick() {
-                            showDialog(new PremiumFeatureBottomSheet(StickersActivity.this, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
+                            showDialog(new PremiumFeatureBottomSheet(StickersActivity.this, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
                         }
 
                         @Override

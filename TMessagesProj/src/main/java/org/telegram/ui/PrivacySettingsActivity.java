@@ -39,7 +39,7 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.CheckBoxCell;
@@ -59,7 +59,7 @@ import org.telegram.ui.Components.TextStyleSpan;
 
 import java.util.ArrayList;
 
-public class PrivacySettingsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
+public class PrivacySettingsActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate {
 
     private ListAdapter listAdapter;
     private RecyclerListView listView;

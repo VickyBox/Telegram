@@ -51,7 +51,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.SelectAnimatedEmojiDialog;
@@ -59,7 +59,7 @@ import org.telegram.ui.SelectAnimatedEmojiDialog;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AvatarConstructorFragment extends BaseFragment {
+public class AvatarConstructorFragments extends BaseFragments {
 
     public final static float STICKER_DEFAULT_SCALE = 0.7f;
     public final static float STICKER_DEFAULT_ROUND_RADIUS = 0.13f;
@@ -111,7 +111,7 @@ public class AvatarConstructorFragment extends BaseFragment {
     private TextView chooseBackgroundHint;
     ImageUpdater imageUpdater;
 
-    public AvatarConstructorFragment(ImageUpdater imageUpdater, ImageUpdater.AvatarFor avatarFor) {
+    public AvatarConstructorFragments(ImageUpdater imageUpdater, ImageUpdater.AvatarFor avatarFor) {
         this.imageUpdater = imageUpdater;
         this.avatarFor = avatarFor;
     }
@@ -1382,7 +1382,7 @@ public class AvatarConstructorFragment extends BaseFragment {
             }
             if (dyUnconsumed != 0) {
                 cancelExpandAnimator();
-                float progressToExpand = AvatarConstructorFragment.this.progressToExpand - dyUnconsumed / (float) expandedHeight;
+                float progressToExpand = AvatarConstructorFragments.this.progressToExpand - dyUnconsumed / (float) expandedHeight;
                 progressToExpand = Utilities.clamp(progressToExpand, 1f, 0f);
                 setProgressToExpand(progressToExpand, true);
             }
@@ -1393,9 +1393,9 @@ public class AvatarConstructorFragment extends BaseFragment {
             if (keyboardVisibleProgress > 0 || isLandscapeMode) {
                 return;
             }
-            if (dy > 0 && AvatarConstructorFragment.this.progressToExpand > 0) {
+            if (dy > 0 && AvatarConstructorFragments.this.progressToExpand > 0) {
                 cancelExpandAnimator();
-                float progressToExpand = AvatarConstructorFragment.this.progressToExpand - dy / (float) expandedHeight;
+                float progressToExpand = AvatarConstructorFragments.this.progressToExpand - dy / (float) expandedHeight;
                 progressToExpand = Utilities.clamp(progressToExpand, 1f, 0f);
                 setProgressToExpand(progressToExpand, true);
                 consumed[1] = dy;

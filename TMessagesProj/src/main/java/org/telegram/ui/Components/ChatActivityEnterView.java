@@ -138,7 +138,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -151,10 +151,10 @@ import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.GroupStickersActivity;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PhotoViewer;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.StickersActivity;
-import org.telegram.ui.TopicsFragment;
+import org.telegram.ui.TopicsFragments;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -5625,7 +5625,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
         return false;
     }
 
-    public static boolean checkPremiumAnimatedEmoji(int currentAccount, long dialogId, BaseFragment parentFragment, FrameLayout container, CharSequence message) {
+    public static boolean checkPremiumAnimatedEmoji(int currentAccount, long dialogId, BaseFragments parentFragment, FrameLayout container, CharSequence message) {
         if (message == null || parentFragment == null) {
             return false;
         }
@@ -5702,9 +5702,9 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                                     LocaleController.getString("PremiumMore", R.string.PremiumMore),
                                     () -> {
                                         if (parentFragment != null) {
-                                            new PremiumFeatureBottomSheet(parentFragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
+                                            new PremiumFeatureBottomSheet(parentFragment, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
                                         } else if (parentFragment.getContext() instanceof LaunchActivity) {
-                                            ((LaunchActivity) parentFragment.getContext()).presentFragment(new PremiumPreviewFragment(null));
+                                            ((LaunchActivity) parentFragment.getContext()).presentFragment(new PremiumPreviewFragments(null));
                                         }
                                     }
                                 ).show();
@@ -5723,7 +5723,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
         }
         BulletinFactory.of(parentFragment).createCaptionLimitBulletin(MessagesController.getInstance(currentAccount).captionLengthLimitPremium, () -> {
             if (parentFragment != null) {
-                parentFragment.presentFragment(new PremiumPreviewFragment("caption_limit"));
+                parentFragment.presentFragment(new PremiumPreviewFragments("caption_limit"));
             }
         }).show();
     }
@@ -8492,7 +8492,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                 DialogsActivity fragment = new DialogsActivity(args);
                 fragment.setDelegate(new DialogsActivity.DialogsActivityDelegate() {
                     @Override
-                    public boolean didSelectDialogs(DialogsActivity fragment, ArrayList<MessagesStorage.TopicKey> dids, CharSequence message, boolean param, TopicsFragment topicsFragment) {
+                    public boolean didSelectDialogs(DialogsActivity fragment, ArrayList<MessagesStorage.TopicKey> dids, CharSequence message, boolean param, TopicsFragments topicsFragment) {
                         if (dids != null && !dids.isEmpty()) {
                             TLRPC.TL_messages_sendBotRequestedPeer req = new TLRPC.TL_messages_sendBotRequestedPeer();
                             req.peer = MessagesController.getInstance(currentAccount).getInputPeer(messageObject.messageOwner.peer_id);
@@ -8629,11 +8629,11 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
 
             @Override
             public void onAnimatedEmojiUnlockClick() {
-                BaseFragment fragment = parentFragment;
+                BaseFragments fragment = parentFragment;
                 if (fragment == null) {
                     fragment = LaunchActivity.getLastFragment();
                 }
-                BottomSheet alert = new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false);
+                BottomSheet alert = new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false);
                 if (fragment != null) {
                     fragment.showDialog(alert);
                 } else {
@@ -8771,7 +8771,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                     trendingStickersAlert.getLayout().showStickerSet(stickerSet, inputStickerSet);
                     return;
                 }
-                BaseFragment fragment = parentFragment;
+                BaseFragments fragment = parentFragment;
                 if (fragment == null) {
                     fragment = LaunchActivity.getLastFragment();
                 }
@@ -8851,7 +8851,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
 
             @Override
             public void showTrendingStickersAlert(TrendingStickersLayout layout) {
-                BaseFragment fragment = parentFragment;
+                BaseFragments fragment = parentFragment;
                 if (fragment == null) {
                     fragment = LaunchActivity.getLastFragment();
                 }

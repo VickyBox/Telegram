@@ -47,7 +47,7 @@ import org.telegram.messenger.utils.PhotoUtilities;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Cells.CheckBoxCell;
@@ -66,7 +66,7 @@ import org.telegram.ui.LNavigation.NavigationExt;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ContactAddActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, ImageUpdater.ImageUpdaterDelegate {
+public class ContactAddActivity extends BaseFragments implements NotificationCenter.NotificationCenterDelegate, ImageUpdater.ImageUpdaterDelegate {
 
     private View doneButton;
     private EditTextBoldCursor firstNameField;

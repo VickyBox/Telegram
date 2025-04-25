@@ -19,21 +19,21 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.DownloadController;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.CacheControlActivity;
 
 public class DownloadsInfoBottomSheet extends BottomSheet {
 
-    public static void show(Activity parentActivity, BaseFragment parentFragment) {
+    public static void show(Activity parentActivity, BaseFragments parentFragment) {
         if (parentFragment == null || parentActivity == null) {
             return;
         }
         new DownloadsInfoBottomSheet(parentActivity, parentFragment, false).show();
     }
 
-    public DownloadsInfoBottomSheet(Context context, BaseFragment parentFragment, boolean needFocus) {
+    public DownloadsInfoBottomSheet(Context context, BaseFragments parentFragment, boolean needFocus) {
         super(context, needFocus);
         setApplyBottomPadding(false);
         setApplyTopPadding(false);

@@ -26,7 +26,7 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
 import org.telegram.messenger.SharedConfig;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ChatMessageCell;
 import org.telegram.ui.ChatActivity;
@@ -57,7 +57,7 @@ public class ReactionsEffectOverlay {
     private final AnimationView emojiImageView;
     private final AnimationView emojiStaticImageView;
     private final FrameLayout container;
-    private final BaseFragment fragment;
+    private final BaseFragments fragment;
     private final int currentAccount;
     private ReactionsEffectOverlay nextReactionOverlay;
     boolean animateIn;
@@ -90,7 +90,7 @@ public class ReactionsEffectOverlay {
     public boolean isStories;
     boolean isFinished;
 
-    public ReactionsEffectOverlay(Context context, BaseFragment fragment, ReactionsContainerLayout reactionsLayout, ChatMessageCell cell, View fromAnimationView, float x, float y, ReactionsLayoutInBubble.VisibleReaction visibleReaction, int currentAccount, int animationType, boolean isStories) {
+    public ReactionsEffectOverlay(Context context, BaseFragments fragment, ReactionsContainerLayout reactionsLayout, ChatMessageCell cell, View fromAnimationView, float x, float y, ReactionsLayoutInBubble.VisibleReaction visibleReaction, int currentAccount, int animationType, boolean isStories) {
         this.fragment = fragment;
         this.isStories = isStories;
         if (cell != null) {
@@ -720,8 +720,8 @@ public class ReactionsEffectOverlay {
         }
     }
 
-    public static void show(BaseFragment baseFragment, ReactionsContainerLayout reactionsLayout, ChatMessageCell cell, View fromAnimationView, float x, float y, ReactionsLayoutInBubble.VisibleReaction visibleReaction, int currentAccount, int animationType) {
-        if (cell == null || visibleReaction == null || baseFragment == null || baseFragment.getParentActivity() == null) {
+    public static void show(BaseFragments baseFragments, ReactionsContainerLayout reactionsLayout, ChatMessageCell cell, View fromAnimationView, float x, float y, ReactionsLayoutInBubble.VisibleReaction visibleReaction, int currentAccount, int animationType) {
+        if (cell == null || visibleReaction == null || baseFragments == null || baseFragments.getParentActivity() == null) {
             return;
         }
         boolean animationEnabled = MessagesController.getGlobalMainSettings().getBoolean("view_animations", true);
@@ -729,10 +729,10 @@ public class ReactionsEffectOverlay {
             return;
         }
         if (animationType == ONLY_MOVE_ANIMATION || animationType == LONG_ANIMATION) {
-            show(baseFragment, null, cell, fromAnimationView, 0, 0, visibleReaction, currentAccount, SHORT_ANIMATION);
+            show(baseFragments, null, cell, fromAnimationView, 0, 0, visibleReaction, currentAccount, SHORT_ANIMATION);
         }
 
-        ReactionsEffectOverlay reactionsEffectOverlay = new ReactionsEffectOverlay(baseFragment.getParentActivity(), baseFragment, reactionsLayout, cell, fromAnimationView, x, y, visibleReaction,  currentAccount, animationType, false);
+        ReactionsEffectOverlay reactionsEffectOverlay = new ReactionsEffectOverlay(baseFragments.getParentActivity(), baseFragments, reactionsLayout, cell, fromAnimationView, x, y, visibleReaction,  currentAccount, animationType, false);
         if (animationType == SHORT_ANIMATION) {
             currentShortOverlay = reactionsEffectOverlay;
         } else {
@@ -740,8 +740,8 @@ public class ReactionsEffectOverlay {
         }
 
         boolean useWindow = false;
-        if (baseFragment instanceof ChatActivity) {
-            ChatActivity chatActivity = (ChatActivity) baseFragment;
+        if (baseFragments instanceof ChatActivity) {
+            ChatActivity chatActivity = (ChatActivity) baseFragments;
             if ((animationType == LONG_ANIMATION || animationType == ONLY_MOVE_ANIMATION) && chatActivity.scrimPopupWindow != null && chatActivity.scrimPopupWindow.isShowing()) {
                 useWindow = true;
             }
@@ -755,10 +755,10 @@ public class ReactionsEffectOverlay {
             lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
             lp.format = PixelFormat.TRANSLUCENT;
 
-            reactionsEffectOverlay.windowManager = baseFragment.getParentActivity().getWindowManager();
+            reactionsEffectOverlay.windowManager = baseFragments.getParentActivity().getWindowManager();
             reactionsEffectOverlay.windowManager.addView(reactionsEffectOverlay.windowView, lp);
         } else {
-            reactionsEffectOverlay.decorView = (FrameLayout) baseFragment.getParentActivity().getWindow().getDecorView();
+            reactionsEffectOverlay.decorView = (FrameLayout) baseFragments.getParentActivity().getWindow().getDecorView();
             reactionsEffectOverlay.decorView.addView(reactionsEffectOverlay.windowView);
         }
         cell.invalidate();

@@ -89,7 +89,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSlider;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -1599,7 +1599,7 @@ public class AudioPlayerAlert extends BottomSheet implements NotificationCenter.
             blurredView.setTag(1);
             bigAlbumConver.setImageBitmap(coverContainer.getImageReceiver().getBitmap());
             blurredAnimationInProgress = true;
-            BaseFragment fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
+            BaseFragments fragment = parentActivity.getActionBarLayout().getFragmentStack().get(parentActivity.getActionBarLayout().getFragmentStack().size() - 1);
             View fragmentView = fragment.getFragmentView();
             int w = (int) (fragmentView.getMeasuredWidth() / 6.0f);
             int h = (int) (fragmentView.getMeasuredHeight() / 6.0f);

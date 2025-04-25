@@ -37,7 +37,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.AnimatedTextView;
@@ -1196,7 +1196,7 @@ public class StoriesUtilities {
         }
 
         public void openStory(long dialogId, Runnable onDone) {
-            BaseFragment fragment = LaunchActivity.getLastFragment();
+            BaseFragments fragment = LaunchActivity.getLastFragment();
             if (fragment != null && child != null) {
                 fragment.getOrCreateStoryViewer().doOnAnimationReady(onDone);
                 fragment.getOrCreateStoryViewer().open(fragment.getContext(), dialogId, StoriesListPlaceProvider.of((RecyclerListView) child.getParent()));

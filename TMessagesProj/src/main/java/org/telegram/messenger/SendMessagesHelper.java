@@ -57,7 +57,7 @@ import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ChatMessageCell;
 import org.telegram.ui.ChatActivity;
@@ -2728,7 +2728,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         }
     }
 
-    public int editMessage(MessageObject messageObject, String message, boolean searchLinks, final BaseFragment fragment, ArrayList<TLRPC.MessageEntity> entities, int scheduleDate) {
+    public int editMessage(MessageObject messageObject, String message, boolean searchLinks, final BaseFragments fragment, ArrayList<TLRPC.MessageEntity> entities, int scheduleDate) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return 0;
         }
@@ -6926,7 +6926,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
     }
 
     @UiThread
-    public static void prepareSendingBotContextResult(BaseFragment fragment, AccountInstance accountInstance, TLRPC.BotInlineResult result, HashMap<String, String> params, long dialogId, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.StoryItem storyItem, boolean notify, int scheduleDate) {
+    public static void prepareSendingBotContextResult(BaseFragments fragment, AccountInstance accountInstance, TLRPC.BotInlineResult result, HashMap<String, String> params, long dialogId, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.StoryItem storyItem, boolean notify, int scheduleDate) {
         if (result == null) {
             return;
         }

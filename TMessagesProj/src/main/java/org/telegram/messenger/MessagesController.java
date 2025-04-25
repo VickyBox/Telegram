@@ -27,7 +27,6 @@ import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
@@ -53,7 +52,7 @@ import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.ChatReactionsEditActivity;
@@ -70,11 +69,11 @@ import org.telegram.ui.Components.TranscribeButton;
 import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.EditWidgetActivity;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.SecretMediaViewer;
 import org.telegram.ui.Stories.StoriesController;
-import org.telegram.ui.TopicsFragment;
+import org.telegram.ui.TopicsFragments;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -3420,7 +3419,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 s = ((TLRPC.TL_jsonString) value.get(i)).value;
             }
             if (s != null) {
-                int type = PremiumPreviewFragment.serverStringToFeatureType(s);
+                int type = PremiumPreviewFragments.serverStringToFeatureType(s);
                 if (type >= 0) {
                     premiumFeaturesTypesToPosition.put(type, i);
                     if (stringBuilder.length() > 0) {
@@ -5812,7 +5811,7 @@ public class MessagesController extends BaseController implements NotificationCe
         });
     }
 
-    public void setParticipantBannedRole(long chatId, TLRPC.User user, TLRPC.Chat chat, TLRPC.TL_chatBannedRights rights, boolean isChannel, BaseFragment parentFragment) {
+    public void setParticipantBannedRole(long chatId, TLRPC.User user, TLRPC.Chat chat, TLRPC.TL_chatBannedRights rights, boolean isChannel, BaseFragments parentFragment) {
         if (user == null && chat == null || rights == null) {
             return;
         }
@@ -5846,7 +5845,7 @@ public class MessagesController extends BaseController implements NotificationCe
         });
     }
 
-    public void setDefaultBannedRole(long chatId, TLRPC.TL_chatBannedRights rights, boolean isChannel, BaseFragment parentFragment) {
+    public void setDefaultBannedRole(long chatId, TLRPC.TL_chatBannedRights rights, boolean isChannel, BaseFragments parentFragment) {
         if (rights == null) {
             return;
         }
@@ -5863,11 +5862,11 @@ public class MessagesController extends BaseController implements NotificationCe
         });
     }
 
-    public void setUserAdminRole(long chatId, TLRPC.User user, TLRPC.TL_chatAdminRights rights, String rank, boolean isChannel, BaseFragment parentFragment, boolean addingNew, boolean forceAdmin, String botHash, Runnable onSuccess) {
+    public void setUserAdminRole(long chatId, TLRPC.User user, TLRPC.TL_chatAdminRights rights, String rank, boolean isChannel, BaseFragments parentFragment, boolean addingNew, boolean forceAdmin, String botHash, Runnable onSuccess) {
         setUserAdminRole(chatId, user, rights, rank, isChannel, parentFragment, addingNew, forceAdmin, botHash, onSuccess, null);
     }
 
-    public void setUserAdminRole(long chatId, TLRPC.User user, TLRPC.TL_chatAdminRights rights, String rank, boolean isChannel, BaseFragment parentFragment, boolean addingNew, boolean forceAdmin, String botHash, Runnable onSuccess, ErrorDelegate onError) {
+    public void setUserAdminRole(long chatId, TLRPC.User user, TLRPC.TL_chatAdminRights rights, String rank, boolean isChannel, BaseFragments parentFragment, boolean addingNew, boolean forceAdmin, String botHash, Runnable onSuccess, ErrorDelegate onError) {
         if (user == null || rights == null) {
             return;
         }
@@ -5890,7 +5889,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 } else {
                     if (error != null && "USER_PRIVACY_RESTRICTED".equals(error.text) && ChatObject.canUserDoAdminAction(chat, ChatObject.ACTION_INVITE)) {
                         AndroidUtilities.runOnUIThread(() -> {
-                            BaseFragment lastFragment = LaunchActivity.getLastFragment();
+                            BaseFragments lastFragment = LaunchActivity.getLastFragment();
                             if (lastFragment != null && lastFragment.getParentActivity() != null) {
                                 LimitReachedBottomSheet restricterdUsersBottomSheet = new LimitReachedBottomSheet(lastFragment, lastFragment.getParentActivity(), LimitReachedBottomSheet.TYPE_ADD_MEMBERS_RESTRICTED, currentAccount, null);
                                 ArrayList<TLRPC.User> users = new ArrayList<TLRPC.User>();
@@ -11129,7 +11128,7 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
-    public int createChat(String title, ArrayList<Long> selectedContacts, String about, int type, boolean forImport, Location location, String locationAddress, int ttlPeriod, BaseFragment fragment) {
+    public int createChat(String title, ArrayList<Long> selectedContacts, String about, int type, boolean forImport, Location location, String locationAddress, int ttlPeriod, BaseFragments fragment) {
         if (type == ChatObject.CHAT_TYPE_CHAT && !forImport) {
             TLRPC.TL_messages_createChat req = new TLRPC.TL_messages_createChat();
             req.title = title;
@@ -11207,11 +11206,11 @@ public class MessagesController extends BaseController implements NotificationCe
         return 0;
     }
 
-    public void convertToMegaGroup(Context context, long chatId, BaseFragment fragment, MessagesStorage.LongCallback convertRunnable) {
+    public void convertToMegaGroup(Context context, long chatId, BaseFragments fragment, MessagesStorage.LongCallback convertRunnable) {
         convertToMegaGroup(context, chatId, fragment, convertRunnable, null);
     }
 
-    public void convertToMegaGroup(Context context, long chatId, BaseFragment fragment, MessagesStorage.LongCallback convertRunnable, Runnable errorRunnable) {
+    public void convertToMegaGroup(Context context, long chatId, BaseFragments fragment, MessagesStorage.LongCallback convertRunnable, Runnable errorRunnable) {
         TLRPC.TL_messages_migrateChat req = new TLRPC.TL_messages_migrateChat();
         req.chat_id = chatId;
         AlertDialog progressDialog = context != null ? new AlertDialog(context, AlertDialog.ALERT_TYPE_SPINNER) : null;
@@ -11272,7 +11271,7 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
-    public void convertToGigaGroup(final Context context, TLRPC.Chat chat, BaseFragment fragment, MessagesStorage.BooleanCallback convertRunnable) {
+    public void convertToGigaGroup(final Context context, TLRPC.Chat chat, BaseFragments fragment, MessagesStorage.BooleanCallback convertRunnable) {
         TLRPC.TL_channels_convertToGigagroup req = new TLRPC.TL_channels_convertToGigagroup();
         req.channel = getInputChannel(chat);
         AlertDialog progressDialog = context != null ? new AlertDialog(context, AlertDialog.ALERT_TYPE_SPINNER) : null;
@@ -11324,7 +11323,7 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
-    public void addUsersToChannel(long chatId, ArrayList<TLRPC.InputUser> users, BaseFragment fragment) {
+    public void addUsersToChannel(long chatId, ArrayList<TLRPC.InputUser> users, BaseFragments fragment) {
         if (users == null || users.isEmpty()) {
             return;
         }
@@ -11474,7 +11473,7 @@ public class MessagesController extends BaseController implements NotificationCe
         }, ConnectionsManager.RequestFlagInvokeAfter);
     }
 
-    public void updateChannelUserName(BaseFragment fragment, long chatId, String userName, Runnable runnable, Runnable onError) {
+    public void updateChannelUserName(BaseFragments fragment, long chatId, String userName, Runnable runnable, Runnable onError) {
         TLRPC.TL_channels_updateUsername req = new TLRPC.TL_channels_updateUsername();
         req.channel = getInputChannel(chatId);
         req.username = userName;
@@ -11545,7 +11544,7 @@ public class MessagesController extends BaseController implements NotificationCe
         return joiningToChannels.contains(chatId);
     }
 
-    public void addUserToChat(long chatId, TLRPC.User user, int forwardCount, String botHash, BaseFragment fragment, Runnable onFinishRunnable) {
+    public void addUserToChat(long chatId, TLRPC.User user, int forwardCount, String botHash, BaseFragments fragment, Runnable onFinishRunnable) {
         addUserToChat(chatId, user, forwardCount, botHash, fragment, false, onFinishRunnable, null);
     }
 
@@ -11554,14 +11553,14 @@ public class MessagesController extends BaseController implements NotificationCe
         public boolean run(TLRPC.TL_error error);
     }
 
-    public void addUsersToChat(TLRPC.Chat currentChat, BaseFragment baseFragment, ArrayList<TLRPC.User> users, int fwdCount, Consumer<TLRPC.User> onAddUser, Consumer<TLRPC.User> onRestricted, Runnable onComplete) {
+    public void addUsersToChat(TLRPC.Chat currentChat, BaseFragments baseFragments, ArrayList<TLRPC.User> users, int fwdCount, Consumer<TLRPC.User> onAddUser, Consumer<TLRPC.User> onRestricted, Runnable onComplete) {
         final int count = users.size();
         final int[] processed = new int[1];
         final ArrayList<TLRPC.User> userRestrictedPrivacy = new ArrayList<>();
         processed[0] = 0;
         final Runnable showUserRestrictedPrivacyAlert = () -> {
             AndroidUtilities.runOnUIThread(() -> {
-                BaseFragment lastFragment = LaunchActivity.getLastFragment();
+                BaseFragments lastFragment = LaunchActivity.getLastFragment();
                 if (lastFragment != null && lastFragment.getParentActivity() != null && !lastFragment.getParentActivity().isFinishing()) {
 //                    if (ChatObject.canUserDoAdminAction(currentChat, ChatObject.ACTION_INVITE)) {
                         LimitReachedBottomSheet restricterdUsersBottomSheet = new LimitReachedBottomSheet(lastFragment, lastFragment.getParentActivity(), LimitReachedBottomSheet.TYPE_ADD_MEMBERS_RESTRICTED, currentAccount, null);
@@ -11598,7 +11597,7 @@ public class MessagesController extends BaseController implements NotificationCe
         long chatId = currentChat.id;
         for (int a = 0; a < count; a++) {
             final TLRPC.User user = users.get(a);
-            addUserToChat(chatId, user, fwdCount, null, baseFragment, false, () -> {
+            addUserToChat(chatId, user, fwdCount, null, baseFragments, false, () -> {
                 if (onAddUser != null) {
                     onAddUser.accept(user);
                 }
@@ -11629,7 +11628,7 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
-    public void addUserToChat(long chatId, TLRPC.User user, int forwardCount, String botHash, BaseFragment fragment, boolean ignoreIfAlreadyExists, Runnable onFinishRunnable, ErrorDelegate onError) {
+    public void addUserToChat(long chatId, TLRPC.User user, int forwardCount, String botHash, BaseFragments fragment, boolean ignoreIfAlreadyExists, Runnable onFinishRunnable, ErrorDelegate onError) {
         if (user == null) {
             if (onError != null) {
                 onError.run(null);
@@ -17683,7 +17682,7 @@ public class MessagesController extends BaseController implements NotificationCe
         return null;
     }
 
-    public static void showCantOpenAlert(BaseFragment fragment, String reason) {
+    public static void showCantOpenAlert(BaseFragments fragment, String reason) {
         if (fragment == null || fragment.getParentActivity() == null) {
             return;
         }
@@ -17699,11 +17698,11 @@ public class MessagesController extends BaseController implements NotificationCe
         fragment.showDialog(builder.create());
     }
 
-    public boolean checkCanOpenChat(Bundle bundle, BaseFragment fragment) {
+    public boolean checkCanOpenChat(Bundle bundle, BaseFragments fragment) {
         return checkCanOpenChat(bundle, fragment, null);
     }
 
-    public boolean checkCanOpenChat(Bundle bundle, BaseFragment fragment, MessageObject originalMessage) {
+    public boolean checkCanOpenChat(Bundle bundle, BaseFragments fragment, MessageObject originalMessage) {
         if (bundle == null || fragment == null) {
             return true;
         }
@@ -17777,7 +17776,7 @@ public class MessagesController extends BaseController implements NotificationCe
         return true;
     }
 
-    public static void openChatOrProfileWith(TLRPC.User user, TLRPC.Chat chat, BaseFragment fragment, int type, boolean closeLast) {
+    public static void openChatOrProfileWith(TLRPC.User user, TLRPC.Chat chat, BaseFragments fragment, int type, boolean closeLast) {
         if (user == null && chat == null || fragment == null) {
             return;
         }
@@ -17788,7 +17787,7 @@ public class MessagesController extends BaseController implements NotificationCe
             reason = getRestrictionReason(user.restriction_reason);
             if (type != 3 && user.bot) {
                 type = 1;
-                BaseFragment lastFragment = LaunchActivity.getLastFragment();
+                BaseFragments lastFragment = LaunchActivity.getLastFragment();
                 if (!(lastFragment.storyViewer != null && lastFragment.storyViewer.isShown())) {
                     closeLast = true;
                 }
@@ -17807,13 +17806,13 @@ public class MessagesController extends BaseController implements NotificationCe
                 fragment.presentFragment(new ProfileActivity(args));
             } else if (type == 2) {
                 if (ChatObject.isForum(chat)) {
-                    fragment.presentFragment(new TopicsFragment(args), true, true);
+                    fragment.presentFragment(new TopicsFragments(args), true, true);
                 } else {
                     fragment.presentFragment(new ChatActivity(args), true, true);
                 }
             } else {
                 if (ChatObject.isForum(chat)) {
-                    fragment.presentFragment(new TopicsFragment(args), closeLast);
+                    fragment.presentFragment(new TopicsFragments(args), closeLast);
                 } else {
                     fragment.presentFragment(new ChatActivity(args), closeLast);
                 }
@@ -17821,11 +17820,11 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
-    public void openByUserName(String username, BaseFragment fragment, int type) {
+    public void openByUserName(String username, BaseFragments fragment, int type) {
         openByUserName(username, fragment, type, null);
     }
 
-    public void openByUserName(String username, BaseFragment fragment, int type, Browser.Progress progress) {
+    public void openByUserName(String username, BaseFragments fragment, int type, Browser.Progress progress) {
         if (username == null || fragment == null) {
             return;
         }

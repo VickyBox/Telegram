@@ -4,11 +4,9 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.text.Layout;
-import android.text.SpannableStringBuilder;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,20 +21,18 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.Bulletin;
 import org.telegram.ui.Components.BulletinFactory;
-import org.telegram.ui.Components.ColoredImageSpan;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.Premium.PremiumButtonView;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
 import org.telegram.ui.Components.ScaleStateListAnimator;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.PremiumPreviewFragment;
-import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
+import org.telegram.ui.PremiumPreviewFragments;
 
 import java.util.Locale;
 
@@ -120,10 +116,10 @@ public class StealthModeAlert extends BottomSheet {
             button.setIcon(R.raw.unlock_icon);
             button.setButton(LocaleController.getString("UnlockStealthMode", R.string.UnlockStealthMode), v -> {
                 dismiss();
-                BaseFragment baseFragment = LaunchActivity.getLastFragment();
-                if (baseFragment != null) {
-                    PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(baseFragment, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
-                    baseFragment.showDialog(sheet);
+                BaseFragments baseFragments = LaunchActivity.getLastFragment();
+                if (baseFragments != null) {
+                    PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(baseFragments, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
+                    baseFragments.showDialog(sheet);
                 }
             });
         } else {
@@ -137,10 +133,10 @@ public class StealthModeAlert extends BottomSheet {
         button.setOnClickListener(v -> {
             if (!user.premium) {
                 dismiss();
-                BaseFragment baseFragment = LaunchActivity.getLastFragment();
-                if (baseFragment != null) {
-                    PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(baseFragment, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
-                    baseFragment.showDialog(sheet);
+                BaseFragments baseFragments = LaunchActivity.getLastFragment();
+                if (baseFragments != null) {
+                    PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(baseFragments, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
+                    baseFragments.showDialog(sheet);
                 }
             } else {
                 if (stealthModeIsActive) {
@@ -179,7 +175,7 @@ public class StealthModeAlert extends BottomSheet {
     }
 
     public static void showStealthModeEnabledBulletin() {
-        BaseFragment fragment = LaunchActivity.getLastFragment();
+        BaseFragments fragment = LaunchActivity.getLastFragment();
         BulletinFactory factory;
         if (fragment.storyViewer != null) {
             factory = BulletinFactory.of(fragment.storyViewer.windowView, fragment.storyViewer.getResourceProvider());

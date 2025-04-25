@@ -19,7 +19,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.util.TypedValue;
 import android.view.ActionMode;
-import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -30,8 +29,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import androidx.core.graphics.ColorUtils;
-
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.Emoji;
 import org.telegram.messenger.FileLog;
@@ -39,17 +36,16 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
-import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.FloatingToolbar;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 
 public class EditTextEmoji extends FrameLayout implements NotificationCenter.NotificationCenterDelegate, SizeNotifierFrameLayout.SizeNotifierFrameLayoutDelegate {
 
@@ -59,7 +55,7 @@ public class EditTextEmoji extends FrameLayout implements NotificationCenter.Not
     private EmojiView emojiView;
     private boolean emojiViewVisible;
     private SizeNotifierFrameLayout sizeNotifierLayout;
-    private BaseFragment parentFragment;
+    private BaseFragments parentFragment;
 
     private int keyboardHeight;
     private int keyboardHeightLand;
@@ -119,11 +115,11 @@ public class EditTextEmoji extends FrameLayout implements NotificationCenter.Not
         void onWindowSizeChanged(int size);
     }
 
-    public EditTextEmoji(Context context, SizeNotifierFrameLayout parent, BaseFragment fragment, int style, boolean allowAnimatedEmoji) {
+    public EditTextEmoji(Context context, SizeNotifierFrameLayout parent, BaseFragments fragment, int style, boolean allowAnimatedEmoji) {
         this(context, parent, fragment, style, allowAnimatedEmoji, null);
     }
     
-    public EditTextEmoji(Context context, SizeNotifierFrameLayout parent, BaseFragment fragment, int style, boolean allowAnimatedEmoji, Theme.ResourcesProvider resourcesProvider) {
+    public EditTextEmoji(Context context, SizeNotifierFrameLayout parent, BaseFragments fragment, int style, boolean allowAnimatedEmoji, Theme.ResourcesProvider resourcesProvider) {
         super(context);
         this.allowAnimatedEmoji = allowAnimatedEmoji;
         this.resourcesProvider = resourcesProvider;
@@ -637,9 +633,9 @@ public class EditTextEmoji extends FrameLayout implements NotificationCenter.Not
 
             @Override
             public void onAnimatedEmojiUnlockClick() {
-                BaseFragment fragment = parentFragment;
+                BaseFragments fragment = parentFragment;
                 if (fragment == null) {
-                    fragment = new BaseFragment() {
+                    fragment = new BaseFragments() {
                         @Override
                         public int getCurrentAccount() {
                             return currentAccount;
@@ -673,9 +669,9 @@ public class EditTextEmoji extends FrameLayout implements NotificationCenter.Not
                             };
                         }
                     };
-                    new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
+                    new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false).show();
                 } else {
-                    fragment.showDialog(new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragment.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
+                    fragment.showDialog(new PremiumFeatureBottomSheet(fragment, PremiumPreviewFragments.PREMIUM_FEATURE_ANIMATED_EMOJI, false));
                 }
             }
 

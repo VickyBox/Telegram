@@ -43,7 +43,7 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.SharedAudioCell;
 import org.telegram.ui.Cells.SharedDocumentCell;
@@ -85,7 +85,7 @@ public class CachedMediaLayout extends FrameLayout implements NestedSizeNotifier
     private final ViewPagerFixed.TabsView tabs;
     private final View divider;
 
-    BaseFragment parentFragment;
+    BaseFragments parentFragment;
 
     ArrayList<Page> pages = new ArrayList<>();
     CacheModel cacheModel;
@@ -96,7 +96,7 @@ public class CachedMediaLayout extends FrameLayout implements NestedSizeNotifier
     BasePlaceProvider placeProvider;
     private int bottomPadding;
 
-    public CachedMediaLayout(@NonNull Context context, BaseFragment parentFragment) {
+    public CachedMediaLayout(@NonNull Context context, BaseFragments parentFragment) {
         super(context);
         this.parentFragment = parentFragment;
 

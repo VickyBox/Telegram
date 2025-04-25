@@ -1,7 +1,6 @@
 package org.telegram.ui.Stories;
 
 import static org.telegram.messenger.AndroidUtilities.dp;
-import static org.telegram.ui.Stories.StoryMediaAreasView.getMediaAreasFor;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -95,7 +94,7 @@ import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.SimpleTextView;
 import org.telegram.ui.ActionBar.Theme;
@@ -153,7 +152,7 @@ import org.telegram.ui.EmojiAnimationsOverlay;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.NotificationsCustomSettingsActivity;
 import org.telegram.ui.PinchToZoomHelper;
-import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.PremiumPreviewFragments;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.Stories.recorder.CaptionContainerView;
 import org.telegram.ui.Stories.recorder.HintView2;
@@ -407,7 +406,7 @@ public class PeerStoriesView extends SizeNotifierFrameLayout implements Notifica
             }
 
             @Override
-            protected void presentFragment(BaseFragment fragment) {
+            protected void presentFragment(BaseFragments fragment) {
                 if (storyViewer != null) {
                     storyViewer.presentFragment(fragment);
                 }
@@ -1284,7 +1283,7 @@ public class PeerStoriesView extends SizeNotifierFrameLayout implements Notifica
                                         bulletinFactory.createSimpleBulletin(R.raw.ic_save_to_gallery, AndroidUtilities.replaceSingleTag(
                                                 LocaleController.getString("SaveStoryToGalleryPremiumHint", R.string.SaveStoryToGalleryPremiumHint),
                                                 () -> {
-                                                    PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(storyViewer.fragment, PremiumPreviewFragment.PREMIUM_FEATURE_STORIES, false);
+                                                    PremiumFeatureBottomSheet sheet = new PremiumFeatureBottomSheet(storyViewer.fragment, PremiumPreviewFragments.PREMIUM_FEATURE_STORIES, false);
                                                     delegate.showDialog(sheet);
                                                 })).show();
                                     }
@@ -3023,7 +3022,7 @@ public class PeerStoriesView extends SizeNotifierFrameLayout implements Notifica
             if (activity == null) {
                 return;
             }
-            final LimitReachedBottomSheet sheet = new LimitReachedBottomSheet(new BaseFragment() {
+            final LimitReachedBottomSheet sheet = new LimitReachedBottomSheet(new BaseFragments() {
                 @Override
                 public boolean isLightStatusBar() {
                     return false;
@@ -3046,7 +3045,7 @@ public class PeerStoriesView extends SizeNotifierFrameLayout implements Notifica
                 }
 
                 @Override
-                public boolean presentFragment(BaseFragment fragment) {
+                public boolean presentFragment(BaseFragments fragment) {
                     storyViewer.presentFragment(fragment);
                     return true;
                 }

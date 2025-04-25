@@ -28,7 +28,7 @@ import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Stories.recorder.HintView2;
-import org.telegram.ui.TopicsFragment;
+import org.telegram.ui.TopicsFragments;
 
 public class PullForegroundDrawable {
 
@@ -231,7 +231,7 @@ public class PullForegroundDrawable {
         if (!willDraw || isOut || cell == null || listView == null) {
             return;
         }
-        boolean isTopic = cell instanceof TopicsFragment.TopicDialogCell;
+        boolean isTopic = cell instanceof TopicsFragments.TopicDialogCell;
         int startPadding = AndroidUtilities.dp(isTopic ? 15 : 28);
         int smallMargin = AndroidUtilities.dp(8);
         int radius = AndroidUtilities.dp(9);

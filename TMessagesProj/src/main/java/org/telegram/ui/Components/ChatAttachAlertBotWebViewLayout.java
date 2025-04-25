@@ -48,7 +48,7 @@ import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.AlertDialog;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
 
@@ -144,7 +144,7 @@ public class ChatAttachAlertBotWebViewLayout extends ChatAttachAlert.AttachAlert
                 } else if (id == R.id.menu_open_bot) {
                     Bundle bundle = new Bundle();
                     bundle.putLong("user_id", botId);
-                    parentAlert.baseFragment.presentFragment(new ChatActivity(bundle));
+                    parentAlert.baseFragments.presentFragment(new ChatActivity(bundle));
                     parentAlert.dismiss();
                 } else if (id == R.id.menu_reload_page) {
                     if (webViewContainer.getWebView() != null) {
@@ -407,9 +407,9 @@ public class ChatAttachAlertBotWebViewLayout extends ChatAttachAlert.AttachAlert
     }
 
     private void requestEnableKeyboard() {
-        BaseFragment fragment = parentAlert.getBaseFragment();
+        BaseFragments fragment = parentAlert.getBaseFragment();
         if (fragment instanceof ChatActivity && ((ChatActivity) fragment).contentView.measureKeyboardHeight() > AndroidUtilities.dp(20)) {
-            AndroidUtilities.hideKeyboard(parentAlert.baseFragment.getFragmentView());
+            AndroidUtilities.hideKeyboard(parentAlert.baseFragments.getFragmentView());
             AndroidUtilities.runOnUIThread(this::requestEnableKeyboard, 250);
             return;
         }

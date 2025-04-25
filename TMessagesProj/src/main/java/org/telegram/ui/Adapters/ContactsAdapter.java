@@ -31,7 +31,7 @@ import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.DividerCell;
 import org.telegram.ui.Cells.GraySectionCell;
@@ -71,9 +71,9 @@ public class ContactsAdapter extends RecyclerListView.SectionsAdapter {
     public ArrayList<TLRPC.PeerStories> userStories = new ArrayList<>();
 
     DialogStoriesCell dialogStoriesCell;
-    BaseFragment fragment;
+    BaseFragments fragment;
 
-    public ContactsAdapter(Context context, BaseFragment fragment, int onlyUsersType, boolean showPhoneBook, LongSparseArray<TLRPC.User> usersToIgnore, int flags, boolean gps) {
+    public ContactsAdapter(Context context, BaseFragments fragment, int onlyUsersType, boolean showPhoneBook, LongSparseArray<TLRPC.User> usersToIgnore, int flags, boolean gps) {
         mContext = context;
         onlyUsers = onlyUsersType;
         needPhonebook = showPhoneBook;

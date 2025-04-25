@@ -22,7 +22,7 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ShadowSectionCell;
 import org.telegram.ui.Cells.TextCell;
@@ -33,7 +33,7 @@ import org.telegram.ui.Components.RecyclerListView;
 
 import java.util.ArrayList;
 
-public class CacheChatsExceptionsFragment extends BaseFragment {
+public class CacheChatsExceptionsFragments extends BaseFragments {
 
     private final int VIEW_TYPE_ADD_EXCEPTION = 1;
     private final int VIEW_TYPE_CHAT= 2;
@@ -48,7 +48,7 @@ public class CacheChatsExceptionsFragment extends BaseFragment {
     ArrayList<CacheByChatsController.KeepMediaException> exceptionsDialogs = new ArrayList<>();
     int currentType;
 
-    public CacheChatsExceptionsFragment(Bundle bundle) {
+    public CacheChatsExceptionsFragments(Bundle bundle) {
         super(bundle);
     }
 
@@ -128,9 +128,9 @@ public class CacheChatsExceptionsFragment extends BaseFragment {
                 presentFragment(activity);
             } else if (items.get(position).viewType == VIEW_TYPE_CHAT) {
                 CacheByChatsController.KeepMediaException keepMediaException = items.get(position).exception;
-                KeepMediaPopupView windowLayout = new KeepMediaPopupView(CacheChatsExceptionsFragment.this, view.getContext());
+                KeepMediaPopupView windowLayout = new KeepMediaPopupView(CacheChatsExceptionsFragments.this, view.getContext());
                 windowLayout.updateForDialog(false);
-                ActionBarPopupWindow popupWindow = AlertsCreator.createSimplePopup(CacheChatsExceptionsFragment.this, windowLayout, view, x, y);
+                ActionBarPopupWindow popupWindow = AlertsCreator.createSimplePopup(CacheChatsExceptionsFragments.this, windowLayout, view, x, y);
                 windowLayout.setParentWindow(popupWindow);
                 windowLayout.setCallback((type, keepMedia) -> {
                     if (keepMedia == CacheByChatsController.KEEP_MEDIA_DELETE) {
@@ -176,9 +176,9 @@ public class CacheChatsExceptionsFragment extends BaseFragment {
             }
             RecyclerView.ViewHolder viewHolder = recyclerListView.findViewHolderForAdapterPosition(p);
             if (viewHolder != null) {
-                KeepMediaPopupView windowLayout = new KeepMediaPopupView(CacheChatsExceptionsFragment.this, getContext());
+                KeepMediaPopupView windowLayout = new KeepMediaPopupView(CacheChatsExceptionsFragments.this, getContext());
                 windowLayout.updateForDialog(true);
-                ActionBarPopupWindow popupWindow = AlertsCreator.createSimplePopup(CacheChatsExceptionsFragment.this, windowLayout, viewHolder.itemView, viewHolder.itemView.getMeasuredWidth() / 2f, viewHolder.itemView.getMeasuredHeight() / 2f);
+                ActionBarPopupWindow popupWindow = AlertsCreator.createSimplePopup(CacheChatsExceptionsFragments.this, windowLayout, viewHolder.itemView, viewHolder.itemView.getMeasuredWidth() / 2f, viewHolder.itemView.getMeasuredHeight() / 2f);
                 windowLayout.setParentWindow(popupWindow);
                 windowLayout.setCallback((type, keepMedia) -> {
                     newException.keepMedia = keepMedia;

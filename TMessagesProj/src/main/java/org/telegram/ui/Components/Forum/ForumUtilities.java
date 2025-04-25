@@ -30,7 +30,7 @@ import org.telegram.messenger.MessagesStorage;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.ChatActivity;
@@ -40,7 +40,7 @@ import org.telegram.ui.Components.BackupImageView;
 import org.telegram.ui.Components.ColoredImageSpan;
 import org.telegram.ui.Components.CombinedDrawable;
 import org.telegram.ui.Components.LetterDrawable;
-import org.telegram.ui.TopicsFragment;
+import org.telegram.ui.TopicsFragments;
 
 import java.util.ArrayList;
 
@@ -168,11 +168,11 @@ public class ForumUtilities {
         return combinedDrawable;
     }
 
-    public static void openTopic(BaseFragment baseFragment, long chatId, TLRPC.TL_forumTopic topic, int fromMessageId) {
-        if (baseFragment == null || topic == null) {
+    public static void openTopic(BaseFragments baseFragments, long chatId, TLRPC.TL_forumTopic topic, int fromMessageId) {
+        if (baseFragments == null || topic == null) {
             return;
         }
-        TLRPC.Chat chatLocal = baseFragment.getMessagesController().getChat(chatId);
+        TLRPC.Chat chatLocal = baseFragments.getMessagesController().getChat(chatId);
         Bundle args = new Bundle();
         args.putLong("chat_id", chatId);
 
@@ -187,7 +187,7 @@ public class ForumUtilities {
         ChatActivity chatActivity = new ChatActivity(args);
         TLRPC.Message message = topic.topicStartMessage;
         if (message == null) {
-            TLRPC.TL_forumTopic topicLocal = baseFragment.getMessagesController().getTopicsController().findTopic(chatId, topic.id);
+            TLRPC.TL_forumTopic topicLocal = baseFragments.getMessagesController().getTopicsController().findTopic(chatId, topic.id);
             if (topicLocal != null) {
                 topic = topicLocal;
                 message = topic.topicStartMessage;
@@ -197,12 +197,12 @@ public class ForumUtilities {
             return;
         }
         ArrayList<MessageObject> messageObjects = new ArrayList<>();
-        messageObjects.add(new MessageObject(baseFragment.getCurrentAccount(), message, false, false));
+        messageObjects.add(new MessageObject(baseFragments.getCurrentAccount(), message, false, false));
         chatActivity.setThreadMessages(messageObjects, chatLocal, topic.id, topic.read_inbox_max_id, topic.read_outbox_max_id, topic);
         if (fromMessageId != 0) {
             chatActivity.highlightMessageId = fromMessageId;
         }
-        baseFragment.presentFragment(chatActivity);
+        baseFragments.presentFragment(chatActivity);
     }
 
     public static CharSequence getTopicSpannedName(TLRPC.ForumTopic topic, Paint paint) {
@@ -362,7 +362,7 @@ public class ForumUtilities {
 //            }
 //        }
 
-        BaseFragment lastFragment = actionBarLayout.getLastFragment();
+        BaseFragments lastFragment = actionBarLayout.getLastFragment();
         if (lastFragment instanceof ChatActivity) {
             ChatActivity chatActivity = (ChatActivity) lastFragment;
             if (-chatActivity.getDialogId() == chatId) {
@@ -371,18 +371,18 @@ public class ForumUtilities {
                         if (chatActivity.getParentLayout().checkTransitionAnimation()) {
                             AndroidUtilities.runOnUIThread(() -> {
                                 if (chatActivity.getParentLayout() != null) {
-                                    TopicsFragment.prepareToSwitchAnimation(chatActivity);
+                                    TopicsFragments.prepareToSwitchAnimation(chatActivity);
                                 }
                             }, 500);
                         } else {
-                            TopicsFragment.prepareToSwitchAnimation(chatActivity);
+                            TopicsFragments.prepareToSwitchAnimation(chatActivity);
                         }
                     }
                 }
             }
         }
-        if (lastFragment instanceof TopicsFragment) {
-            TopicsFragment topicsFragment = (TopicsFragment) lastFragment;
+        if (lastFragment instanceof TopicsFragments) {
+            TopicsFragments topicsFragment = (TopicsFragments) lastFragment;
             if (-topicsFragment.getDialogId() == chatId && !topicsFragment.getMessagesController().getChat(chatId).forum) {
                 if (topicsFragment.getParentLayout() != null && topicsFragment.getParentLayout().checkTransitionAnimation()) {
                     AndroidUtilities.runOnUIThread(() -> {

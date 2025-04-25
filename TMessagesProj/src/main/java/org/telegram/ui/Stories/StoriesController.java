@@ -47,7 +47,7 @@ import org.telegram.tgnet.RequestDelegate;
 import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.BaseFragments;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.Bulletin;
 import org.telegram.ui.Components.BulletinFactory;
@@ -3035,7 +3035,7 @@ public class StoriesController {
                                 consumer.accept(false);
                                 return;
                             }
-                            BaseFragment lastFragment = LaunchActivity.getLastFragment();
+                            BaseFragments lastFragment = LaunchActivity.getLastFragment();
                             LimitReachedBottomSheet limitReachedBottomSheet = new LimitReachedBottomSheet(lastFragment, lastFragment.getContext(), LimitReachedBottomSheet.TYPE_BOOSTS_FOR_POSTING, currentAccount, resourcesProvider);
                             limitReachedBottomSheet.setBoostsStats(boostsStatus, false);
                             limitReachedBottomSheet.setDialogId(dialogId);
@@ -3048,10 +3048,10 @@ public class StoriesController {
                                     args.putBoolean("start_from_boosts", true);
                                     args.putBoolean("only_boosts", true);
                                     StatisticActivity fragment = new StatisticActivity(args);
-                                    BaseFragment lastFragment1 = LaunchActivity.getLastFragment();
+                                    BaseFragments lastFragment1 = LaunchActivity.getLastFragment();
                                     if (lastFragment1 != null) {
                                         if (StoryRecorder.isVisible()) {
-                                            BaseFragment.BottomSheetParams params = new BaseFragment.BottomSheetParams();
+                                            BaseFragments.BottomSheetParams params = new BaseFragments.BottomSheetParams();
                                             params.transitionFromLeft = true;
                                             lastFragment1.showAsSheet(fragment, params);
                                         } else {
